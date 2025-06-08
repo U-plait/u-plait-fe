@@ -19,11 +19,12 @@ const KakaoCallback = () => {
 
         // 백엔드로 인증 코드 전송하여 로그인 처리 및 토큰 발급/저장
         const loginResult = await handleKakaoLogin(code);
-        const userRole = loginResult?.userRole;
+        const userRole = loginResult?.role;
+        console.log(userRole);
 
         console.log("카카오 로그인 처리 성공");
 
-        if (userRole === "tmp_user") {
+        if (userRole === "TMP_USER") {
           navigate("/extra-info");
         } else {
           navigate("/");
