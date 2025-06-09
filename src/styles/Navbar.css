@@ -91,16 +91,35 @@
   cursor: pointer;
 }
 
-.signup-button {
-  background: white;
-  border: 1px solid #d63384;
-  color: #d63384;
-  padding: 6px 12px;
-  font-size: 14px;
-  border-radius: 4px;
+.login-button {
+  background: linear-gradient(90deg, #701b45 0%, #d63484 100%);
+  color: white;
+  font-weight: 700;
+  padding: 10px 24px;
+  border: none;
+  border-radius: 999px;
+  font-size: 16px;
   cursor: pointer;
+  box-shadow: 0 0 0 4px white inset;
+  transition: 0.2s ease-in-out;
 }
 
-.signup-button:hover {
-  background-color: #fbe7f0;
+.login-button:hover {
+  filter: brightness(0.95);
+}
+
+.user-name-button {
+  background-color: #fff;
+  color: #d63484;
+  font-weight: 600;
+  padding: 6px 12px;
+  border: 1px solid #d63484;
+  border-radius: 20px;
+  text-decoration: none;
+  transition: all 0.2s ease-in-out;
+}
+
+.user-name-button:hover {
+  background-color: #d63484;
+  color: #fff;
 }

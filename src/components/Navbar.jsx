@@ -14,7 +14,7 @@ const Navbar = () => {
         const res = await api.get("/user/me", {
           // withCredentials: true,
         });
-        setUserName(res.data.name);
+        setUserName(res.data.data.name);
       } catch (error) {
         setUserName(null);
       }
@@ -54,10 +54,12 @@ const Navbar = () => {
       </ul>
       <div className="auth-buttons">
         {userName ? (
-          <Link to="/mypage">{userName} 님</Link>
+          <Link to="/mypage" className="user-name-button">
+            {userName} 님
+          </Link>
         ) : (
           <Link to="/login">
-            <button className="signup-button">로그인</button>
+            <button className="login-button">로그인</button>
           </Link>
         )}
       </div>

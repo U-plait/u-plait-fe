@@ -28,6 +28,7 @@ const KakaoCallback = () => {
           navigate("/extra-info");
         } else {
           navigate("/");
+          window.location.reload();
         }
       } catch (error) {
         console.error("카카오 로그인 콜백 처리 중 오류 발생:", error);
