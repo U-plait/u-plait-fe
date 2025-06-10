@@ -7,6 +7,7 @@ import KakaoCallback from "./pages/KakaoCallback";
 import PlanManager from "./pages/Admin/PlanManager";
 import BanWordsManager from "./pages/Admin/BanWordsManager";
 import ReviewManager from "./pages/Admin/ReviewManager";
+import Mypage from "./pages/Mypage";
 
 function App() {
   return (
@@ -21,6 +22,7 @@ function App() {
             <Route path="/admin/plans" element={<PlanManager />} />
             <Route path="/admin/banwords" element={<BanWordsManager />} />
             <Route path="/admin/reviews" element={<ReviewManager />} />
+            <Route path="/mypage" element={<Mypage />} />
           </Routes>
         </div>
       </Router>
