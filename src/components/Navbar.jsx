@@ -1,26 +1,11 @@
-import React, { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import "../styles/Navbar.css";
-import api from "../api/api";
 import logo from "../assets/img/uplait_logo.png";
 import text from "../assets/img/uplait_text.png";
+import useUserStore from "../context/userStore";
 
 const Navbar = () => {
-  const [userName, setUserName] = useState(null);
-
-  useEffect(() => {
-    const fetchUser = async () => {
-      try {
-        const res = await api.get("/user/me", {
-          // withCredentials: true,
-        });
-        setUserName(res.data.data.name);
-      } catch (error) {
-        setUserName(null);
-      }
-    };
-    fetchUser();
-  }, []);
+  const user = useUserStore((state) => state.user);
 
   return (
     <nav className="navbar">
@@ -53,9 +38,9 @@ const Navbar = () => {
         </li> */}
       </ul>
       <div className="auth-buttons">
-        {userName ? (
+        {user ? (
           <Link to="/mypage" className="user-name-button">
-            {userName} 님
+            {user.userName} 님
           </Link>
         ) : (
           <Link to="/login">
