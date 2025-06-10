@@ -1,0 +1,30 @@
+.admin-sidebar {
+    width: 200px;
+    background-color: #f9f9f9;
+    height: 100vh;
+    padding: 20px;
+    box-shadow: 2px 0 5px rgba(0, 0, 0, 0.1);
+    position: fixed;
+}
+.admin-logo {
+    font-weight: bold;
+    font-size: 20px;
+    margin-bottom: 30px;
+}
+.admin-logo span {
+    font-size: 14px;
+    color: #999;
+}
+.admin-menu {
+    list-style: none;
+    padding: 0;
+}
+.admin-menu-item {
+    padding: 12px 0;
+    cursor: pointer;
+    color: #555;
+}
+.admin-menu-item.active {
+    color: #d63484;
+    font-weight: bold;
+}
