@@ -1,0 +1,115 @@
+.admin-page {
+    display: flex;
+}
+.plan-content {
+    margin-left: 220px;
+    padding: 40px;
+    flex: 1;
+}
+.tab-bar {
+    margin: 20px 0;
+}
+.tab {
+    margin-right: 10px;
+    padding: 6px 14px;
+    border: none;
+    background-color: #eee;
+    border-radius: 20px;
+    cursor: pointer;
+}
+.plan-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+    gap: 20px;
+}
+.plan-card {
+    border: 1px solid #ddd;
+    border-radius: 12px;
+    padding: 20px;
+    background-color: #fff;
+    position: relative;
+}
+.plan-buttons {
+    display: flex;
+    justify-content: space-between;
+    margin-top: 10px;
+}
+.edit {
+    background-color: #f0f0f0;
+    border: none;
+    padding: 5px 10px;
+    border-radius: 5px;
+    cursor: pointer;
+}
+.delete {
+    background-color: #fdd;
+    border: none;
+    padding: 5px 10px;
+    border-radius: 5px;
+    cursor: pointer;
+}
+.search-bar {
+    display: flex;
+    gap: 8px;
+    margin-bottom: 10px;
+    max-width: 400px;
+    width: 100%;
+}
+.search-bar input {
+    flex: 1;
+    padding: 6px 10px;
+    border: 1px solid #ccc;
+    border-radius: 6px;
+}
+.search-button {
+    background-color: #d63484;
+    color: white;
+    border: none;
+    padding: 6px 12px;
+    border-radius: 6px;
+    cursor: pointer;
+}
+
+.plan-toolbar {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    margin-bottom: 20px;
+    flex-wrap: wrap;
+}
+
+.left-toolbar {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+}
+
+.tab-bar {
+    display: flex;
+    gap: 10px;
+}
+
+.tab {
+    padding: 6px 14px;
+    border: none;
+    background-color: #eee;
+    border-radius: 20px;
+    cursor: pointer;
+}
+
+.add-plan-button {
+    background-color: #28a745;
+    color: white;
+    font-weight: bold;
+    border: none;
+    padding: 8px 18px;
+    border-radius: 20px;
+    font-size: 14px;
+    cursor: pointer;
+    height: fit-content;
+    transition: 0.2s ease-in-out;
+}
+
+.add-plan-button:hover {
+    filter: brightness(0.95);
+}
