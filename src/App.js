@@ -4,6 +4,9 @@ import "./App.css";
 // import Home from "./pages/Home";
 import Login from "./pages/Login";
 import KakaoCallback from "./pages/KakaoCallback";
+import PlanManager from "./pages/Admin/PlanManager";
+import BanWordsManager from "./pages/Admin/BanWordsManager";
+import ReviewManager from "./pages/Admin/ReviewManager";
 
 function App() {
   return (
@@ -15,6 +18,9 @@ function App() {
             {/* <Route path="/" element={<Home />} /> */}
             <Route path="/login" element={<Login />} />
             <Route path="/kakaocallback" element={<KakaoCallback />} />
+            <Route path="/admin/plans" element={<PlanManager />} />
+            <Route path="/admin/banwords" element={<BanWordsManager />} />
+            <Route path="/admin/reviews" element={<ReviewManager />} />
           </Routes>
         </div>
       </Router>
