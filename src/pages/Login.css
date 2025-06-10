@@ -1,0 +1,76 @@
+/* src/pages/Login.css */
+
+.login-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-height: 100vh;
+  background-color: #f0f2f5; /* 배경색 */
+  position: relative;
+  overflow: hidden;
+}
+
+.wave-svg {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  height: 400px;
+  z-index: 0;
+}
+
+.login-card {
+  background-color: #fff;
+  padding: 75px;
+  border-radius: 15px;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+  text-align: center;
+  z-index: 1; /* 웨이브 위에 오도록 설정 */
+}
+
+.uplait-logo-container {
+  margin-bottom: 20px;
+}
+
+.uplait-logo-image {
+  width: 100px;
+  display: block;
+  margin: 0 auto;
+}
+
+.uplait-text-container {
+  margin-bottom: 50px;
+}
+
+.uplait-text-image {
+  width: 100px;
+  display: block;
+  margin: 0 auto;
+}
+
+.kakao-login-button {
+  background-color: transparent; /* 배경색 투명으로 설정 */
+  background-image: url("../assets/img/kakao_login_large_wide.png"); /* 이미지 경로 */
+  background-size: contain; /* 이미지가 버튼 안에 들어가도록 */
+  background-repeat: no-repeat; /* 이미지 반복 없음 */
+  background-position: center; /* 이미지 중앙 정렬 */
+  color: transparent; /* 텍스트 숨김 (이미지에 텍스트가 있을 경우) */
+  text-indent: -9999px; /* 텍스트를 화면 밖으로 밀어내 숨김 */
+
+  border: none;
+  padding: 0; /* 이미지 자체가 버튼이므로 패딩 없음 */
+  cursor: pointer;
+  width: 215px; /* 이미지의 실제 가로세로 비율에 따라 조절 필요 */
+  height: 50px; /* 이미지의 실제 가로세로 비율에 따라 조절 필요 */
+  border-radius: 8px;
+  font-size: 0; /* 텍스트 숨김 */
+  font-weight: normal; /* 기본값 */
+  max-width: none; /* max-width 해제 */
+  display: block; /* 블록 요소로 변경하여 중앙 정렬 */
+  margin: 0 auto; /* 중앙 정렬 */
+  /* 기존 display: flex, align-items, justify-content, gap 제거 */
+}
+
+.kakao-login-button img {
+  display: none; /* 버튼 내 이미지 숨김 */
+}
