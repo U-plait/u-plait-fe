@@ -1,0 +1,118 @@
+.signup-wrapper {
+  max-width: 480px;
+  margin: 3rem auto;
+  padding: 2rem;
+  border: 1px solid #ddd;
+  border-radius: 12px;
+  background-color: #fff;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
+  font-family: "Pretendard", sans-serif;
+}
+
+.signup-title {
+  font-size: 1.75rem;
+  font-weight: 600;
+  text-align: center;
+  margin-bottom: 2.5rem;
+  color: #333;
+}
+
+.signup-form {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+}
+
+.form-row {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+}
+
+.form-label {
+  flex: 0 0 90px;
+  font-size: 0.95rem;
+  font-weight: 500;
+  color: #444;
+  text-align: right;
+}
+
+.form-input-group {
+  display: flex;
+  gap: 0.5rem;
+  flex: 1;
+}
+
+.input {
+  flex: 1;
+  padding: 0.5rem 0.75rem;
+  font-size: 0.95rem;
+  border: 1px solid #ccc;
+  border-radius: 6px;
+}
+
+.btn-outline {
+  padding: 0.5rem 0.9rem;
+  font-size: 0.9rem;
+  border: 1px solid #d63484;
+  background-color: #fff;
+  color: #d63484;
+  border-radius: 6px;
+  cursor: pointer;
+  transition: background 0.2s ease;
+}
+
+.btn-outline:hover {
+  background-color: #f2e6f9;
+}
+
+.checkbox-wrapper {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  font-size: 0.9rem;
+  color: #555;
+}
+
+.radio-group {
+  display: flex;
+  gap: 1rem;
+}
+
+.radio-label {
+  display: flex;
+  align-items: center;
+  gap: 0.4rem;
+  font-size: 0.9rem;
+}
+
+.radio {
+  transform: scale(1.1);
+}
+
+.btn-submit {
+  margin-top: 2rem;
+  padding: 0.7rem 1.2rem;
+  font-size: 1rem;
+  font-weight: 600;
+  color: white;
+  background-color: #d63484;
+  border: none;
+  border-radius: 6px;
+  cursor: pointer;
+}
+
+.btn-submit:hover {
+  background-color: #d63484;
+}
+
+.error-text {
+  font-size: 0.85rem;
+  margin-top: 0.4rem;
+  display: block;
+  color: #d32f2f; /* 빨간색 (오류) */
+}
+
+.success-text {
+  color: #2e7d32; /* 초록색 (성공) */
+}
