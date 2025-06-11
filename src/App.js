@@ -8,6 +8,7 @@ import PlanManager from "./pages/Admin/PlanManager";
 import BanWordsManager from "./pages/Admin/BanWordsManager";
 import ReviewManager from "./pages/Admin/ReviewManager";
 import Mypage from "./pages/Mypage";
+import MyReviews from "./pages/MyReviews";
 
 function App() {
   return (
@@ -23,6 +24,7 @@ function App() {
             <Route path="/admin/banwords" element={<BanWordsManager />} />
             <Route path="/admin/reviews" element={<ReviewManager />} />
             <Route path="/mypage" element={<Mypage />} />
+            <Route path="/myreviews" element={<MyReviews />} />
           </Routes>
         </div>
       </Router>
