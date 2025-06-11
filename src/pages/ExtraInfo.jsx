@@ -3,7 +3,7 @@ import { useNavigate } from "react-router-dom";
 import api from "../api/api";
 import "../styles/ExtraInfo.css";
 
-const SignupForm = () => {
+const ExtraInfo = () => {
   const navigate = useNavigate();
   const [form, setForm] = useState({
     phoneNumber: "",
@@ -15,6 +15,8 @@ const SignupForm = () => {
 
   const [emailError, setEmailError] = useState("");
   const [phoneError, setPhoneError] = useState("");
+  const [emailChecked, setEmailChecked] = useState(false);
+  const [phoneChecked, setPhoneChecked] = useState(false);
 
   const handleChange = (e) => {
     const { name, value, type, checked } = e.target;
@@ -22,6 +24,16 @@ const SignupForm = () => {
       ...prev,
       [name]: type === "checkbox" ? checked : value,
     }));
+
+    // 이메일 또는 전화번호가 바뀌면 중복확인 다시 해야 함
+    if (name === "email") {
+      setEmailChecked(false);
+      setEmailError("");
+    }
+    if (name === "phoneNumber") {
+      setPhoneChecked(false);
+      setPhoneError("");
+    }
   };
 
   const checkDuplicate = async (type) => {
@@ -44,8 +56,10 @@ const SignupForm = () => {
 
       if (type === "이메일") {
         setEmailError(isDuplicated ? errorMsg : successMsg);
+        setEmailChecked(!isDuplicated);
       } else {
         setPhoneError(isDuplicated ? errorMsg : successMsg);
+        setPhoneChecked(!isDuplicated);
       }
     } catch (err) {
       alert(`${type} 중복 확인 중 오류가 발생했습니다.`);
@@ -54,6 +68,23 @@ const SignupForm = () => {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
+
+    // 기본 유효성 체크
+    if (!form.email || !form.phoneNumber || !form.age || !form.gender) {
+      alert("모든 항목을 입력해주세요.");
+      return;
+    }
+
+    if (!emailChecked) {
+      alert("이메일 중복 확인을 완료해주세요.");
+      return;
+    }
+
+    if (!phoneChecked) {
+      alert("전화번호 중복 확인을 완료해주세요.");
+      return;
+    }
+
     try {
       await api.post("/user/extra-info", form);
       alert("회원가입이 완료되었습니다.");
@@ -201,4 +232,4 @@ const SignupForm = () => {
   );
 };
 
-export default SignupForm;
+export default ExtraInfo;

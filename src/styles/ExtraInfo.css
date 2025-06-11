@@ -24,23 +24,34 @@
 }
 
 .form-row {
-  display: flex;
+  /* display: flex;
   align-items: center;
-  gap: 1rem;
+  gap: 1rem; */
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
 }
 
 .form-label {
-  flex: 0 0 90px;
+  /* flex: 0 0 90px;
   font-size: 0.95rem;
   font-weight: 500;
   color: #444;
-  text-align: right;
+  text-align: right; */
+  font-size: 0.95rem;
+  font-weight: 500;
+  color: #444;
+  text-align: left;
+  margin-bottom: 0.2rem;
 }
 
 .form-input-group {
+  /* display: flex;
+  gap: 0.5rem;
+  flex: 1; */
   display: flex;
   gap: 0.5rem;
-  flex: 1;
+  width: 100%;
 }
 
 .input {
@@ -106,10 +117,19 @@
   background-color: #d63484;
 }
 
-.error-text {
+.error-text,
+.success-text {
   font-size: 0.85rem;
-  margin-top: 0.4rem;
+  margin-top: 0.3rem;
+  margin-left: 2px;
   display: block;
+  text-align: left;
+}
+
+.error-text {
+  /* font-size: 0.85rem;
+  margin-top: 0.4rem;
+  display: block; */
   color: #d32f2f; /* 빨간색 (오류) */
 }
 
