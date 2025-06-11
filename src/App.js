@@ -11,6 +11,8 @@ import Mypage from "./pages/Mypage";
 import MobilePlanDetail from "./pages/MobilePlanDetail"
 import InternetPlanDetail from "./pages/InternetPlanDetail"
 import IPTVPlanDetail from "./pages/IPTVPlanDetail"
+import ExtraInfo from "./pages/ExtraInfo";
+
 
 function App() {
   return (
@@ -22,6 +24,7 @@ function App() {
             {/* <Route path="/" element={<Home />} /> */}
             <Route path="/login" element={<Login />} />
             <Route path="/kakaocallback" element={<KakaoCallback />} />
+            <Route path="/extra-info" element={<ExtraInfo />} />
             <Route path="/admin/plans" element={<PlanManager />} />
             <Route path="/admin/banwords" element={<BanWordsManager />} />
             <Route path="/admin/reviews" element={<ReviewManager />} />
