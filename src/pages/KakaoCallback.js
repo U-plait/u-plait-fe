@@ -1,10 +1,12 @@
 import React, { useEffect } from "react";
 import { useNavigate, useLocation } from "react-router-dom";
 import { handleKakaoLogin } from "../api/auth";
+import useUserStore from "../context/userStore";
 
 const KakaoCallback = () => {
   const navigate = useNavigate();
   const location = useLocation();
+  const setUser = useUserStore((state) => state.setUser);
 
   useEffect(() => {
     const handleCallback = async () => {
@@ -20,7 +22,9 @@ const KakaoCallback = () => {
         // 백엔드로 인증 코드 전송하여 로그인 처리 및 토큰 발급/저장
         const loginResult = await handleKakaoLogin(code);
         const userRole = loginResult?.data.role;
-        console.log(userRole);
+        const userName = loginResult?.data.username;
+
+        setUser({ userRole, userName });
 
         console.log("카카오 로그인 처리 성공");
 
@@ -28,7 +32,7 @@ const KakaoCallback = () => {
           navigate("/extra-info");
         } else {
           navigate("/");
-          window.location.reload();
+          // window.location.reload();
         }
       } catch (error) {
         console.error("카카오 로그인 콜백 처리 중 오류 발생:", error);
@@ -37,7 +41,7 @@ const KakaoCallback = () => {
     };
 
     handleCallback();
-  }, [navigate, location]); // 의존성 배열에 navigate와 location 추가
+  }, [navigate, location, setUser]); // 의존성 배열에 navigate와 location 추가
 
   return (
     <div className="callback-container">
