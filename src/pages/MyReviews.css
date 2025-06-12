@@ -100,14 +100,14 @@
     color: #374151;
 }
 
-/* 제목 클릭 가능하게 */
-.review-title-clickable {
-    color: #2563eb;
+/* 내용 셀 클릭 가능하도록 스타일 추가 */
+.review-content-clickable {
     cursor: pointer;
     text-decoration: underline;
+    color: #2563eb;
 }
 
-.review-title-clickable:hover {
+.review-content-clickable:hover {
     color: #1d4ed8;
 }
 
@@ -188,7 +188,7 @@
     background-color: #d1d5db;
 }
 
-/* 오류 메시지 스타일 추가 */
+/* 오류 메시지 스타일 */
 .error-message {
     color: #ef4444;
     margin-bottom: 1rem;

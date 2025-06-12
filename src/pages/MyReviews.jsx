@@ -12,8 +12,8 @@ const MyReviews = () => {
         const fetchReviews = async () => {
             try {
                 setLoading(true);
-                const response = await axios.get('/user/detail/review');  // 실제 API 주소로 변경 필요
-                setReviews(response.data.data); // 백엔드 리뷰 배열 위치
+                const response = await axios.get('/user/detail/review'); // 실제 API 경로로 변경하세요
+                setReviews(response.data.data);
                 setError(null);
             } catch (err) {
                 setError('리뷰를 불러오는데 실패했습니다.');
@@ -30,7 +30,7 @@ const MyReviews = () => {
         return new Date(dateString).toLocaleDateString('ko-KR', options);
     };
 
-    const handleTitleClick = (review) => {
+    const handleContentClick = (review) => {
         setSelectedReview(review);
     };
 
@@ -77,18 +77,13 @@ const MyReviews = () => {
                             <tr key={review.reviewId}>
                                 <td>{review.reviewId}</td>
                                 <td>{review.planName}</td>
-                                <td>
-                    <span
-                        className="review-title-clickable"
-                        onClick={(e) => {
-                            e.stopPropagation();
-                            handleTitleClick(review);
-                        }}
-                    >
-                      {review.title}
-                    </span>
+                                <td>{review.title}</td>
+                                <td
+                                    className="review-content-cell review-content-clickable"
+                                    onClick={() => handleContentClick(review)}
+                                >
+                                    {review.content}
                                 </td>
-                                <td className="review-content-cell">{review.content}</td>
                                 <td className="review-rating-cell">{'★'.repeat(review.rating)}</td>
                                 <td>{formatDate(review.createdAt)}</td>
                                 <td>
