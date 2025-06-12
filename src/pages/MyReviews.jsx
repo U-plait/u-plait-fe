@@ -7,16 +7,23 @@ const MyReviews = () => {
     const [selectedReview, setSelectedReview] = useState(null);
     const [loading, setLoading] = useState(false);
     const [error, setError] = useState(null);
+    const [editMode, setEditMode] = useState(false);
+    const [editedTitle, setEditedTitle] = useState('');
+    const [editedContent, setEditedContent] = useState('');
+    const [editedRating, setEditedRating] = useState(0);
 
     useEffect(() => {
         const fetchReviews = async () => {
             try {
                 setLoading(true);
-                const response = await axios.get('/user/detail/review'); // 실제 API 경로로 변경하세요
-                setReviews(response.data.data);
+                const response = await axios.get('/user/detail/review', { withCredentials: true });
+                const data = response?.data?.data;
+                setReviews(Array.isArray(data) ? data : []);
                 setError(null);
             } catch (err) {
+                console.error(err);
                 setError('리뷰를 불러오는데 실패했습니다.');
+                setReviews([]);
             } finally {
                 setLoading(false);
             }
@@ -32,21 +39,93 @@ const MyReviews = () => {
 
     const handleContentClick = (review) => {
         setSelectedReview(review);
+        setEditMode(false);
+    };
+
+    const handleEditClick = (review) => {
+        setSelectedReview(review);
+        setEditedTitle(review.title);
+        setEditedContent(review.content);
+        setEditedRating(review.rating);  // 별점 초기화
+        setEditMode(true);
+    };
+
+    const handleSaveEdit = async () => {
+        try {
+            await axios.put(
+                `/review/update`,
+                {
+                    reviewId: selectedReview.reviewId,
+                    title: editedTitle,
+                    content: editedContent,
+                    rating: editedRating,
+                },
+                { withCredentials: true }
+            );
+
+            setReviews((prev) =>
+                prev.map((r) =>
+                    r.reviewId === selectedReview.reviewId
+                        ? { ...r, title: editedTitle, content: editedContent, rating: editedRating }
+                        : r
+                )
+            );
+
+            setSelectedReview(null);
+            setEditMode(false);
+        } catch (err) {
+            console.error('리뷰 수정 실패:', err);
+            alert('리뷰 수정에 실패했습니다.');
+        }
+    };
+
+    const handleDelete = async (reviewId) => {
+        if (!window.confirm('정말 삭제하시겠습니까?')) return;
+
+        try {
+            await axios.delete(`/user/detail/review/${reviewId}`, { withCredentials: true });
+            setReviews((prev) => prev.filter((r) => r.reviewId !== reviewId));
+        } catch (err) {
+            console.error('리뷰 삭제 실패:', err);
+            alert('삭제에 실패했습니다.');
+        }
     };
 
     const closeModal = () => {
         setSelectedReview(null);
+        setEditMode(false);
+    };
+
+    // 별점 선택 UI (1~5)
+    const renderRatingInput = () => {
+        return (
+            <div className="rating-input">
+                {[1, 2, 3, 4, 5].map((num) => (
+                    <span
+                        key={num}
+                        className={`star ${num <= editedRating ? 'filled' : ''}`}
+                        onClick={() => setEditedRating(num)}
+                        role="button"
+                        aria-label={`${num} 별점`}
+                        tabIndex={0}
+                        onKeyDown={(e) => { if (e.key === 'Enter') setEditedRating(num); }}
+                    >
+                        ★
+                    </span>
+                ))}
+            </div>
+        );
     };
 
     return (
         <div className="myreviews-container">
-            <div className="sidebar">
-                <h2 className="side-menu">마이페이지</h2>
-                <div className="menu">
-                    <button className="menu-item active">내 리뷰</button>
-                    <button className="menu-item">회원 정보</button>
-                </div>
-            </div>
+            <aside className="sidebar">
+                <div className="side-menu">User Menu</div>
+                <nav className="menu">
+                    <button className="menu-item">👤 User profile</button>
+                    <button className="menu-item active">💬 Reviews</button>
+                </nav>
+            </aside>
 
             <div className="main-content">
                 <h1 className="page-title">내가 작성한 리뷰</h1>
@@ -78,21 +157,18 @@ const MyReviews = () => {
                                 <td>{review.reviewId}</td>
                                 <td>{review.planName}</td>
                                 <td>{review.title}</td>
-                                <td
-                                    className="review-content-cell review-content-clickable"
-                                    onClick={() => handleContentClick(review)}
-                                >
-                                    {review.content}
+                                <td className="review-content-cell"
+                                    onClick={() => handleContentClick(review)}>
+                                    {review.content.length > 30
+                                        ? review.content.slice(0, 30) + '...'
+                                        : review.content}
                                 </td>
                                 <td className="review-rating-cell">{'★'.repeat(review.rating)}</td>
                                 <td>{formatDate(review.createdAt)}</td>
                                 <td>
                                     <button
                                         className="review-btn"
-                                        onClick={(e) => {
-                                            e.stopPropagation();
-                                            alert('수정 기능 준비 중');
-                                        }}
+                                        onClick={() => handleEditClick(review)}
                                     >
                                         Edit
                                     </button>
@@ -100,10 +176,7 @@ const MyReviews = () => {
                                 <td>
                                     <button
                                         className="review-btn"
-                                        onClick={(e) => {
-                                            e.stopPropagation();
-                                            alert('삭제 기능 준비 중');
-                                        }}
+                                        onClick={() => handleDelete(review.reviewId)}
                                     >
                                         Delete
                                     </button>
@@ -117,11 +190,35 @@ const MyReviews = () => {
                 {selectedReview && (
                     <div className="modal-overlay" onClick={closeModal}>
                         <div className="modal" onClick={(e) => e.stopPropagation()}>
-                            <h2>{selectedReview.title}</h2>
-                            <p>{selectedReview.content}</p>
-                            <button className="modal-close-btn" onClick={closeModal}>
-                                닫기
-                            </button>
+                            {editMode ? (
+                                <>
+                                    <h2>리뷰 수정</h2>
+                                    <input
+                                        type="text"
+                                        value={editedTitle}
+                                        onChange={(e) => setEditedTitle(e.target.value)}
+                                        className="modal-input"
+                                    />
+                                    <textarea
+                                        value={editedContent}
+                                        onChange={(e) => setEditedContent(e.target.value)}
+                                        className="modal-textarea"
+                                    />
+                                    <label>별점:</label>
+                                    {renderRatingInput()}
+
+                                    <div className="modal-buttons">
+                                        <button onClick={handleSaveEdit} className="modal-save-btn">저장</button>
+                                        <button onClick={closeModal} className="modal-close-btn">취소</button>
+                                    </div>
+                                </>
+                            ) : (
+                                <>
+                                    <h2>{selectedReview.title}</h2>
+                                    <p>{selectedReview.content}</p>
+                                    <button className="modal-close-btn" onClick={closeModal}>닫기</button>
+                                </>
+                            )}
                         </div>
                     </div>
                 )}

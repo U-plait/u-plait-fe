@@ -58,7 +58,7 @@
 /* Main Content */
 .main-content {
     flex: 1;
-    padding: 4rem 1rem; /* 좌우 패딩을 2rem -> 1rem 으로 줄임 */
+    padding: 4rem 1rem;
     background-color: #f9fafb;
 }
 
@@ -76,8 +76,8 @@
 
 /* Table 스타일 */
 .reviews-table {
-    width: 100%;       /* 부모 너비 100% 채우기 */
-    max-width: none;   /* 최대 너비 제한 해제 */
+    width: 100%;
+    max-width: none;
     border-collapse: collapse;
     background-color: #fff;
     border: 1px solid #e5e7eb;
@@ -101,14 +101,10 @@
 }
 
 /* 내용 셀 클릭 가능하도록 스타일 추가 */
-.review-content-clickable {
+.review-content-cell {
     cursor: pointer;
     text-decoration: underline;
     color: #2563eb;
-}
-
-.review-content-clickable:hover {
-    color: #1d4ed8;
 }
 
 /* 내용 말줄임 */
@@ -118,6 +114,10 @@
     white-space: nowrap;
     text-overflow: ellipsis;
     color: #374151;
+}
+
+.review-content-cell:hover {
+    color: #1d4ed8;
 }
 
 /* 별점 */
@@ -193,4 +193,67 @@
     color: #ef4444;
     margin-bottom: 1rem;
     font-weight: 600;
+}
+
+/* 수정 모드에서 입력 필드 */
+.modal-input,
+.modal-textarea {
+    width: 100%;
+    padding: 0.5rem;
+    margin-bottom: 1rem;
+    font-size: 1rem;
+    border: 1px solid #d1d5db;
+    border-radius: 6px;
+    background-color: #f9fafb;
+    color: #111827;
+    box-sizing: border-box;
+}
+
+.modal-textarea {
+    height: 120px;
+    resize: vertical;
+}
+
+/* 모달 버튼 그룹 */
+.modal-buttons {
+    display: flex;
+    justify-content: flex-end;
+    gap: 1rem;
+}
+
+.modal-save-btn {
+    margin-top: 1.5rem;
+    background-color: #3b82f6; /* 파란색 (#3b82f6는 Tailwind 파란색 중간톤) */
+    color: white;
+    border: none;
+    padding: 0.5rem 1rem;       /* 취소 버튼과 동일하게 맞춤 */
+    border-radius: 6px;         /* 취소 버튼과 동일 */
+    cursor: pointer;
+    font-weight: 500;           /* 취소 버튼과 동일 */
+    transition: background-color 0.2s;
+}
+
+.modal-save-btn:hover {
+    background-color: #2563eb;  /* 더 진한 파란색 */
+}
+
+.rating-input {
+    font-size: 1.5rem;
+    color: #d1d5db; /* 연한 회색 별 */
+    cursor: pointer;
+    user-select: none;
+    margin-bottom: 1rem;
+}
+
+.rating-input .star {
+    margin-right: 0.25rem;
+}
+
+.rating-input .star.filled {
+    color: #fbbf24; /* 노란 별 */
+}
+
+.rating-input .star:hover,
+.rating-input .star:hover ~ .star {
+    color: #fbbf24;
 }
