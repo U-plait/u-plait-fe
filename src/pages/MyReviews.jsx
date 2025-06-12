@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from 'react';
+import { useNavigate } from 'react-router-dom';
 import axios from 'axios';
 import './MyReviews.css';
 
@@ -117,12 +118,19 @@ const MyReviews = () => {
         );
     };
 
+    const navigate = useNavigate();
+
     return (
         <div className="myreviews-container">
             <aside className="sidebar">
                 <div className="side-menu">User Menu</div>
                 <nav className="menu">
-                    <button className="menu-item">👤 User profile</button>
+                    <button
+                        className="menu-item"
+                        onClick={() => navigate('/mypage')}
+                    >
+                        👤 User profile
+                    </button>
                     <button className="menu-item active">💬 Reviews</button>
                 </nav>
             </aside>
