@@ -46,22 +46,19 @@
 }
 
 .side-menu {
-    font-size: 1.25rem;        /* 폰트 크기 */
-    font-weight: 700;          /* 굵기: bold */
-    color: #111827;            /* 진한 텍스트 색 */
-    margin-bottom: 1rem;       /* 아래 간격 */
-    padding-left: 1rem;        /* 좌측 여백 */
-    text-transform: uppercase; /* 대문자화 (선택) */
-    letter-spacing: 0.05rem;   /* 자간 조절 (선택) */
+    font-size: 1.25rem;
+    font-weight: 700;
+    color: #111827;
+    margin-bottom: 1rem;
+    padding-left: 1rem;
+    text-transform: uppercase;
+    letter-spacing: 0.05rem;
 }
 
 /* Main Content */
 .main-content {
     flex: 1;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    padding: 4rem 2rem;
+    padding: 4rem 1rem; /* 좌우 패딩을 2rem -> 1rem 으로 줄임 */
     background-color: #f9fafb;
 }
 
@@ -69,24 +66,131 @@
     font-size: 2rem;
     font-weight: bold;
     margin-bottom: 2rem;
-    align-self: flex-start;
-    text-align: center;
-    width: 100%;
-}
-
-.review-plan-name {
-    font-size: 0.95rem;
-    color: #666;
-    margin-bottom: 0.25rem;
-}
-
-.review-rating {
-    font-size: 0.95rem;
-    margin-bottom: 0.5rem;
-    color: #f59e0b; /* 노란 별 */
+    text-align: left;
 }
 
 .no-reviews {
     font-size: 1rem;
     color: #aaa;
+}
+
+/* Table 스타일 */
+.reviews-table {
+    width: 100%;       /* 부모 너비 100% 채우기 */
+    max-width: none;   /* 최대 너비 제한 해제 */
+    border-collapse: collapse;
+    background-color: #fff;
+    border: 1px solid #e5e7eb;
+    border-radius: 12px;
+    overflow: hidden;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.05);
+}
+
+.reviews-table th,
+.reviews-table td {
+    padding: 1rem;
+    text-align: left;
+    border-bottom: 1px solid #f3f4f6;
+    font-size: 0.95rem;
+}
+
+.reviews-table th {
+    background-color: #f9fafb;
+    font-weight: 600;
+    color: #374151;
+}
+
+/* 제목 클릭 가능하게 */
+.review-title-clickable {
+    color: #2563eb;
+    cursor: pointer;
+    text-decoration: underline;
+}
+
+.review-title-clickable:hover {
+    color: #1d4ed8;
+}
+
+/* 내용 말줄임 */
+.review-content-cell {
+    max-width: 250px;
+    overflow: hidden;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+    color: #374151;
+}
+
+/* 별점 */
+.review-rating-cell {
+    color: #fbbf24;
+}
+
+/* 버튼 */
+.review-btn {
+    background-color: #f87171;
+    color: white;
+    border: none;
+    padding: 0.4rem 0.75rem;
+    border-radius: 6px;
+    cursor: pointer;
+    font-size: 0.85rem;
+}
+
+.review-btn:hover {
+    background-color: #ef4444;
+}
+
+/* 모달 */
+.modal-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.5);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 999;
+}
+
+.modal {
+    background-color: #fff;
+    padding: 2rem;
+    border-radius: 12px;
+    max-width: 500px;
+    width: 90%;
+    box-shadow: 0 10px 25px rgba(0, 0, 0, 0.1);
+}
+
+.modal h2 {
+    font-size: 1.5rem;
+    margin-bottom: 1rem;
+}
+
+.modal p {
+    font-size: 1rem;
+    color: #333;
+    white-space: pre-wrap;
+}
+
+.modal-close-btn {
+    margin-top: 1.5rem;
+    background-color: #e5e7eb;
+    border: none;
+    padding: 0.5rem 1rem;
+    border-radius: 6px;
+    cursor: pointer;
+    font-weight: 500;
+}
+
+.modal-close-btn:hover {
+    background-color: #d1d5db;
+}
+
+/* 오류 메시지 스타일 추가 */
+.error-message {
+    color: #ef4444;
+    margin-bottom: 1rem;
+    font-weight: 600;
 }
