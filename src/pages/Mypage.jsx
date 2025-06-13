@@ -1,6 +1,7 @@
-import { useEffect, useState } from "react";
+import {useEffect, useState} from "react";
+import { useNavigate } from 'react-router-dom';
 import axios from "axios";
-import "./Mypage.css";
+import "../styles/Mypage.css";
 
 const Mypage = () => {
     const [userInfo, setUserInfo] = useState(null);
@@ -18,6 +19,8 @@ const Mypage = () => {
         return "기타";
     };
 
+    const navigate = useNavigate();
+
     return (
         <div className="mypage-container">
             {/* Sidebar */}
@@ -25,7 +28,12 @@ const Mypage = () => {
                 <div className="side-menu">User Menu</div>
                 <nav className="menu">
                     <button className="menu-item active">👤 User profile</button>
-                    <button className="menu-item">💬 Reviews</button>
+                    <button
+                        className="menu-item"
+                        onClick={() => navigate('/myreviews')}
+                    >
+                        💬 Reviews
+                    </button>
                 </nav>
             </aside>
 
