@@ -8,6 +8,9 @@ import PlanManager from "./pages/Admin/PlanManager";
 import BanWordsManager from "./pages/Admin/BanWordsManager";
 import ReviewManager from "./pages/Admin/ReviewManager";
 import Mypage from "./pages/Mypage";
+import MobilePlanList from "./pages/MobilePlanList"
+import InternetPlanList from "./pages/InternetPlanList";
+import IPTVPlanList from "./pages/IPTVPlanList";
 import MobilePlanDetail from "./pages/MobilePlanDetail"
 import InternetPlanDetail from "./pages/InternetPlanDetail"
 import IPTVPlanDetail from "./pages/IPTVPlanDetail"
@@ -29,6 +32,9 @@ function App() {
             <Route path="/admin/banwords" element={<BanWordsManager />} />
             <Route path="/admin/reviews" element={<ReviewManager />} />
             <Route path="/mypage" element={<Mypage />} />
+            <Route path="/mobile" element={<MobilePlanList />} />
+            <Route path="/internet" element={<InternetPlanList />} />
+            <Route path="/iptv" element={<IPTVPlanList />} />
             {/* Plan Detail */}
             <Route path="/mobile/plan/:planId" element={<MobilePlanDetail/>} />
             <Route path="/internet/plan/:planId" element={<InternetPlanDetail/>} />
