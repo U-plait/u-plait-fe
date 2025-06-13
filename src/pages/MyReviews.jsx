@@ -84,7 +84,7 @@ const MyReviews = () => {
         if (!window.confirm('정말 삭제하시겠습니까?')) return;
 
         try {
-            await axios.delete(`/user/detail/review/${reviewId}`, { withCredentials: true });
+            await axios.delete(`/review/${reviewId}`, { withCredentials: true });
             setReviews((prev) => prev.filter((r) => r.reviewId !== reviewId));
         } catch (err) {
             console.error('리뷰 삭제 실패:', err);
@@ -118,6 +118,16 @@ const MyReviews = () => {
         );
     };
 
+    const [currentPage, setCurrentPage] = useState(1);
+    const reviewsPerPage = 5; // 한 페이지당 5개 리뷰
+
+    const indexOfLast = currentPage * reviewsPerPage;
+    const indexOfFirst = indexOfLast - reviewsPerPage;
+    const currentReviews = reviews.slice(indexOfFirst, indexOfLast);
+
+    const totalPages = Math.ceil(reviews.length / reviewsPerPage);
+    const pageNumbers = Array.from({ length: totalPages }, (_, i) => i + 1);
+
     const navigate = useNavigate();
 
     return (
@@ -145,54 +155,68 @@ const MyReviews = () => {
                     <p className="no-reviews">작성한 리뷰가 없습니다.</p>
                 )}
 
-                {!loading && !error && reviews.length > 0 && (
-                    <table className="reviews-table">
-                        <thead>
-                        <tr>
-                            <th>ID</th>
-                            <th>요금제명</th>
-                            <th>제목</th>
-                            <th>내용</th>
-                            <th>별점</th>
-                            <th>작성일</th>
-                            <th>수정</th>
-                            <th>삭제</th>
-                        </tr>
-                        </thead>
-                        <tbody>
-                        {reviews.map((review) => (
-                            <tr key={review.reviewId}>
-                                <td>{review.reviewId}</td>
-                                <td>{review.planName}</td>
-                                <td>{review.title}</td>
-                                <td className="review-content-cell"
-                                    onClick={() => handleContentClick(review)}>
-                                    {review.content.length > 30
-                                        ? review.content.slice(0, 30) + '...'
-                                        : review.content}
-                                </td>
-                                <td className="review-rating-cell">{'★'.repeat(review.rating)}</td>
-                                <td>{formatDate(review.createdAt)}</td>
-                                <td>
-                                    <button
-                                        className="review-btn"
-                                        onClick={() => handleEditClick(review)}
-                                    >
-                                        Edit
-                                    </button>
-                                </td>
-                                <td>
-                                    <button
-                                        className="review-btn"
-                                        onClick={() => handleDelete(review.reviewId)}
-                                    >
-                                        Delete
-                                    </button>
-                                </td>
+                {!loading && !error && currentReviews.length > 0 && (
+                    <>
+                        <table className="reviews-table">
+                            <thead>
+                            <tr>
+                                <th>ID</th>
+                                <th>요금제명</th>
+                                <th>제목</th>
+                                <th>내용</th>
+                                <th>별점</th>
+                                <th>작성일</th>
+                                <th>수정</th>
+                                <th>삭제</th>
                             </tr>
-                        ))}
-                        </tbody>
-                    </table>
+                            </thead>
+                            <tbody>
+                            {currentReviews.map((review) => (
+                                <tr key={review.reviewId}>
+                                    <td>{review.reviewId}</td>
+                                    <td>{review.planName}</td>
+                                    <td>{review.title}</td>
+                                    <td className="review-content-cell"
+                                        onClick={() => handleContentClick(review)}>
+                                        {review.content.length > 30
+                                            ? review.content.slice(0, 30) + '...'
+                                            : review.content}
+                                    </td>
+                                    <td className="review-rating-cell">{'★'.repeat(review.rating)}</td>
+                                    <td>{formatDate(review.createdAt)}</td>
+                                    <td>
+                                        <button
+                                            className="review-btn"
+                                            onClick={() => handleEditClick(review)}
+                                        >
+                                            Edit
+                                        </button>
+                                    </td>
+                                    <td>
+                                        <button
+                                            className="review-btn"
+                                            onClick={() => handleDelete(review.reviewId)}
+                                        >
+                                            Delete
+                                        </button>
+                                    </td>
+                                </tr>
+                            ))}
+                            </tbody>
+                        </table>
+
+                        <div className="pagination">
+                            {pageNumbers.map((number) => (
+                                <button
+                                    key={number}
+                                    onClick={() => setCurrentPage(number)}
+                                    className={number === currentPage ? 'active-page' : ''}
+                                >
+                                    {number}
+                                </button>
+                            ))}
+                        </div>
+                    </>
                 )}
 
                 {selectedReview && (

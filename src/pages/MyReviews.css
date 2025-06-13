@@ -100,6 +100,33 @@
     color: #374151;
 }
 
+.pagination {
+    margin-top: 1.5rem;
+    display: flex;
+    justify-content: center;
+    gap: 0.5rem;
+}
+
+.page-btn {
+    background-color: #f3f4f6;
+    border: none;
+    padding: 0.5rem 1rem;
+    border-radius: 6px;
+    cursor: pointer;
+    color: #374151;
+    font-size: 0.9rem;
+}
+
+.page-btn.active {
+    background-color: #3b82f6;
+    color: white;
+    font-weight: bold;
+}
+
+.page-btn:hover {
+    background-color: #e5e7eb;
+}
+
 /* 내용 셀 클릭 가능하도록 스타일 추가 */
 .review-content-cell {
     cursor: pointer;
