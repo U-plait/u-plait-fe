@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import axios from 'axios';
-import './MyReviews.css';
+import '../styles/MyReviews.css';
 
 const MyReviews = () => {
     const [reviews, setReviews] = useState([]);
