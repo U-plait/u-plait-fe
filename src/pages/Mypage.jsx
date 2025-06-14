@@ -54,7 +54,9 @@ const Mypage = () => {
                             </ul>
 
                             <div className="edit-btn-wrapper">
-                                <button className="edit-btn">내 정보 수정하기</button>
+                                <button className="edit-btn" onClick={() => navigate("/mypage/edit")}>
+                                    내 정보 수정하기
+                                </button>
                             </div>
                         </>
                     ) : (
