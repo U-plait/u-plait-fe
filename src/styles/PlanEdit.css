@@ -1,9 +1,4 @@
-.plan-edit-container {
-    margin-left: 220px; /* AdminSidebar 너비만큼 */
-    padding: 40px;
-    flex: 1;
-    background-color: #f9fafb;
-}
+
 
 .loading-container {
     display: flex;

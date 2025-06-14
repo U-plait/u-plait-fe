@@ -4,14 +4,18 @@ import PlanCard from "../../components/PlanCard";
 import SearchBar from "../../components/SearchBar";
 import "../../styles/PlanManager.css";
 import { useNavigate } from "react-router-dom";
-import AdminPlanDetail from "./AdminPlanDetail";
-import DeleteConfirmModal from "../../components/DeleteConfirmModal"; // 삭제 모달 import
+// 🚨 각각의 상세 정보 모달을 모두 import합니다.
+import AdminMobilePlanDetail from "./AdminMobilePlanDetail";
+import AdminInternetPlanDetail from "./AdminInternetPlanDetail";
+// V V V --- 이 부분의 파일명을 수정했습니다 --- V V V
+import AdminIPTVPlanDetail from "./AdminIPTVPlanDetail"; 
+import DeleteConfirmModal from "../../components/DeleteConfirmModal";
 import { 
     getMobilePlansAPI, 
     getInternetPlansAPI, 
     getIptvPlansAPI, 
     getPlanDetailAPI,
-    deletePlanAPI // 삭제 API import
+    deletePlanAPI
 } from '../../api/plan';
 
 const PlanManager = () => {
@@ -23,8 +27,8 @@ const PlanManager = () => {
     const [isDetailModalOpen, setIsDetailModalOpen] = useState(false);
     const [selectedPlan, setSelectedPlan] = useState(null);
     const [isLoadingModal, setIsLoadingModal] = useState(false);
-    const [isDeleteModalOpen, setIsDeleteModalOpen] = useState(false); // 삭제 모달 상태
-    const [planToDelete, setPlanToDelete] = useState(null); // 삭제할 요금제 정보
+    const [isDeleteModalOpen, setIsDeleteModalOpen] = useState(false);
+    const [planToDelete, setPlanToDelete] = useState(null);
     const navigate = useNavigate();
 
     // --- Data Fetching ---
@@ -48,7 +52,6 @@ const PlanManager = () => {
                 setPlans(response.data.content);
                 setTotalPages(response.data.totalPages);
             } else {
-                console.error("데이터 구조가 예상과 다릅니다:", response);
                 setPlans([]);
             }
         } catch (error) {
@@ -60,13 +63,12 @@ const PlanManager = () => {
     useEffect(() => {
         fetchPlans(selectedTab, page);
     }, [selectedTab, page, fetchPlans]);
-
+    
     // --- Event Handlers ---
     const handleTabClick = (tab) => {
         setPage(0);
         setSelectedTab(tab);
     };
-
     const handlePageClick = (pageNumber) => setPage(pageNumber - 1);
     const handlePreviousPage = () => setPage(page > 0 ? page - 1 : 0);
     const handleNextPage = () => setPage(page < totalPages - 1 ? page + 1 : page);
@@ -96,20 +98,19 @@ const PlanManager = () => {
         }
     };
     
-    // 상세보기 모달 핸들러
     const handleShowDetails = async (planId, planType) => {
         setIsDetailModalOpen(true);
         setIsLoadingModal(true);
         try {
             const response = await getPlanDetailAPI(planType, planId);
             if (response.statusCode === 0) {
-                setSelectedPlan(response.data);
+                // 응답 데이터에 planType이 없으므로, 요청 시 사용한 planType을 직접 추가해줍니다.
+                setSelectedPlan({ ...response.data, planType });
             } else {
                 alert("상세 정보를 불러오는데 실패했습니다.");
                 handleCloseDetailModal();
             }
         } catch (error) {
-            console.error("상세보기 API 호출 에러:", error);
             alert("오류가 발생했습니다.");
             handleCloseDetailModal();
         } finally {
@@ -121,41 +122,53 @@ const PlanManager = () => {
         setSelectedPlan(null);
     };
 
-    // --- 삭제 관련 핸들러 ---
     const handleDeleteClick = (plan) => {
         setPlanToDelete(plan);
         setIsDeleteModalOpen(true);
     };
-
     const handleCancelDelete = () => {
         setIsDeleteModalOpen(false);
         setPlanToDelete(null);
     };
-
     const handleConfirmDelete = async () => {
         if (!planToDelete) return;
         try {
             const response = await deletePlanAPI(planToDelete.planId);
             if (response.statusCode === 0 || response.statusCode === 3003) {
                 alert("요금제가 성공적으로 삭제되었습니다.");
-                // 현재 페이지의 아이템이 모두 삭제되면 이전 페이지로 이동
                 if (plans.length === 1 && page > 0) {
                     setPage(page - 1);
                 } else {
-                    fetchPlans(selectedTab, page); // 현재 페이지 목록 새로고침
+                    fetchPlans(selectedTab, page);
                 }
             } else {
                 alert(`삭제 실패: ${response.message}`);
             }
         } catch (error) {
-            console.error("삭제 중 오류 발생:", error);
             alert("삭제 중 오류가 발생했습니다.");
         } finally {
-            handleCancelDelete(); // 모달 닫기
+            handleCancelDelete();
         }
     };
 
-    // --- Render JSX ---
+    // --- Modal Renderer ---
+    const renderDetailModal = () => {
+        if (!selectedPlan) return null;
+
+        switch (selectedPlan.planType) {
+            case "MobilePlan":
+                return <AdminMobilePlanDetail plan={selectedPlan} isLoading={isLoadingModal} onClose={handleCloseDetailModal} />;
+            case "InternetPlan":
+                return <AdminInternetPlanDetail plan={selectedPlan} isLoading={isLoadingModal} onClose={handleCloseDetailModal} />;
+            case "IPTVPlan":
+                 // V V V --- 이 부분의 컴포넌트명을 수정했습니다 --- V V V
+                return <AdminIPTVPlanDetail plan={selectedPlan} isLoading={isLoadingModal} onClose={handleCloseDetailModal} />;
+            default:
+                handleCloseDetailModal();
+                return null;
+        }
+    };
+
     return (
         <div className="admin-page">
             <AdminSidebar />
@@ -195,7 +208,7 @@ const PlanManager = () => {
                     )}
                 </div>
                 {totalPages > 1 && (
-                    <div className="pagination-controls">
+                     <div className="pagination-controls">
                         <button onClick={handlePreviousPage} disabled={page === 0}>
                             이전
                         </button>
@@ -216,16 +229,7 @@ const PlanManager = () => {
                 )}
             </div>
 
-            {/* 상세보기 모달 */}
-            {isDetailModalOpen && (
-                <AdminPlanDetail 
-                    plan={selectedPlan} 
-                    isLoading={isLoadingModal}
-                    onClose={handleCloseDetailModal} 
-                />
-            )}
-
-            {/* 삭제 확인 모달 */}
+            {isDetailModalOpen && renderDetailModal()}
             {isDeleteModalOpen && (
                 <DeleteConfirmModal
                     planName={planToDelete?.planName}
