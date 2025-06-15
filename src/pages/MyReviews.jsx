@@ -38,6 +38,10 @@ const MyReviews = () => {
         return new Date(dateString).toLocaleDateString('ko-KR', options);
     };
 
+    const getPlanUrl = (planType, planId) => {
+        return `/${planType.toLowerCase()}/plan/${planId}`;
+    };
+
     const handleContentClick = (review) => {
         setSelectedReview(review);
         setEditMode(false);
@@ -142,7 +146,7 @@ const MyReviews = () => {
                         👤 User profile
                     </button>
                     <button
-                        className="menu-item"
+                        className="menu-item active"
                         onClick={() => navigate('/myreviews')}
                     >
                         💬 Reviews
@@ -179,7 +183,14 @@ const MyReviews = () => {
                             {currentReviews.map((review) => (
                                 <tr key={review.reviewId}>
                                     <td>{review.reviewId}</td>
-                                    <td>{review.planName}</td>
+                                    <td className="plan-name-cell">
+                                        <span
+                                            className="clickable-plan-name"
+                                            onClick={() => navigate(getPlanUrl(review.planType, review.planId))}
+                                        >
+                                            {review.planName}
+                                        </span>
+                                    </td>
                                     <td>{review.title}</td>
                                     <td className="review-content-cell"
                                         onClick={() => handleContentClick(review)}>

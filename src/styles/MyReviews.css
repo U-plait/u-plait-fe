@@ -127,6 +127,16 @@
     background-color: #e5e7eb;
 }
 
+.clickable-plan-name {
+    color: #1a73e8;
+    cursor: pointer;
+    text-decoration: underline;
+}
+
+.clickable-plan-name:hover {
+    color: #1558b0;
+}
+
 /* 내용 셀 클릭 가능하도록 스타일 추가 */
 .review-content-cell {
     cursor: pointer;
