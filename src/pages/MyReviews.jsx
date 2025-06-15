@@ -141,7 +141,12 @@ const MyReviews = () => {
                     >
                         👤 User profile
                     </button>
-                    <button className="menu-item active">💬 Reviews</button>
+                    <button
+                        className="menu-item"
+                        onClick={() => navigate('/myreviews')}
+                    >
+                        💬 Reviews
+                    </button>
                 </nav>
             </aside>
 
