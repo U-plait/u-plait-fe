@@ -158,3 +158,43 @@ export const deletePlanAPI = async (planId) => {
         throw error;
     }
 };
+
+export const getMobilePlans = async () => {
+    try {
+        const response = await api.get('/plan/mobile'); // 경로 수정
+        return response.data.data; // Assuming CommonResponse.success wraps data in 'data' field
+    } catch (error) {
+        console.error("Error fetching mobile plans:", error);
+        throw error;
+    }
+};
+
+export const getInternetPlans = async () => {
+    try {
+        const response = await api.get('/plan/internet'); // 경로 수정
+        return response.data.data;
+    } catch (error) {
+        console.error("Error fetching internet plans:", error);
+        throw error;
+    }
+};
+
+export const getIptvPlans = async () => {
+    try {
+        const response = await api.get('/plan/iptv'); // 경로 수정
+        return response.data.data;
+    } catch (error) {
+        console.error("Error fetching IPTV plans:", error);
+        throw error;
+    }
+};
+
+export const comparePlans = async (planType, planIds) => {
+    try {
+        const response = await api.post(`/plan/compare/${planType}`, { planIds }); // 경로 수정
+        return response.data.data;
+    } catch (error) {
+        console.error("Error comparing plans:", error);
+        throw error;
+    }
+};
