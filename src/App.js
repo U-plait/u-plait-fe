@@ -5,6 +5,9 @@ import "./App.css";
 import Login from "./pages/Login";
 import KakaoCallback from "./pages/KakaoCallback";
 import PlanManager from "./pages/Admin/PlanManager";
+import MobilePlanCreate from './pages/Admin/MobilePlanCreate';
+import IPTVPlanCreate from './pages/Admin/IPTVPlanCreate'; 
+import InternetPlanCreate from './pages/Admin/InternetPlanCreate';
 import BanWordsManager from "./pages/Admin/BanWordsManager";
 import ReviewManager from "./pages/Admin/ReviewManager";
 import Mypage from "./pages/Mypage";
@@ -17,6 +20,10 @@ import MobilePlanDetail from "./pages/MobilePlanDetail"
 import InternetPlanDetail from "./pages/InternetPlanDetail"
 import IPTVPlanDetail from "./pages/IPTVPlanDetail"
 import ExtraInfo from "./pages/ExtraInfo";
+import MobilePlanEdit from './pages/Admin/MobilePlanEdit'; 
+import IPTVPlanEdit from './pages/Admin/IPTVPlanEdit'; 
+import InternetPlanEdit from './pages/Admin/InternetPlanEdit'; 
+
 
 
 function App() {
@@ -30,7 +37,13 @@ function App() {
             <Route path="/login" element={<Login />} />
             <Route path="/kakaocallback" element={<KakaoCallback />} />
             <Route path="/extra-info" element={<ExtraInfo />} />
-            <Route path="/admin/plans" element={<PlanManager />} />
+            <Route path="/admin/plan" element={<PlanManager />} />
+            <Route path="/admin/mobile/create" element={<MobilePlanCreate />} />
+            <Route path="/admin/iptv/create" element={<IPTVPlanCreate />} />
+            <Route path="/admin/internet/create" element={<InternetPlanCreate />} />
+            <Route path="/admin/mobile/edit/:planId" element={<MobilePlanEdit />} />
+            <Route path="/admin/iptv/edit/:planId" element={<IPTVPlanEdit />} /> 
+            <Route path="/admin/internet/edit/:planId" element={<InternetPlanEdit />} /> 
             <Route path="/admin/banwords" element={<BanWordsManager />} />
             <Route path="/admin/reviews" element={<ReviewManager />} />
             <Route path="/mypage" element={<Mypage />} />
