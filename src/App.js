@@ -23,6 +23,12 @@ import ExtraInfo from "./pages/ExtraInfo";
 import MobilePlanEdit from './pages/Admin/MobilePlanEdit'; 
 import IPTVPlanEdit from './pages/Admin/IPTVPlanEdit'; 
 import InternetPlanEdit from './pages/Admin/InternetPlanEdit'; 
+import CMobilePlanList from './pages/CMobilePlanList';
+import CInternetPlanList from './pages/CInternetPlanList';
+import CIPTVPlanList from './pages/CIPTVPlanList';
+import ComparisonMobilePlanList from './pages/ComparisonMobilePlanList';
+import ComparisonInternetPlanList from './pages/ComparisonInternetPlanList'; 
+import ComparisonIPTVPlanList from './pages/ComparisonIPTVPlanList';
 
 
 
@@ -52,6 +58,12 @@ function App() {
             <Route path="/mobile" element={<MobilePlanList />} />
             <Route path="/internet" element={<InternetPlanList />} />
             <Route path="/iptv" element={<IPTVPlanList />} />
+            <Route path="/Cmobile" element={<CMobilePlanList />} />
+            <Route path="/Cinternet" element={<CInternetPlanList />} />
+            <Route path="/Ciptv" element={<CIPTVPlanList />} />
+            <Route path="/comparison/mobile" element={<ComparisonMobilePlanList />} />
+            <Route path="/comparison/internet" element={<ComparisonInternetPlanList />} /> 
+            <Route path="/comparison/iptv" element={<ComparisonIPTVPlanList />} />  
             {/* Plan Detail */}
             <Route path="/mobile/plan/:planId" element={<MobilePlanDetail/>} />
             <Route path="/internet/plan/:planId" element={<InternetPlanDetail/>} />
