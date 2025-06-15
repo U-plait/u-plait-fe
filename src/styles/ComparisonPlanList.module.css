@@ -1,0 +1,259 @@
+/* src/styles/ComparisonPlanList.module.css */
+
+/* Variables for colors */
+:root {
+    --primary-color: #d60087; /* 요청하신 강조 색상 */
+    --secondary-card-header-bg: linear-gradient(to right, #d60087, #d60087); /* 두 번째 카드 헤더 배경 */
+    --primary-card-header-bg: linear-gradient(to right, #d60087, #d60087); /* 첫 번째 카드 헤더 배경 (요청 색상 계열로 조정) */
+    --text-dark: #333;
+    --text-medium: #555;
+    --text-light: #888;
+    --border-light: #eee;
+    --border-medium: #ddd;
+    --background-light: #f9f9f9;
+    --card-bg: #fff;
+    --shadow-light: rgba(0,0,0,0.05);
+    --shadow-medium: rgba(0,0,0,0.1);
+}
+
+
+.container {
+    padding: 20px;
+    max-width: 1200px; /* 카드들이 나란히 놓일 공간 확보 */
+    margin: 20px auto;
+    /* 뒷배경 제거 요청에 따라 background-color, box-shadow 제거 */
+    /* border-radius: 8px; (필요시 컨테이너에 적용) */
+}
+
+h1 {
+    text-align: center;
+    color: var(--text-dark);
+    margin-bottom: 30px;
+    font-size: 2.2em;
+    font-weight: 700;
+}
+
+.loading, .error, .noResults {
+    text-align: center;
+    padding: 20px;
+    font-size: 1.2em;
+    color: var(--text-medium);
+    background-color: var(--card-bg);
+    border-radius: 8px;
+    box-shadow: 0 2px 10px var(--shadow-light);
+}
+
+.error {
+    color: #dc3545;
+}
+
+.backButton {
+    display: block;
+    margin: 0 auto 30px auto;
+    padding: 10px 25px;
+    background-color: var(--text-medium); /* 회색 유지 */
+    color: white;
+    border: none;
+    border-radius: 25px;
+    cursor: pointer;
+    font-size: 16px;
+    transition: background-color 0.3s ease, transform 0.2s ease;
+}
+
+.backButton:hover {
+    background-color: #5a6268;
+    transform: translateY(-2px);
+}
+
+/* --- Comparison Cards Container --- */
+.comparisonCardsContainer {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 25px; /* 카드들 사이 간격 조정 */
+    justify-content: center;
+    padding: 10px;
+}
+
+/* --- Individual Plan Card --- */
+.planCard {
+    flex: 1 1 45%; /* 유연한 너비 */
+    min-width: 320px; /* 최소 너비 조정 */
+    max-width: 48%; /* 2개만 나란히 오도록 (gap 고려) */
+    background: var(--card-bg);
+    border-radius: 15px; /* 더 둥글게 */
+    box-shadow: 0 10px 25px var(--shadow-medium); /* 더 깊은 그림자 */
+    overflow: hidden;
+    display: flex;
+    flex-direction: column;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+    position: relative; /* cardTopBackground를 위한 relative */
+}
+
+.planCard:hover {
+    transform: translateY(-8px);
+    box-shadow: 0 15px 35px rgba(0,0,0,0.15); /* 호버 시 그림자 강조 */
+}
+
+/* --- Card Top Background (for the curved shape) --- */
+.cardTopBackground {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 150px; /* Adjust height as needed */
+    background: var(--primary-card-header-bg); /* Default background */
+    border-bottom-left-radius: 50% 20%; /* Curved shape */
+    border-bottom-right-radius: 50% 20%;
+    z-index: 0; /* Behind other content */
+}
+
+/* Specific background for the first card */
+.planCard:first-child .cardTopBackground {
+    background: var(--primary-card-header-bg); /* 첫 번째 카드 핑크 계열 */
+}
+/* Specific background for the second card */
+.planCard:nth-child(2) .cardTopBackground {
+    background: var(--secondary-card-header-bg); /* 두 번째 카드 하늘색 계열 */
+}
+
+
+/* --- Card Header (Plan Name & Price) --- */
+.cardHeader {
+    position: relative; /* z-index를 위해 relative */
+    z-index: 1; /* cardTopBackground 위로 오도록 */
+    padding: 25px; /* Increased padding */
+    padding-bottom: 20px;
+    text-align: center;
+    color: white; /* Text color on colored background */
+    text-shadow: 1px 1px 3px rgba(0,0,0,0.2); /* Soft shadow for readability */
+}
+
+.planName {
+    font-size: 1.8em;
+    font-weight: 700;
+    margin-bottom: 10px;
+    color: white; /* Ensure text is white */
+}
+
+.monthlyFeeText {
+    font-size: 0.85em;
+    color: rgba(255, 255, 255, 0.8);
+    margin-top: 5px;
+}
+
+.planPrice {
+    font-size: 1.6em; /* 가격 글자 크기 키움 */
+    font-weight: bold;
+    color: white; /* 가격도 흰색 */
+    margin-top: 5px;
+    margin-bottom: 15px;
+}
+
+.highlightLine {
+    width: 80%; /* 스크린샷의 밑줄 길이 */
+    height: 4px;
+    background-color: rgba(255, 255, 255, 0.7); /* 흰색 투명 밑줄 */
+    margin: 15px auto 0;
+    border-radius: 2px;
+}
+/* For the first card, make the highlight line the primary color */
+.planCard:first-child .highlightLine {
+    background-color: var(--primary-color); /* 요청된 강조색으로 변경 */
+}
+
+
+/* --- Card Sections (e.g., Discount, Data) --- */
+.cardSection {
+    background-color: var(--card-bg); /* Section background is white */
+    padding: 25px; /* Padding for sections */
+    border-bottom: 1px solid var(--border-light); /* Section separator */
+}
+.cardSection:last-of-type {
+    border-bottom: none; /* No border for the last section */
+}
+
+.sectionTitle {
+    font-size: 1.2em;
+    font-weight: bold;
+    color: var(--primary-color); /* 섹션 제목 강조 색상 */
+    margin-bottom: 15px;
+    text-align: left;
+    border-bottom: 2px solid var(--primary-color); /* 제목 밑줄 */
+    padding-bottom: 5px;
+    display: inline-block; /* 밑줄이 제목 너비에 맞게 */
+}
+
+
+/* --- Detail Items (Label & Value within sections) --- */
+.detailItem {
+    margin-bottom: 15px; /* Items spacing */
+    text-align: left;
+}
+.detailItem:last-child {
+    margin-bottom: 0;
+}
+
+.detailTitle { /* Data, Voice, Message titles */
+    font-size: 1.1em;
+    font-weight: bold;
+    color: var(--text-dark); /* Darker text for titles */
+    margin-bottom: 5px;
+}
+
+.detailValue {
+    font-size: 1em;
+    color: var(--text-medium); /* Normal text for values */
+    line-height: 1.4;
+    margin-bottom: 3px;
+}
+
+.detailSubtext {
+    font-size: 0.85em;
+    color: var(--text-light); /* Lighter text for sub-details */
+    margin-left: 10px; /* Indent sub-details */
+}
+
+/* Discount specific styles */
+.discountDetail {
+    font-size: 1.1em;
+    font-weight: bold;
+    color: var(--primary-color); /* 할인 금액 강조 색상 */
+    margin-bottom: 5px;
+}
+
+.discountSubtext {
+    font-size: 0.9em;
+    color: var(--text-light);
+    margin-bottom: 10px;
+}
+
+.discountItem {
+    display: flex;
+    justify-content: space-between;
+    font-size: 0.95em;
+    color: var(--text-dark);
+    padding: 5px 0;
+    border-bottom: 1px dashed var(--border-light);
+}
+.discountItem:last-child {
+    border-bottom: none;
+}
+.discountLabel {
+    font-weight: 500;
+}
+.discountValue {
+    font-weight: 600;
+    color: var(--primary-color); /* 할인 값 강조 */
+}
+
+
+/* Responsive adjustments */
+@media (max-width: 768px) {
+    .planCard {
+        flex: 1 1 95%; /* Single column on smaller screens */
+        max-width: 95%;
+    }
+    .cardHeader, .cardSection {
+        padding: 20px;
+    }
+}

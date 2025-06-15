@@ -1,0 +1,94 @@
+/* src/styles/Csidebar.module.css */
+
+.page-with-sidebar-layout {
+    display: flex; /* 핵심: 사이드바와 메인 콘텐츠를 가로로 배치 */
+    min-height: 100vh;
+    width: 100%;
+    overflow-x: hidden;
+}
+
+.sidebar {
+    width: 200px; /* 사이드바의 고정 너비 (혹은 필요에 따라 조절) */
+    flex-shrink: 0;
+    background-color: #f8f8f8; /* 사이드바가 보이도록 임시로 배경색을 밝게 설정 */
+    padding: 20px 15px; /* 내부 여백 */
+    box-shadow: 2px 0 5px rgba(0,0,0,0.05);
+    display: flex;
+    flex-direction: column;
+    /* gap: 15px; (이전에는 여기에 있었는데, ul에 주는 것이 더 정확함) */
+}
+
+/* sidebar-nav는 Csidebar.jsx에 <nav> 태그에 직접 붙으므로, 이 클래스가 CSS에 정의되어야 함 */
+.sidebar-nav ul {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    display: flex;
+    flex-direction: column;
+    gap: 15px; /* 메뉴 아이템(li) 간 간격 */
+}
+
+.sidebar-item {
+    display: flex;
+    align-items: center;
+    padding: 10px 15px;
+    border-radius: 8px;
+    cursor: pointer;
+    transition: background-color 0.2s, color 0.2s;
+    color: #333;
+    font-size: 1rem;
+    font-weight: 500;
+    text-decoration: none;
+    /* 아이콘이 있다면 icon 클래스에 마진 추가 */
+}
+
+.sidebar-item:hover {
+    background-color: #f0f2f5;
+}
+
+.sidebar-item.active {
+    background-color: #ffe0f0;
+    color: #d60087;
+    font-weight: 600;
+}
+
+.sidebar-item .icon { /* Csidebar.jsx의 아이콘 span에 이 클래스가 붙음 */
+    margin-right: 10px;
+    font-size: 1.2rem;
+    color: inherit;
+}
+
+.main-content-area {
+    flex-grow: 1; /* 핵심: 남은 공간을 모두 차지 */
+    /* max-width: 100%; (이것은 이미 100%를 의미하므로 제거 가능) */
+    overflow-x: hidden;
+    padding: 20px; /* 메인 콘텐츠 영역 자체의 패딩 */
+    box-sizing: border-box;
+    /* 사이드바와 메인 콘텐츠가 제대로 분리되도록 배경색 임시 지정 */
+    background-color: #fdfdfd;
+}
+
+/* 미디어 쿼리는 그대로 유지 (필요 시) */
+@media (max-width: 768px) {
+    .page-with-sidebar-layout {
+        flex-direction: column;
+    }
+    .sidebar {
+        width: 100%;
+        height: auto;
+        flex-direction: row;
+        justify-content: space-around;
+        padding: 10px;
+    }
+    .sidebar-nav ul {
+        flex-direction: row;
+        justify-content: space-around;
+        width: 100%;
+    }
+    .sidebar-item {
+        padding: 8px 10px;
+    }
+    .main-content-area {
+        padding: 10px;
+    }
+}

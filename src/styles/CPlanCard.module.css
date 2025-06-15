@@ -1,0 +1,122 @@
+/* src/styles/CPlanCard.module.css */
+.card {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    background-color: #fff;
+    /* FIX: 패딩을 1.2rem으로 다시 늘립니다. (내부 여백 확보) */
+    padding: 1.2rem; /* 0.8rem에서 1.2rem으로 다시 늘림 */
+    border-radius: 1rem;
+    border: 0.5px solid #e5e7eb;
+    position: relative;
+    cursor: pointer;
+    box-shadow: none;
+    transition: transform 0.2s ease-in-out, border-color 0.2s;
+    /* FIX: min-height를 220px로 다시 늘립니다. (세로 길이 확보) */
+    min-height: 220px; /* 180px에서 220px으로 다시 늘림 */
+    width: 100%;
+    flex-grow: 1;
+    justify-content: flex-start;
+    box-sizing: border-box;
+}
+
+.card.selected {
+    border-color: #d60087;
+}
+
+.card:hover {
+    transform: translateY(-5px);
+    border-color: #d60087;
+    box-shadow: none;
+}
+
+.content-wrapper {
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    align-items: center;
+    flex-grow: 1;
+    width: 100%;
+}
+
+.plan-name {
+    /* FIX: 요금제 이름 폰트 크기를 1.2rem으로 다시 늘립니다. */
+    font-size: 1.2rem; /* 1.1rem에서 1.2rem으로 늘림 */
+    font-weight: 600;
+    line-height: 1.3;
+    text-align: center;
+    word-break: keep-all;
+    /* FIX: 폰트 크기에 맞춰 높이도 재계산합니다. */
+    height: calc(1.2rem * 1.3 * 2);
+    min-height: calc(1.2rem * 1.3 * 2);
+    margin-bottom: 0.8rem; /* 이름과 가격 사이 간격 늘림 */
+    overflow: hidden;
+    text-overflow: ellipsis;
+    display: -webkit-box;
+    -webkit-line-clamp: 2;
+    -webkit-box-orient: vertical;
+}
+
+.plan-price {
+    /* FIX: 요금제 가격 폰트 크기를 1.7rem으로 다시 늘립니다. */
+    font-size: 1.7rem; /* 1.6rem에서 1.7rem으로 늘림 */
+    font-weight: bold;
+    color: #d60087;
+    margin-top: 10px;
+    margin-bottom: 15px;
+}
+
+.checkbox-area {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+    margin-top: auto;
+    /* FIX: 체크박스 영역의 padding-top을 10px로 다시 늘립니다. */
+    padding-top: 10px; /* 8px에서 10px로 늘림 */
+    border-top: 1px solid #e5e7eb; /* 테두리 1px로 다시 늘림 (현재 0.5px인데 1px로 보임) */
+    width: 100%;
+    cursor: pointer;
+}
+
+.checkbox-area.checkbox-area-disabled {
+    opacity: 0.6;
+    cursor: not-allowed;
+}
+
+.checkbox {
+    position: absolute;
+    opacity: 0;
+    width: 0;
+    height: 0;
+    pointer-events: none;
+}
+
+.checkbox-custom-box {
+    width: 24px;
+    height: 24px;
+    border: 2px solid #9ca3af;
+    border-radius: 6px;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    background-color: #fff;
+    transition: background-color 0.2s, border-color 0.2s;
+}
+
+.checkbox:checked + .checkbox-custom-box {
+    background-color: #d60087;
+    border-color: #d60087;
+}
+
+.checkbox:checked + .checkbox-custom-box::after {
+    content: '✔';
+    font-size: 16px;
+    color: white;
+}
+
+.checkbox-label {
+    font-size: 0.95rem;
+    color: #666;
+    font-weight: 500;
+}
