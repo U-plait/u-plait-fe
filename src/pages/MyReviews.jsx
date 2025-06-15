@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
-import axios from 'axios';
+import api from "../api/api";
 import '../styles/MyReviews.css';
 
 const MyReviews = () => {
@@ -17,7 +17,7 @@ const MyReviews = () => {
         const fetchReviews = async () => {
             try {
                 setLoading(true);
-                const response = await axios.get('/user/detail/review', { withCredentials: true });
+                const response = await api.get('/user/detail/review', { withCredentials: true });
                 const data = response?.data?.data;
                 setReviews(Array.isArray(data) ? data : []);
                 setError(null);
@@ -53,7 +53,7 @@ const MyReviews = () => {
 
     const handleSaveEdit = async () => {
         try {
-            await axios.put(
+            await api.put(
                 `/review/update`,
                 {
                     reviewId: selectedReview.reviewId,
@@ -84,7 +84,7 @@ const MyReviews = () => {
         if (!window.confirm('정말 삭제하시겠습니까?')) return;
 
         try {
-            await axios.delete(`/review/${reviewId}`, { withCredentials: true });
+            await api.delete(`/review/${reviewId}`, { withCredentials: true });
             setReviews((prev) => prev.filter((r) => r.reviewId !== reviewId));
         } catch (err) {
             console.error('리뷰 삭제 실패:', err);

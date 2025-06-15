@@ -1,13 +1,13 @@
 import {useEffect, useState} from "react";
 import { useNavigate } from 'react-router-dom';
-import axios from "axios";
+import api from "../api/api";
 import "../styles/Mypage.css";
 
 const Mypage = () => {
     const [userInfo, setUserInfo] = useState(null);
 
     useEffect(() => {
-        axios
+        api
             .get("/user/detail", { withCredentials: true })
             .then((res) => setUserInfo(res.data.data))
             .catch((err) => console.error("마이페이지 정보 불러오기 실패:", err));
@@ -27,7 +27,11 @@ const Mypage = () => {
             <aside className="sidebar">
                 <div className="side-menu">User Menu</div>
                 <nav className="menu">
-                    <button className="menu-item active">👤 User profile</button>
+                    <button className="menu-item active"
+                            onClick={() => navigate('/mypage')}
+                    >
+                        👤 User profile
+                    </button>
                     <button
                         className="menu-item"
                         onClick={() => navigate('/myreviews')}
@@ -54,7 +58,9 @@ const Mypage = () => {
                             </ul>
 
                             <div className="edit-btn-wrapper">
-                                <button className="edit-btn">내 정보 수정하기</button>
+                                <button className="edit-btn" onClick={() => navigate("/mypage/edit")}>
+                                    내 정보 수정하기
+                                </button>
                             </div>
                         </>
                     ) : (

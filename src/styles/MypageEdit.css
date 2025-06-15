@@ -1,0 +1,173 @@
+.mypage-edit-container {
+    display: flex;
+    flex-direction: row; /* 중요: sidebar + main-content 좌우 배치 */
+    min-height: 100vh;
+    background-color: #f9fafb;
+    font-family: 'Segoe UI', sans-serif;
+    color: #333;
+}
+
+/* Sidebar */
+.sidebar {
+    width: 250px;
+    background-color: #fff;
+    border-right: 1px solid #eee;
+    padding: 2rem;
+    display: flex;
+    flex-direction: column;
+}
+
+.side-menu {
+    font-size: 1.25rem;
+    font-weight: 700;
+    color: #111827;
+    margin-bottom: 1rem;
+    padding-left: 1rem;
+    text-transform: uppercase;
+    letter-spacing: 0.05rem;
+}
+
+.menu {
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+}
+
+.menu-item {
+    background: none;
+    border: none;
+    padding: 0.75rem 1rem;
+    text-align: left;
+    border-radius: 8px;
+    cursor: pointer;
+    font-size: 0.95rem;
+    transition: background 0.2s;
+    color: #555;
+}
+
+.menu-item:hover {
+    background-color: #fef2f2;
+    color: #f43f5e;
+}
+
+.menu-item.active {
+    background-color: #ffe4e6;
+    color: #e11d48;
+    font-weight: bold;
+}
+
+/* Main Content */
+.main-content {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 4rem 2rem;
+    background-color: #f9fafb;
+}
+
+.page-title {
+    font-size: 2rem;
+    font-weight: bold;
+    margin-bottom: 2rem;
+    align-self: flex-start;
+    text-align: center;
+    width: 100%;
+}
+
+/* Profile Card */
+.profile-card {
+    background-color: white;
+    border-radius: 1rem;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.05);
+    padding: 2rem 3rem;
+    max-width: 500px;
+    width: 100%;
+}
+
+/* Info Items */
+.info-list {
+    list-style: none;
+    padding: 0;
+    margin: 0 0 2rem 0;
+}
+
+.info-item {
+    display: flex;
+    justify-content: space-between;
+    padding: 1rem 0;
+    border-bottom: 1px solid #eee;
+}
+
+.info-label {
+    font-weight: 500;
+    color: #777;
+}
+
+.info-value {
+    font-weight: 600;
+}
+
+/* Form */
+.form-group {
+    display: flex;
+    flex-direction: column;
+    margin-bottom: 1.5rem;
+}
+
+.form-group label {
+    font-weight: 500;
+    color: #555;
+    margin-bottom: 0.5rem;
+}
+
+.form-group input[type="text"],
+.form-group input[type="email"] {
+    padding: 0.75rem;
+    border: 1px solid #ccc;
+    border-radius: 8px;
+    font-size: 1rem;
+}
+
+.checkbox-group label {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    font-weight: 500;
+}
+
+/* Submit Button */
+.edit-btn-wrapper {
+    text-align: right;
+    margin-top: 2rem;
+}
+
+.edit-btn {
+    background-color: #f472b6;
+    color: white;
+    border: none;
+    padding: 0.75rem 1.5rem;
+    border-radius: 8px;
+    cursor: pointer;
+    font-weight: 500;
+    box-shadow: 0 2px 6px rgba(0,0,0,0.1);
+    transition: background 0.2s;
+}
+
+.edit-btn:hover {
+    background-color: #ec4899;
+}
+
+/* Readonly Fields (이름, 나이, 성별 등) */
+.readonly input {
+    background-color: #f1f5f9;
+    border: 1px solid #ddd;
+    color: #777;
+    cursor: not-allowed;
+}
+
+.error-text {
+    color: #e11d48;
+    font-size: 0.875rem;
+    margin-top: 0.25rem;
+}
