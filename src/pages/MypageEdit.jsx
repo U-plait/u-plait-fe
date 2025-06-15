@@ -8,6 +8,9 @@ const MypageEdit = () => {
     const [phoneNumber, setPhoneNumber] = useState("");
     const [email, setEmail] = useState("");
     const [adAgree, setAdAgree] = useState(false);
+    const [errors, setErrors] = useState({});
+    const [dupChecked, setDupChecked] = useState({ phone: false, email: false });
+
     const navigate = useNavigate();
 
     useEffect(() => {
@@ -20,26 +23,8 @@ const MypageEdit = () => {
                 setEmail(data.email || "");
                 setAdAgree(data.adAgree || false);
             })
-            .catch((err) => console.error("정보 불러오기 실패:", err));
+            .catch((err) => console.error("개인정보 불러오기 실패:", err));
     }, []);
-
-    const handleSubmit = (e) => {
-        e.preventDefault();
-        api
-            .put(
-                "/user/detail/update",
-                { phoneNumber, email, adAgree },
-                { withCredentials: true }
-            )
-            .then(() => {
-                alert("개인정보가 수정되었습니다.");
-                navigate("/mypage");
-            })
-            .catch((err) => {
-                console.error("수정 실패:", err);
-                alert("수정에 실패했습니다.");
-            });
-    };
 
     const formatGender = (gender) => {
         if (gender === "MALE") return "남성";
@@ -47,17 +32,85 @@ const MypageEdit = () => {
         return "기타";
     };
 
+    const validatePhone = (number) =>
+        /^010-\d{4}-\d{4}$/.test(number);
+
+    const validateEmail = (email) =>
+        /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email);
+
+    const checkPhoneDuplicate = () => {
+        if (!validatePhone(phoneNumber)) {
+            setErrors(prev => ({ ...prev, phone: "전화번호 형식이 올바르지 않습니다." }));
+            return;
+        }
+        api
+            .get(`/user/duplicate/phone?value=${phoneNumber}`)
+            .then((res) => {
+                if (res.data.data.duplicated) {
+                    setErrors(prev => ({ ...prev, phone: "이미 사용 중인 번호입니다." }));
+                    setDupChecked(prev => ({ ...prev, phone: false }));
+                } else {
+                    setErrors(prev => ({ ...prev, phone: "" }));
+                    setDupChecked(prev => ({ ...prev, phone: true }));
+                    alert("사용 가능한 전화번호입니다.");
+                }
+            })
+            .catch(() => alert("전화번호 중복 확인 실패"));
+    };
+
+    const checkEmailDuplicate = () => {
+        if (!validateEmail(email)) {
+            setErrors(prev => ({ ...prev, email: "이메일 형식이 올바르지 않습니다." }));
+            return;
+        }
+        api
+            .get(`/user/duplicate/email?value=${email}`)
+            .then((res) => {
+                if (res.data.data.duplicated) {
+                    setErrors(prev => ({ ...prev, email: "이미 사용 중인 이메일입니다." }));
+                    setDupChecked(prev => ({ ...prev, email: false }));
+                } else {
+                    setErrors(prev => ({ ...prev, email: "" }));
+                    setDupChecked(prev => ({ ...prev, email: true }));
+                    alert("사용 가능한 이메일입니다.");
+                }
+            })
+            .catch(() => alert("이메일 중복 확인 실패"));
+    };
+
+    const handleSubmit = () => {
+        const newErrors = {};
+        if (!validatePhone(phoneNumber)) newErrors.phone = "전화번호 형식이 올바르지 않습니다.";
+        if (!validateEmail(email)) newErrors.email = "이메일 형식이 올바르지 않습니다.";
+        if (!dupChecked.phone) newErrors.phone = "전화번호 중복 확인이 필요합니다.";
+        if (!dupChecked.email) newErrors.email = "이메일 중복 확인이 필요합니다.";
+
+        setErrors(newErrors);
+
+        if (Object.keys(newErrors).length === 0) {
+            api
+                .put("/user/detail/update", {
+                    phoneNumber,
+                    email,
+                    adAgree
+                }, { withCredentials: true })
+                .then(() => {
+                    alert("개인정보가 성공적으로 수정되었습니다.");
+                    navigate("/mypage");
+                })
+                .catch(() => {
+                    alert("수정에 실패했습니다.");
+                });
+        }
+    };
+
     return (
         <div className="mypage-edit-container">
-            {/* Sidebar */}
+            {/* Sidebar - Mypage와 동일하게 하드코딩 */}
             <aside className="sidebar">
                 <div className="side-menu">User Menu</div>
                 <nav className="menu">
-                    <button className="menu-item active"
-                            onClick={() => navigate('/mypage')}
-                    >
-                        👤 User profile
-                    </button>
+                    <button className="menu-item active">👤 User profile</button>
                     <button
                         className="menu-item"
                         onClick={() => navigate('/myreviews')}
@@ -69,68 +122,76 @@ const MypageEdit = () => {
 
             <main className="main-content">
                 <h1 className="page-title">개인정보 수정</h1>
+
                 {userInfo ? (
                     <section className="profile-card">
-                        <form onSubmit={handleSubmit}>
-                            {/* 이름 (readonly) */}
-                            <div className="form-group readonly">
-                                <label>이름</label>
-                                <input type="text" value={userInfo.name} readOnly />
-                            </div>
+                        <div className="form-group readonly">
+                            <label>이름</label>
+                            <input type="text" value={userInfo.name} readOnly />
+                        </div>
 
-                            {/* 핸드폰 번호 */}
-                            <div className="form-group">
-                                <label htmlFor="phone">핸드폰 번호</label>
+                        <div className="form-group">
+                            <label>핸드폰 번호</label>
+                            <div style={{ display: "flex", gap: "0.5rem" }}>
                                 <input
                                     type="text"
-                                    id="phone"
                                     value={phoneNumber}
-                                    onChange={(e) => setPhoneNumber(e.target.value)}
+                                    onChange={(e) => {
+                                        setPhoneNumber(e.target.value);
+                                        setDupChecked(prev => ({ ...prev, phone: false }));
+                                    }}
                                 />
-                            </div>
-
-                            {/* 이메일 */}
-                            <div className="form-group">
-                                <label htmlFor="email">이메일</label>
-                                <input
-                                    type="email"
-                                    id="email"
-                                    value={email}
-                                    onChange={(e) => setEmail(e.target.value)}
-                                />
-                            </div>
-
-                            {/* 나이 (readonly) */}
-                            <div className="form-group readonly">
-                                <label>나이</label>
-                                <input type="text" value={`${userInfo.age}세`} readOnly />
-                            </div>
-
-                            {/* 성별 (readonly) */}
-                            <div className="form-group readonly">
-                                <label>성별</label>
-                                <input type="text" value={formatGender(userInfo.gender)} readOnly />
-                            </div>
-
-                            {/* 광고 수신 동의 */}
-                            <div className="form-group checkbox-group">
-                                <label>
-                                    <input
-                                        type="checkbox"
-                                        checked={adAgree}
-                                        onChange={(e) => setAdAgree(e.target.checked)}
-                                    />
-                                    광고 수신에 동의합니다
-                                </label>
-                            </div>
-
-                            {/* 저장 버튼 */}
-                            <div className="edit-btn-wrapper">
-                                <button type="submit" className="edit-btn">
-                                    저장하기
+                                <button className="edit-btn" onClick={checkPhoneDuplicate}>
+                                    중복 확인
                                 </button>
                             </div>
-                        </form>
+                            {errors.phone && <p className="error-text">{errors.phone}</p>}
+                        </div>
+
+                        <div className="form-group">
+                            <label>이메일</label>
+                            <div style={{ display: "flex", gap: "0.5rem" }}>
+                                <input
+                                    type="email"
+                                    value={email}
+                                    onChange={(e) => {
+                                        setEmail(e.target.value);
+                                        setDupChecked(prev => ({ ...prev, email: false }));
+                                    }}
+                                />
+                                <button className="edit-btn" onClick={checkEmailDuplicate}>
+                                    중복 확인
+                                </button>
+                            </div>
+                            {errors.email && <p className="error-text">{errors.email}</p>}
+                        </div>
+
+                        <div className="form-group readonly">
+                            <label>나이</label>
+                            <input type="text" value={`${userInfo.age}세`} readOnly />
+                        </div>
+
+                        <div className="form-group readonly">
+                            <label>성별</label>
+                            <input type="text" value={formatGender(userInfo.gender)} readOnly />
+                        </div>
+
+                        <div className="form-group checkbox-group">
+                            <label>
+                                <input
+                                    type="checkbox"
+                                    checked={adAgree}
+                                    onChange={(e) => setAdAgree(e.target.checked)}
+                                />
+                                광고 수신에 동의합니다.
+                            </label>
+                        </div>
+
+                        <div className="edit-btn-wrapper">
+                            <button className="edit-btn" onClick={handleSubmit}>
+                                저장하기
+                            </button>
+                        </div>
                     </section>
                 ) : (
                     <p>불러오는 중...</p>

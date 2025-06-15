@@ -165,3 +165,9 @@
     color: #777;
     cursor: not-allowed;
 }
+
+.error-text {
+    color: #e11d48;
+    font-size: 0.875rem;
+    margin-top: 0.25rem;
+}
