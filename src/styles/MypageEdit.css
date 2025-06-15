@@ -1,11 +1,13 @@
 .mypage-edit-container {
     display: flex;
+    flex-direction: row; /* 중요: sidebar + main-content 좌우 배치 */
     min-height: 100vh;
     background-color: #f9fafb;
     font-family: 'Segoe UI', sans-serif;
     color: #333;
 }
 
+/* Sidebar */
 .sidebar {
     width: 250px;
     background-color: #fff;
@@ -13,6 +15,16 @@
     padding: 2rem;
     display: flex;
     flex-direction: column;
+}
+
+.side-menu {
+    font-size: 1.25rem;
+    font-weight: 700;
+    color: #111827;
+    margin-bottom: 1rem;
+    padding-left: 1rem;
+    text-transform: uppercase;
+    letter-spacing: 0.05rem;
 }
 
 .menu {
@@ -38,16 +50,13 @@
     color: #f43f5e;
 }
 
-.side-menu {
-    font-size: 1.25rem;
-    font-weight: 700;
-    color: #111827;
-    margin-bottom: 1rem;
-    padding-left: 1rem;
-    text-transform: uppercase;
-    letter-spacing: 0.05rem;
+.menu-item.active {
+    background-color: #ffe4e6;
+    color: #e11d48;
+    font-weight: bold;
 }
 
+/* Main Content */
 .main-content {
     flex: 1;
     display: flex;
@@ -66,6 +75,7 @@
     width: 100%;
 }
 
+/* Profile Card */
 .profile-card {
     background-color: white;
     border-radius: 1rem;
@@ -75,6 +85,30 @@
     width: 100%;
 }
 
+/* Info Items */
+.info-list {
+    list-style: none;
+    padding: 0;
+    margin: 0 0 2rem 0;
+}
+
+.info-item {
+    display: flex;
+    justify-content: space-between;
+    padding: 1rem 0;
+    border-bottom: 1px solid #eee;
+}
+
+.info-label {
+    font-weight: 500;
+    color: #777;
+}
+
+.info-value {
+    font-weight: 600;
+}
+
+/* Form */
 .form-group {
     display: flex;
     flex-direction: column;
@@ -102,6 +136,7 @@
     font-weight: 500;
 }
 
+/* Submit Button */
 .edit-btn-wrapper {
     text-align: right;
     margin-top: 2rem;
@@ -123,6 +158,7 @@
     background-color: #ec4899;
 }
 
+/* Readonly Fields (이름, 나이, 성별 등) */
 .readonly input {
     background-color: #f1f5f9;
     border: 1px solid #ddd;
