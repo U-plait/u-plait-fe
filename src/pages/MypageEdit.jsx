@@ -110,7 +110,11 @@ const MypageEdit = () => {
             <aside className="sidebar">
                 <div className="side-menu">User Menu</div>
                 <nav className="menu">
-                    <button className="menu-item active">👤 User profile</button>
+                    <button className="menu-item active"
+                            onClick={() => navigate('/mypage')}
+                    >
+                        👤 User profile
+                    </button>
                     <button
                         className="menu-item"
                         onClick={() => navigate('/myreviews')}
@@ -132,7 +136,7 @@ const MypageEdit = () => {
 
                         <div className="form-group">
                             <label>핸드폰 번호</label>
-                            <div style={{ display: "flex", gap: "0.5rem" }}>
+                            <div className="input-with-button">
                                 <input
                                     type="text"
                                     value={phoneNumber}
@@ -150,7 +154,7 @@ const MypageEdit = () => {
 
                         <div className="form-group">
                             <label>이메일</label>
-                            <div style={{ display: "flex", gap: "0.5rem" }}>
+                            <div className="input-with-button">
                                 <input
                                     type="email"
                                     value={email}
