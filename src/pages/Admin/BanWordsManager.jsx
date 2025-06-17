@@ -22,7 +22,7 @@ const BanWordsManager = () => {
 
     useEffect(() => {
         loadBanWords();
-    }, [currentPage]);
+    }, [loadBanWords]);
 
     const loadBanWords = useCallback(async () => {
         try {
