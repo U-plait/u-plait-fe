@@ -7,6 +7,7 @@ import {
     deleteBanWordsBulk
 } from "../../api/banword";
 import "../../styles/BanWordsManager.css";
+import { useCallback } from "react";
 
 const BanWordsManager = () => {
     const [banWords, setBanWords] = useState([]);
@@ -23,7 +24,7 @@ const BanWordsManager = () => {
         loadBanWords();
     }, [currentPage]);
 
-    const loadBanWords = async () => {
+    const loadBanWords = useCallback(async () => {
         try {
             const res = await fetchBanWords({
                 page: currentPage - 1,
@@ -36,7 +37,7 @@ const BanWordsManager = () => {
             console.error("금칙어 로딩 실패:", error);
             alert(error.response?.data?.message || "금칙어 목록을 불러오는데 실패했습니다.");
         }
-    };
+    }, [currentPage, searchTerm]);;
 
     const handleCheck = (id) => {
         setSelectedIds((prev) =>
