@@ -7,6 +7,7 @@ import {
     deleteBanWordsBulk
 } from "../../api/banword";
 import "../../styles/BanWordsManager.css";
+import { useCallback } from 'react';
 
 const BanWordsManager = () => {
     const [banWords, setBanWords] = useState([]);
@@ -19,24 +20,24 @@ const BanWordsManager = () => {
 
     const MAX_PAGINATION_BUTTONS = 10;
 
-    const loadBanWords = async () => {
+    const loadBanWords = useCallback(async () => {
         try {
-        const res = await fetchBanWords({
+            const res = await fetchBanWords({
             page: currentPage - 1,
             keyword: searchTerm,
-        });
-        const pageData = res.data.data;
-        setBanWords(pageData.content);
-        setPageCount(pageData.totalPages);
+            });
+            const pageData = res.data.data;
+            setBanWords(pageData.content);
+            setPageCount(pageData.totalPages);
         } catch (error) {
-        console.error("금칙어 로딩 실패:", error);
-        alert(error.response?.data?.message || "금칙어 목록을 불러오는데 실패했습니다.");
+            console.error("금칙어 로딩 실패:", error);
+            alert(error.response?.data?.message || "금칙어 목록을 불러오는데 실패했습니다.");
         }
-    };
+    }, [currentPage, searchTerm]);
 
     useEffect(() => {
         loadBanWords();
-    }, [currentPage]);
+    }, [loadBanWords]);
 
     const handleCheck = (id) => {
         setSelectedIds((prev) =>
