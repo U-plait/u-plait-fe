@@ -1,0 +1,296 @@
+.myreviews-container {
+    display: flex;
+    min-height: 100vh;
+    background-color: #f9fafb;
+    font-family: 'Segoe UI', sans-serif;
+    color: #333;
+}
+
+/* Sidebar */
+.sidebar {
+    width: 250px;
+    background-color: #fff;
+    border-right: 1px solid #eee;
+    padding: 2rem;
+    display: flex;
+    flex-direction: column;
+}
+
+.menu {
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+}
+
+.menu-item {
+    background: none;
+    border: none;
+    padding: 0.75rem 1rem;
+    text-align: left;
+    border-radius: 8px;
+    cursor: pointer;
+    font-size: 0.95rem;
+    transition: background 0.2s;
+    color: #555;
+}
+
+.menu-item:hover {
+    background-color: #fef2f2;
+    color: #f43f5e;
+}
+
+.menu-item.active {
+    background-color: #ffe4e6;
+    color: #e11d48;
+    font-weight: bold;
+}
+
+.side-menu {
+    font-size: 1.25rem;
+    font-weight: 700;
+    color: #111827;
+    margin-bottom: 1rem;
+    padding-left: 1rem;
+    text-transform: uppercase;
+    letter-spacing: 0.05rem;
+}
+
+/* Main Content */
+.main-content {
+    flex: 1;
+    padding: 4rem 1rem;
+    background-color: #f9fafb;
+}
+
+.page-title {
+    font-size: 2rem;
+    font-weight: bold;
+    margin-bottom: 2rem;
+    text-align: left;
+}
+
+.no-reviews {
+    font-size: 1rem;
+    color: #aaa;
+}
+
+/* Table 스타일 */
+.reviews-table {
+    width: 100%;
+    max-width: none;
+    border-collapse: collapse;
+    background-color: #fff;
+    border: 1px solid #e5e7eb;
+    border-radius: 12px;
+    overflow: hidden;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.05);
+}
+
+.reviews-table th,
+.reviews-table td {
+    padding: 1rem;
+    text-align: left;
+    border-bottom: 1px solid #f3f4f6;
+    font-size: 0.95rem;
+}
+
+.reviews-table th {
+    background-color: #f9fafb;
+    font-weight: 600;
+    color: #374151;
+}
+
+.pagination {
+    margin-top: 1.5rem;
+    display: flex;
+    justify-content: center;
+    gap: 0.5rem;
+}
+
+.page-btn {
+    background-color: #f3f4f6;
+    border: none;
+    padding: 0.5rem 1rem;
+    border-radius: 6px;
+    cursor: pointer;
+    color: #374151;
+    font-size: 0.9rem;
+}
+
+.page-btn.active {
+    background-color: #3b82f6;
+    color: white;
+    font-weight: bold;
+}
+
+.page-btn:hover {
+    background-color: #e5e7eb;
+}
+
+.clickable-plan-name {
+    color: #1a73e8;
+    cursor: pointer;
+    text-decoration: underline;
+}
+
+.clickable-plan-name:hover {
+    color: #1558b0;
+}
+
+/* 내용 셀 클릭 가능하도록 스타일 추가 */
+.review-content-cell {
+    cursor: pointer;
+    text-decoration: underline;
+    color: #2563eb;
+}
+
+/* 내용 말줄임 */
+.review-content-cell {
+    max-width: 250px;
+    overflow: hidden;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+    color: #374151;
+}
+
+.review-content-cell:hover {
+    color: #1d4ed8;
+}
+
+/* 별점 */
+.review-rating-cell {
+    color: #fbbf24;
+}
+
+/* 버튼 */
+.review-btn {
+    background-color: #f87171;
+    color: white;
+    border: none;
+    padding: 0.4rem 0.75rem;
+    border-radius: 6px;
+    cursor: pointer;
+    font-size: 0.85rem;
+}
+
+.review-btn:hover {
+    background-color: #ef4444;
+}
+
+/* 모달 */
+.modal-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.5);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 999;
+}
+
+.modal {
+    background-color: #fff;
+    padding: 2rem;
+    border-radius: 12px;
+    max-width: 500px;
+    width: 90%;
+    box-shadow: 0 10px 25px rgba(0, 0, 0, 0.1);
+}
+
+.modal h2 {
+    font-size: 1.5rem;
+    margin-bottom: 1rem;
+}
+
+.modal p {
+    font-size: 1rem;
+    color: #333;
+    white-space: pre-wrap;
+}
+
+.modal-close-btn {
+    margin-top: 1.5rem;
+    background-color: #e5e7eb;
+    border: none;
+    padding: 0.5rem 1rem;
+    border-radius: 6px;
+    cursor: pointer;
+    font-weight: 500;
+}
+
+.modal-close-btn:hover {
+    background-color: #d1d5db;
+}
+
+/* 오류 메시지 스타일 */
+.error-message {
+    color: #ef4444;
+    margin-bottom: 1rem;
+    font-weight: 600;
+}
+
+/* 수정 모드에서 입력 필드 */
+.modal-input,
+.modal-textarea {
+    width: 100%;
+    padding: 0.5rem;
+    margin-bottom: 1rem;
+    font-size: 1rem;
+    border: 1px solid #d1d5db;
+    border-radius: 6px;
+    background-color: #f9fafb;
+    color: #111827;
+    box-sizing: border-box;
+}
+
+.modal-textarea {
+    height: 120px;
+    resize: vertical;
+}
+
+/* 모달 버튼 그룹 */
+.modal-buttons {
+    display: flex;
+    justify-content: flex-end;
+    gap: 1rem;
+}
+
+.modal-save-btn {
+    margin-top: 1.5rem;
+    background-color: #3b82f6; /* 파란색 (#3b82f6는 Tailwind 파란색 중간톤) */
+    color: white;
+    border: none;
+    padding: 0.5rem 1rem;       /* 취소 버튼과 동일하게 맞춤 */
+    border-radius: 6px;         /* 취소 버튼과 동일 */
+    cursor: pointer;
+    font-weight: 500;           /* 취소 버튼과 동일 */
+    transition: background-color 0.2s;
+}
+
+.modal-save-btn:hover {
+    background-color: #2563eb;  /* 더 진한 파란색 */
+}
+
+.rating-input {
+    font-size: 1.5rem;
+    color: #d1d5db; /* 연한 회색 별 */
+    cursor: pointer;
+    user-select: none;
+    margin-bottom: 1rem;
+}
+
+.rating-input .star {
+    margin-right: 0.25rem;
+}
+
+.rating-input .star.filled {
+    color: #fbbf24; /* 노란 별 */
+}
+
+.rating-input .star:hover,
+.rating-input .star:hover ~ .star {
+    color: #fbbf24;
+}

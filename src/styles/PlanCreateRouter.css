@@ -1,0 +1,83 @@
+/* src/styles/PlanCreateRouter.css */
+
+.plan-create-content {
+    flex: 1; /* AdminSidebar가 fixed일 경우 이 부분이 중요 */
+    margin-left: 200px; /* AdminSidebar 너비만큼 마진 설정 */
+    padding: 32px;
+    background-color: #f4f6f8; /* 배경색 */
+    min-height: 100vh; /* 최소 높이 */
+    box-sizing: border-box; /* 패딩이 너비에 포함되도록 */
+}
+
+.plan-create-content h1 {
+    font-size: 28px;
+    color: #333;
+    margin-bottom: 40px;
+}
+
+.plan-form-section {
+    background-color: #ffffff;
+    border-radius: 8px;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
+    padding: 30px;
+    margin-bottom: 30px;
+    max-width: 600px; /* 폼의 최대 너비 */
+    margin-left: auto; /* 중앙 정렬 */
+    margin-right: auto; /* 중앙 정렬 */
+}
+
+.plan-form-section h2 {
+    font-size: 22px;
+    color: #444;
+    margin-bottom: 25px;
+    border-bottom: 1px solid #eee;
+    padding-bottom: 15px;
+}
+
+.plan-form-section form label {
+    display: block;
+    font-weight: 600;
+    margin-bottom: 8px;
+    color: #555;
+}
+
+.plan-form-section form input[type="text"],
+.plan-form-section form input[type="number"] {
+    width: 100%;
+    padding: 12px;
+    margin-bottom: 20px;
+    border: 1px solid #ddd;
+    border-radius: 6px;
+    font-size: 16px;
+    box-sizing: border-box; /* 패딩이 너비에 포함되도록 */
+}
+
+.plan-form-section form input[type="text"]:focus,
+.plan-form-section form input[type="number"]:focus {
+    outline: none;
+    border-color: #007bff;
+    box-shadow: 0 0 0 3px rgba(0, 123, 255, 0.15);
+}
+
+.plan-form-section form button[type="submit"] {
+    background-color: #007bff;
+    color: white;
+    padding: 12px 25px;
+    border: none;
+    border-radius: 6px;
+    cursor: pointer;
+    font-size: 16px;
+    font-weight: 600;
+    transition: background-color 0.2s ease;
+}
+
+.plan-form-section form button[type="submit"]:hover {
+    background-color: #0056b3;
+}
+
+.no-type-message {
+    text-align: center;
+    font-size: 18px;
+    color: #888;
+    margin-top: 50px;
+}

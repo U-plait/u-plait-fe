@@ -1,0 +1,112 @@
+/* src/styles/AdminPlanDetail.css (새로운 디자인) */
+
+/* 뒷배경 블러 효과 추가 */
+.modal-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-color: rgba(0, 0, 0, 0.4);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 1000;
+    backdrop-filter: blur(5px);
+  }
+  
+  /* 모달창 디자인 변경 */
+  .modal-content {
+    background: #ffffff;
+    padding: 0; /* 내부 섹션별로 패딩을 제어하기 위해 0으로 변경 */
+    border-radius: 16px; /* 부드러운 곡선 */
+    width: 90%;
+    max-width: 550px;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+    max-height: 90vh;
+    overflow: hidden; /* 헤더/바디 분리를 위해 overflow hidden 처리 */
+    display: flex;
+    flex-direction: column;
+  }
+  
+  /* 헤더 디자인 변경 */
+  .modal-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 20px 25px;
+    border-bottom: 1px solid #e9ecef; /* 얇은 경계선 */
+  }
+  
+  .modal-header h2 {
+    margin: 0;
+    font-size: 1.4rem;
+    font-weight: 600;
+    color: #212529;
+  }
+  
+  .close-button {
+    background: transparent;
+    border: none;
+    font-size: 1.8rem;
+    line-height: 1;
+    font-weight: 300;
+    cursor: pointer;
+    color: #adb5bd;
+    transition: all 0.2s ease-in-out;
+  }
+  
+  .close-button:hover {
+    color: #e91e63; /* 핑크색 포인트 컬러 */
+    transform: rotate(90deg);
+  }
+  
+  /* 본문 디자인 변경 */
+  .modal-body {
+    padding: 25px;
+    overflow-y: auto; /* 내용이 길어지면 본문만 스크롤 */
+    flex-grow: 1;
+  }
+  
+  .loading-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 200px;
+    font-size: 1.2rem;
+    color: #868e96;
+  }
+  
+  /* 상세 정보 그리드 디자인 변경 */
+  .detail-grid {
+    display: grid;
+    grid-template-columns: 130px 1fr; /* 라벨 너비 조정 */
+    gap: 16px 20px; /* 행/열 간격 조정 */
+  }
+  
+  .detail-item {
+    display: contents;
+  }
+  
+  /* 라벨 스타일 변경 */
+  .detail-item-label {
+    font-weight: 600;
+    color: #495057;
+    text-align: left;
+    padding: 8px 0;
+    display: flex;
+    align-items: center;
+  }
+  
+  /* 값 스타일 변경 */
+  .detail-item-value {
+    font-weight: 500;
+    color: #212529;
+    padding: 8px 12px;
+    display: flex;
+    align-items: center;
+    background-color: #f8f9fa; /* 값 영역에 부드러운 배경색 추가 */
+    border: 1px solid #e9ecef;
+    border-radius: 8px; /* 값 영역에 둥근 모서리 */
+    min-height: 40px;
+  }

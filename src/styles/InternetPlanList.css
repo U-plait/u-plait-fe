@@ -1,0 +1,104 @@
+.plan-container {
+    max-width: 960px;
+    margin: 0 auto;
+    padding: 2rem 1rem;
+}
+
+.plan-title {
+    font-size: 1.75rem;
+    font-weight: bold;
+    margin-bottom: 1.5rem;
+    color: #333;
+}
+
+.plan-list {
+    display: flex;
+    flex-direction: column;
+    gap: 1.5rem;
+}
+
+.plan-card {
+    position: relative;
+    display: flex;
+    justify-content: space-between;
+    background-color: #fff;
+    padding: 1.5rem;
+    border-radius: 1rem;
+    box-shadow: 0 0 12px rgba(0, 0, 0, 0.05);
+}
+
+.plan-info {
+    max-width: 65%;
+}
+
+.plan-name {
+    font-size: 1.25rem;
+    font-weight: 600;
+    margin-bottom: 0.5rem;
+}
+
+.plan-benefits {
+    list-style: none;
+    padding-left: 0;
+    color: #666;
+    font-size: 0.95rem;
+    line-height: 1.4;
+}
+
+.plan-price-box {
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-end;
+    align-items: flex-end;
+    min-width: 120px;
+    margin-left: 1rem;
+}
+
+.plan-price {
+    font-size: 1.2rem;
+    font-weight: bold;
+    color: #d60087;
+    margin-bottom: 0.5rem;
+}
+
+.plan-detail-button {
+    padding: 0.4rem 0.8rem;
+    font-size: 0.9rem;
+    background-color: #d60087;
+    color: white;
+    border: none;
+    border-radius: 0.375rem;
+    cursor: pointer;
+}
+
+.plan-detail-button:hover {
+    background-color: #bd006f;
+}
+
+.plan-loading,
+.plan-end-message {
+    text-align: center;
+    margin-top: 1rem;
+    color: #777;
+    font-size: 0.95rem;
+}
+
+.favorite-button {
+    position: absolute;
+    top: 1rem;
+    right: 1rem;
+    font-size: 1.5rem;
+    color: #ccc;
+    background: none;
+    border: none;
+    cursor: pointer;
+    transition: color 0.3s ease;
+}
+
+.favorite-button:hover {
+    color: #D63484;
+}
+
+.favorite-button.active {
+    color: #D63484;
+}
