@@ -118,3 +118,26 @@
   padding: 12px;
   box-shadow: 0 1px 4px rgba(0, 0, 0, 0.1);
 }
+.plan-slide-wrapper {
+  display: flex;
+  justify-content: center;
+  align-items: left;
+  gap: 12px;
+  padding: 12px;
+  /* background-color: #f8fafc; */
+  /* border-top: 1px solid #e5e7eb; */
+  /* box-shadow: 0 -1px 4px rgba(0, 0, 0, 0.05); */
+}
+
+.arrow-button {
+  background: none;
+  border: none;
+  font-size: 24px;
+  cursor: pointer;
+  color: #6b7280;
+  transition: color 0.2s ease;
+}
+
+.arrow-button:hover {
+  color: #d63484;
+}
