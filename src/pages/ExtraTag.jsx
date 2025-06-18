@@ -5,7 +5,6 @@ import "../styles/ExtraTag.css";
 const ExtraTag = () => {
     const [availableTags, setAvailableTags] = useState([]);
     const [selectedTags, setSelectedTags] = useState([]);
-    const [currentStep, setCurrentStep] = useState("selection");
     const [loading, setLoading] = useState(true);
     const [error, setError] = useState(null);
 
@@ -13,14 +12,12 @@ const ExtraTag = () => {
         const fetchTags = async () => {
             try {
                 setLoading(true);
-
                 const response = await api.get("/admin/plan/Info");
                 const tagList = response.data?.data?.tagList ?? [];
 
                 const transformedTags = tagList.map((tag) => ({
                     id: String(tag.tagId),
                     label: tag.tagName,
-                    category: "", // 현재 카테고리 정보 없음
                 }));
 
                 setAvailableTags(transformedTags);
@@ -37,28 +34,29 @@ const ExtraTag = () => {
 
     const toggleTag = (tagId) => {
         const stringId = String(tagId);
-        setSelectedTags((prev) =>
-            prev.includes(stringId)
-                ? prev.filter((id) => id !== stringId)
-                : [...prev, stringId]
-        );
+        setSelectedTags((prev) => {
+            if (prev.includes(stringId)) {
+                return prev.filter((id) => id !== stringId);
+            } else {
+                if (prev.length >= 4) {
+                    alert("태그는 최대 4개까지 선택할 수 있습니다.");
+                    return prev;
+                }
+                return [...prev, stringId];
+            }
+        });
     };
 
     const handleSave = async () => {
-        console.log("선택된 태그들:", selectedTags);
-
         try {
-            await new Promise((resolve) => setTimeout(resolve, 500));
-            setCurrentStep("next");
+            const tagIds = selectedTags.map((id) => Number(id));
+            await api.post("/user/extra-tag", { tagIds });
+            alert("저장되었습니다.");
+            window.location.href = "/";
         } catch (err) {
             console.error("저장 에러:", err);
             alert("저장에 실패했습니다.");
         }
-    };
-
-    const handleReset = () => {
-        setSelectedTags([]);
-        setCurrentStep("selection");
     };
 
     if (loading) {
@@ -91,44 +89,16 @@ const ExtraTag = () => {
         );
     }
 
-    if (currentStep === "next") {
-        return (
-            <div className="center-container">
-                <div className="card success-card">
-                    <div className="card-header">
-                        <h1 className="card-title success-title">저장 완료!</h1>
-                    </div>
-                    <div className="card-content">
-                        <div className="success-content">
-                            <div>
-                                <p className="selected-tags-label">선택된 태그:</p>
-                                <div className="selected-tags-container">
-                                    {selectedTags.map((tagId) => {
-                                        const tag = availableTags.find((t) => t.id === tagId);
-                                        return (
-                                            <span key={tagId} className="selected-tag">
-                        {tag?.label}
-                      </span>
-                                        );
-                                    })}
-                                </div>
-                            </div>
-                            <button className="button button-full" onClick={handleReset}>
-                                다시 선택하기
-                            </button>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        );
-    }
-
     return (
         <div className="main-container">
             <div className="content-wrapper">
                 <div className="card">
                     <div className="card-header">
-                        <h1 className="card-title">회원가입을 축하드립니다!<br/>이제 마지막 단계입니다.<br/>관심있는 분야를 선택해주세요.</h1>
+                        <h1 className="card-title">
+                            회원가입을 축하드립니다!<br />
+                            이제 마지막 단계입니다.<br />
+                            관심있는 분야를 선택해주세요.
+                        </h1>
                     </div>
                     <div className="card-content">
                         <div className="card-content-spacing">
@@ -150,6 +120,16 @@ const ExtraTag = () => {
                             </div>
 
                             <div className="button-container">
+                                <p
+                                    style={{
+                                        textAlign: "right",
+                                        color: "#6b7280",
+                                        fontSize: "14px",
+                                        marginBottom: "8px",
+                                    }}
+                                >
+                                    선택된 태그: {selectedTags.length} / 4
+                                </p>
                                 <button className="button" onClick={handleSave} disabled={selectedTags.length === 0}>
                                     저장
                                 </button>

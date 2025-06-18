@@ -72,7 +72,7 @@
 
 .card-title {
   font-size: 1.125rem;
-  font-weight: 700; /* 폰트 두께 더 굵게 */
+  font-weight: 700;
   margin: 0;
 }
 
@@ -84,43 +84,6 @@
   display: flex;
   flex-direction: column;
   gap: 1.5rem;
-}
-
-/* 완료 화면 스타일 */
-.success-card {
-  width: 100%;
-  max-width: 28rem;
-}
-
-.success-title {
-  text-align: center;
-  color: #16a34a;
-}
-
-.success-content {
-  display: flex;
-  flex-direction: column;
-  gap: 1rem;
-}
-
-.selected-tags-label {
-  font-size: 0.875rem;
-  color: #4b5563;
-  margin-bottom: 0.5rem;
-}
-
-.selected-tags-container {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 0.5rem;
-}
-
-.selected-tag {
-  padding: 0.25rem 0.75rem;
-  background-color: #000;
-  color: white;
-  font-size: 0.875rem;
-  border-radius: 9999px;
 }
 
 /* 태그 컨테이너 */
@@ -185,10 +148,6 @@
 .button:disabled {
   opacity: 0.5;
   cursor: not-allowed;
-}
-
-.button-full {
-  width: 100%;
 }
 
 .button-retry {
