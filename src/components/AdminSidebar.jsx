@@ -6,6 +6,7 @@ const menuItems = [
     { label: "리뷰 관리", path: "/admin/reviews"},
     { label: "요금제 관리", path: "/admin/plan"},
     { label: "금칙어 관리", path: "/admin/banwords"},
+    { label: "허용어 관리", path: "/admin/allowwords" }
 ];
 
 const AdminSidebar = () => {
