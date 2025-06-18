@@ -51,7 +51,7 @@ function App() {
             <Route path="/admin/iptv/edit/:planId" element={<IPTVPlanEdit />} /> 
             <Route path="/admin/internet/edit/:planId" element={<InternetPlanEdit />} /> 
             <Route path="/admin/banwords" element={<BanWordsManager />} />
-            <Route path="/admin/reviews" element={<ReviewManager />} />
+            <Route path="/admin/review" element={<ReviewManager />} />
             <Route path="/mypage" element={<Mypage />} />
             <Route path="/mypage/edit" element={<MypageEdit />} />
             <Route path="/myreviews" element={<MyReviews />} />
