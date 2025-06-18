@@ -1,7 +1,7 @@
 .chat-container {
   display: flex;
   flex-direction: column;
-  height: 100vh;
+  height: 100%;
   background: #f8fafc;
 }
 
@@ -9,11 +9,12 @@
   flex: 1;
   padding: 16px;
   overflow-y: auto;
+  padding-bottom: 80px;
 }
 
 .chat-message {
   display: flex;
-  margin-bottom: 8px;
+  margin-bottom: 10px;
 }
 
 .chat-message.user {
@@ -53,6 +54,8 @@
   padding: 12px;
   background-color: #f1f5f9;
   border-top: 1px solid #d1d5db;
+  position: sticky;
+  bottom: 0;
 }
 
 .input-area input {
@@ -101,4 +104,17 @@
   40% {
     opacity: 1;
   }
+}
+.plans-container {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  margin-top: 8px;
+}
+
+.plan-card {
+  background-color: #f1f5f9;
+  border-radius: 12px;
+  padding: 12px;
+  box-shadow: 0 1px 4px rgba(0, 0, 0, 0.1);
 }

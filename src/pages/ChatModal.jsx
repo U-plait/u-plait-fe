@@ -14,7 +14,9 @@ const ChatModal = ({ onClose }) => {
             <span>💬 챗봇</span>
             <button onClick={onClose}>✖</button>
           </div>
-          <ChatPage />
+          <div className="chat-modal-body">
+            <ChatPage />
+          </div>
         </div>
       </Draggable>
     </div>

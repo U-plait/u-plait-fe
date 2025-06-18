@@ -6,8 +6,8 @@
 }
 
 .chat-modal-content {
-  width: 400px;
-  height: 600px;
+  width: 500px;
+  height: 700px;
   background: white;
   border-radius: 12px;
   overflow: hidden;
@@ -27,4 +27,11 @@
   display: flex;
   justify-content: space-between;
   align-items: center;
+}
+
+.chat-modal-body {
+  flex: 1;
+  overflow-y: auto;
+  display: flex;
+  flex-direction: column;
 }
