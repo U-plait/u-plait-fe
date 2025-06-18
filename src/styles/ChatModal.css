@@ -1,0 +1,37 @@
+.chat-modal-backdrop {
+  position: fixed;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.3);
+  z-index: 999;
+}
+
+.chat-modal-content {
+  width: 500px;
+  height: 700px;
+  background: white;
+  border-radius: 12px;
+  overflow: hidden;
+  position: absolute; /* 필수! */
+  top: 100px;
+  left: 100px;
+  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.25);
+  display: flex;
+  flex-direction: column;
+}
+
+.chat-modal-header {
+  background-color: #d63484;
+  color: white;
+  padding: 10px 16px;
+  cursor: move; /* 드래그 영역 표시 */
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.chat-modal-body {
+  flex: 1;
+  overflow-y: auto;
+  display: flex;
+  flex-direction: column;
+}
