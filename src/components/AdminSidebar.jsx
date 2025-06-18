@@ -3,7 +3,7 @@ import { useNavigate, useLocation } from "react-router-dom";
 import "../styles/AdminSidebar.css";
 
 const menuItems = [
-    { label: "리뷰 관리", path: "/admin/reviews"},
+    { label: "리뷰 관리", path: "/admin/review"},
     { label: "요금제 관리", path: "/admin/plan"},
     { label: "금칙어 관리", path: "/admin/banwords"},
 ];
