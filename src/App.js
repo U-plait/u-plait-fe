@@ -4,6 +4,8 @@ import "./App.css";
 // import Home from "./pages/Home";
 import Login from "./pages/Login";
 import KakaoCallback from "./pages/KakaoCallback";
+import ExtraInfo from "./pages/ExtraInfo";
+import ExtraTag from "./pages/ExtraTag";
 import PlanManager from "./pages/Admin/PlanManager";
 import MobilePlanCreate from './pages/Admin/MobilePlanCreate';
 import IPTVPlanCreate from './pages/Admin/IPTVPlanCreate'; 
@@ -19,7 +21,6 @@ import IPTVPlanList from "./pages/IPTVPlanList";
 import MobilePlanDetail from "./pages/MobilePlanDetail"
 import InternetPlanDetail from "./pages/InternetPlanDetail"
 import IPTVPlanDetail from "./pages/IPTVPlanDetail"
-import ExtraInfo from "./pages/ExtraInfo";
 import MobilePlanEdit from './pages/Admin/MobilePlanEdit'; 
 import IPTVPlanEdit from './pages/Admin/IPTVPlanEdit'; 
 import InternetPlanEdit from './pages/Admin/InternetPlanEdit'; 
@@ -43,6 +44,7 @@ function App() {
             <Route path="/login" element={<Login />} />
             <Route path="/kakaocallback" element={<KakaoCallback />} />
             <Route path="/extra-info" element={<ExtraInfo />} />
+            <Route path="/extra-tag" element={<ExtraTag />} />
             <Route path="/admin/plan" element={<PlanManager />} />
             <Route path="/admin/mobile/create" element={<MobilePlanCreate />} />
             <Route path="/admin/iptv/create" element={<IPTVPlanCreate />} />
