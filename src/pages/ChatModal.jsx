@@ -11,8 +11,10 @@ const ChatModal = ({ onClose }) => {
       <Draggable handle=".chat-modal-header" nodeRef={nodeRef}>
         <div className="chat-modal-content" ref={nodeRef}>
           <div className="chat-modal-header">
-            <span>💬 챗봇</span>
-            <button onClick={onClose}>✖</button>
+            <span className="chat-title">💬 챗봇</span>
+            <button className="chat-close-button" onClick={onClose}>
+              ✖
+            </button>
           </div>
           <div className="chat-modal-body">
             <ChatPage />

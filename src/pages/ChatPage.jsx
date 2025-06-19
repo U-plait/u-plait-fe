@@ -1,9 +1,12 @@
 import React, { useState, useRef, useEffect } from "react";
 import "../styles/chat.css";
+import { fetchWithAuth } from "../api/fetchClient";
+import { useNavigate } from "react-router-dom";
 
 const CHATBOT_URL = process.env.REACT_APP_CHATBOT_URL;
 
 const ChatPage = () => {
+  const navigate = useNavigate();
   const [messages, setMessages] = useState([]);
   const [query, setQuery] = useState("");
   const [isBotTyping, setIsBotTyping] = useState(false);
@@ -12,6 +15,12 @@ const ChatPage = () => {
 
   const scrollToBottom = () => {
     messagesEndRef.current?.scrollIntoView({ behavior: "smooth" });
+  };
+
+  const handleCardClick = (plan) => {
+    const dtype = plan.dtype?.slice(0, -4).toLowerCase();
+    const path = `/${dtype}/plan/${plan.id}`;
+    navigate(path);
   };
 
   useEffect(() => {
@@ -37,10 +46,9 @@ const ChatPage = () => {
     setQuery("");
     setIsBotTyping(true);
 
-    const response = await fetch(CHATBOT_URL + "/chat", {
+    const response = await fetchWithAuth(`${CHATBOT_URL}/chat`, {
       method: "POST",
       headers: { "Content-Type": "application/json" },
-      credentials: "include",
       body: JSON.stringify({ query }),
     });
 
@@ -115,6 +123,19 @@ const ChatPage = () => {
     setIsBotTyping(false);
   };
 
+  const getPlanEmoji = (dtype) => {
+    switch (dtype) {
+      case "MobilePlan":
+        return "📱";
+      case "InternetPlan":
+        return "🌐";
+      case "IPTVPlan":
+        return "📺";
+      default:
+        return "";
+    }
+  };
+
   return (
     <div className="chat-container">
       <div className="chat-box">
@@ -125,12 +146,20 @@ const ChatPage = () => {
                 <button className="arrow-button" onClick={handlePrev}>
                   ◀
                 </button>
-                <div className="plan-card">
-                  <div className="plan-name">
-                    {msg.plans[currentPlanIndex].plan_name.trim()}
-                  </div>
-                  <div className="plan-price">
-                    {msg.plans[currentPlanIndex].plan_price.toLocaleString()}원
+                <div
+                  className="plan-card"
+                  onClick={() => handleCardClick(msg.plans[currentPlanIndex])}
+                  style={{ cursor: "pointer" }}
+                >
+                  <div className="plan-card-header">
+                    <div className="plan-name">
+                      {getPlanEmoji(msg.plans[currentPlanIndex].dtype)}{" "}
+                      {msg.plans[currentPlanIndex].plan_name.trim()}
+                    </div>
+                    <div className="plan-price">
+                      {msg.plans[currentPlanIndex].plan_price.toLocaleString()}
+                      원
+                    </div>
                   </div>
                   <div className="plan-description">
                     {msg.plans[currentPlanIndex].description}
