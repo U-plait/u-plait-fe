@@ -7,21 +7,46 @@ const CHATBOT_URL = process.env.REACT_APP_CHATBOT_URL;
 
 const ChatPage = () => {
   // const navigate = useNavigate();
-  const [messages, setMessages] = useState([]);
+  const [messages, setMessages] = useState([{ from: "bot", text: "" }]);
   const [query, setQuery] = useState("");
+  const [isWelcomeTyping, setIsWelcomeTyping] = useState(false);
   const [isBotTyping, setIsBotTyping] = useState(false);
   const [currentPlanIndex, setCurrentPlanIndex] = useState(0);
   const messagesEndRef = useRef(null);
 
+  useEffect(() => {
+    if (messages.length > 1) return;
+
+    const welcomeMessage = " 안녕하세요 고객님, 무엇을 도와드릴까요?";
+    let index = 0;
+
+    setIsWelcomeTyping(true);
+
+    const interval = setInterval(() => {
+      setMessages((prev) =>
+        prev.map((msg, i) =>
+          i === prev.length - 1 && msg.from === "bot"
+            ? {
+                ...msg,
+                text: String(msg.text ?? "") + String(welcomeMessage[index]),
+              }
+            : msg
+        )
+      );
+      index++;
+
+      if (index === welcomeMessage.length - 1) {
+        clearInterval(interval);
+        setIsWelcomeTyping(false);
+      }
+    }, 50);
+
+    return () => clearInterval(interval);
+  }, [messages.length]);
+
   const scrollToBottom = () => {
     messagesEndRef.current?.scrollIntoView({ behavior: "smooth" });
   };
-
-  // const handleCardClick = (plan) => {
-  //   const dtype = plan.dtype?.slice(0, -4).toLowerCase();
-  //   const path = `/${dtype}/plan/${plan.id}`;
-  //   navigate(path);
-  // };
 
   const handleCardClick = (plan) => {
     const dtype = plan.dtype?.slice(0, -4).toLowerCase(); // "MobilePlan" → "mobile"
@@ -34,15 +59,21 @@ const ChatPage = () => {
   }, [messages, isBotTyping]);
 
   const handlePrev = () => {
-    setCurrentPlanIndex((prev) =>
-      prev === 0 ? messages[messages.length - 1].plans.length - 1 : prev - 1
-    );
+    const lastMessage = messages[messages.length - 1];
+    if (lastMessage.from === "plan" && lastMessage.plans?.length) {
+      setCurrentPlanIndex((prev) =>
+        prev === 0 ? lastMessage.plans.length - 1 : prev - 1
+      );
+    }
   };
 
   const handleNext = () => {
-    setCurrentPlanIndex((prev) =>
-      prev === messages[messages.length - 1].plans.length - 1 ? 0 : prev + 1
-    );
+    const lastMessage = messages[messages.length - 1];
+    if (lastMessage.from === "plan" && lastMessage.plans?.length) {
+      setCurrentPlanIndex((prev) =>
+        prev === lastMessage.plans.length - 1 ? 0 : prev + 1
+      );
+    }
   };
 
   const handleSend = async () => {
@@ -195,7 +226,7 @@ const ChatPage = () => {
           );
         })}
         <div ref={messagesEndRef} />
-        {isBotTyping && (
+        {isBotTyping && !isWelcomeTyping && (
           <div className="chat-message bot">
             <div className="message-bubble typing">
               <span className="dot" />
@@ -210,9 +241,18 @@ const ChatPage = () => {
         <input
           value={query}
           onChange={(e) => setQuery(e.target.value)}
+          onKeyDown={(e) => {
+            if (e.key === "Enter" && !e.shiftKey) {
+              e.preventDefault();
+              handleSend();
+            }
+          }}
           placeholder="메시지를 입력하세요"
+          disabled={isBotTyping}
         />
-        <button onClick={handleSend}>전송</button>
+        <button onClick={handleSend} disabled={isBotTyping}>
+          전송
+        </button>
       </div>
     </div>
   );

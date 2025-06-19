@@ -35,6 +35,7 @@
 
 .user .message-bubble {
   background-color: #d63484;
+  text-align: left;
   color: white;
   border-bottom-right-radius: 0;
 }
@@ -73,6 +74,18 @@
   border: none;
   border-radius: 0 6px 6px 0;
   cursor: pointer;
+}
+
+input {
+  border: 1px solid #ccc;
+  padding: 8px;
+  border-radius: 4px;
+}
+
+input:focus {
+  outline: none;
+  border-color: #ccc;
+  box-shadow: none;
 }
 
 .typing {
@@ -169,4 +182,14 @@
 
 .arrow-button:hover {
   color: #2c2729;
+}
+
+.input-area input:disabled {
+  background-color: #f0f0f0;
+  cursor: not-allowed;
+}
+
+.input-area button:disabled {
+  background-color: #ccc;
+  cursor: not-allowed;
 }

@@ -180,8 +180,7 @@ const ReviewManager = () => {
     return (
         <div className="admin-page">
             <AdminSidebar />
-            {/* main 태그에 사이드바 너비(200px)만큼 marginLeft를 적용합니다. */}
-            <main className="review-content" style={{ marginLeft: '240px', padding: '20px' }}>
+            <main className="review-content" style={{ marginLeft: '250px', padding: '20px' }}>
                 <h2 style={{padding:'20px'}}> 리뷰 관리</h2>
                 <div className="review-toolbar">
                     {/* SearchBar 컴포넌트 제거 (이전 요청에 따라) */}
