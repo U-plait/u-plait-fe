@@ -2,6 +2,8 @@ import React, { useState, useEffect } from 'react';
 import { useParams, useNavigate } from 'react-router-dom';
 import { getPlanDetailAPI, updateIptvPlanAPI } from '../../api/plan'; // IPTV 수정 API import
 import '../../styles/PlanEdit.css'; // 공통 수정 페이지 CSS 재사용
+import TagSelectionModal from "./TagSelectionModal";
+import CommunityBenefitSelectionModal from "./CommunityBenefitSelectionModal";
 
 const IPTVPlanEdit = () => {
     const { planId } = useParams();
@@ -9,6 +11,8 @@ const IPTVPlanEdit = () => {
 
     const [planData, setPlanData] = useState(null);
     const [isLoading, setIsLoading] = useState(true);
+    const [isTagModalOpen, setIsTagModalOpen] = useState(false);
+    const [isCommunityBenefitModalOpen, setIsCommunityBenefitModalOpen] = useState(false);
 
     useEffect(() => {
         const fetchPlanDetailsForEdit = async () => {
@@ -42,26 +46,28 @@ const IPTVPlanEdit = () => {
         }));
     };
 
+    const handleTagSelect = (selectedTagIds) => {
+        setPlanData(prev => ({ ...prev, tagIdList: selectedTagIds }));
+    };
+
+    const handleCommunityBenefitSelect = (selectedBenefitIds) => {
+        setPlanData(prev => ({ ...prev, communityBenefitIdList: selectedBenefitIds }));
+    };
+
     const handleSubmit = async (e) => {
         e.preventDefault();
         if (!planData) return;
-
-        // 🚨 백엔드 DTO 구조와 100% 일치하도록 요청 본문을 새로 구성합니다.
         const requestBody = {
-            // PlanCommonRequest 필드
             planName: planData.planName,
             planPrice: parseInt(planData.planPrice, 10) || 0,
             planBenefit: planData.planBenefit,
             availability: planData.availability,
             description: planData.description,
-            tagIdList: [], // 현재 UI에 없으므로 빈 배열로 전송
-            communityBenefitList: [], // 현재 UI에 없으므로 빈 배열로 전송
-
-            // AdminIPTVPlanUpdateRequest 전용 필드
+            tagIdList: planData.tagIdList || [],
+            communityBenefitIdList: planData.communityBenefitIdList || [],
             channel: parseInt(planData.channel, 10) || 0,
             iptvDiscountRate: parseInt(planData.iptvDiscountRate, 10) || 0
         };
-
         try {
             const response = await updateIptvPlanAPI(planId, requestBody);
             if (response.statusCode === 0 || response.statusCode === 3004) {
@@ -122,6 +128,15 @@ const IPTVPlanEdit = () => {
                         <input id="availability" type="checkbox" name="availability" checked={!!planData.availability} onChange={handleChange} />
                         <label htmlFor="availability">가입 가능</label>
                     </div>
+
+                    <div className="form-group">
+                        <button type="button" onClick={() => setIsTagModalOpen(true)}>
+                            태그 선택
+                        </button>
+                        <button type="button" onClick={() => setIsCommunityBenefitModalOpen(true)}>
+                            결합 혜택 선택
+                        </button>
+                    </div>
                 </div>
                 
                 <div className="form-actions">
@@ -129,6 +144,21 @@ const IPTVPlanEdit = () => {
                     <button type="submit" className="submit-btn">수정 완료</button>
                 </div>
             </form>
+
+            {isTagModalOpen && (
+                <TagSelectionModal
+                    onClose={() => setIsTagModalOpen(false)}
+                    onSelect={handleTagSelect}
+                    initialSelectedIds={planData.tagIdList || []}
+                />
+            )}
+            {isCommunityBenefitModalOpen && (
+                <CommunityBenefitSelectionModal
+                    onClose={() => setIsCommunityBenefitModalOpen(false)}
+                    onSelect={handleCommunityBenefitSelect}
+                    initialSelectedIds={planData.communityBenefitIdList || []}
+                />
+            )}
         </div>
     );
 };

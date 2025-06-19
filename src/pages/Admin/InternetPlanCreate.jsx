@@ -2,6 +2,8 @@ import React, { useState } from "react";
 import { useNavigate } from 'react-router-dom';
 import { createInternetPlanAPI } from "../../api/plan.js";
 import "../../styles/InternetPlanCreate.css"; // IPTV 생성 페이지와 동일한 공통 CSS 사용
+import TagSelectionModal from "./TagSelectionModal";
+import CommunityBenefitSelectionModal from "./CommunityBenefitSelectionModal";
 
 const InternetPlanCreate = () => {
   const navigate = useNavigate();
@@ -17,6 +19,8 @@ const InternetPlanCreate = () => {
 
   const [formData, setFormData] = useState(initialState);
   const [isSubmitting, setIsSubmitting] = useState(false);
+  const [isTagModalOpen, setIsTagModalOpen] = useState(false);
+  const [isBenefitModalOpen, setIsBenefitModalOpen] = useState(false);
 
   const handleChange = (e) => {
     const { name, value, type, checked } = e.target;
@@ -62,6 +66,24 @@ const InternetPlanCreate = () => {
     }
   };
 
+  const handleTagButton = () => {
+    setIsTagModalOpen(true);
+  };
+
+  const handleBenefitButton = () => {
+    setIsBenefitModalOpen(true);
+  };
+
+  const handleTagSelect = (selectedTagIds) => {
+    setFormData((prev) => ({ ...prev, tagIdList: selectedTagIds }));
+    setIsTagModalOpen(false);
+  };
+
+  const handleBenefitSelect = (selectedBenefitIds) => {
+    setFormData((prev) => ({ ...prev, communityBenefitIdList: selectedBenefitIds }));
+    setIsBenefitModalOpen(false);
+  };
+
   return (
     // 🚨 AdminSidebar와 admin-page div를 제거했습니다.
     <div className="plan-create-wrapper">
@@ -100,10 +122,33 @@ const InternetPlanCreate = () => {
           </label>
         </div>
         
+        <div className="form-group" style={{ display: 'flex', gap: '16px' }}>
+          <button type="button" onClick={handleTagButton}>태그 불러오기</button>
+          <button type="button" onClick={handleBenefitButton}>결합 혜택 불러오기</button>
+        </div>
+
         <button className="submit-btn" type="submit" disabled={isSubmitting}>
           {isSubmitting ? "생성 중..." : "인터넷 요금제 생성"}
         </button>
       </form>
+
+      {/* 태그 선택 모달 */}
+      {isTagModalOpen && (
+        <TagSelectionModal
+          onClose={() => setIsTagModalOpen(false)}
+          onSelect={handleTagSelect}
+          initialSelectedIds={formData.tagIdList}
+        />
+      )}
+
+      {/* 결합 혜택 선택 모달 */}
+      {isBenefitModalOpen && (
+        <CommunityBenefitSelectionModal
+          onClose={() => setIsBenefitModalOpen(false)}
+          onSelect={handleBenefitSelect}
+          initialSelectedIds={formData.communityBenefitIdList}
+        />
+      )}
     </div>
   );
 };

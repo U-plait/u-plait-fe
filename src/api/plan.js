@@ -1,5 +1,7 @@
-import api from './api';
+// src/api/plan.js
 
+import api from './api'; // Assuming this 'api' instance is correctly configured with your base URL (e.g., axios instance)
+// import { getPlanCreationInfoAPI } from "../../api/plan.js";
 /**
  * 새로운 모바일 요금제를 생성하는 API 함수
  * @param {object} planData - 백엔드 DTO(AdminMobileCreateRequest)와 일치하는 모바일 요금제 데이터 객체
@@ -105,6 +107,24 @@ export const getPlanDetailAPI = async (planType, planId) => {
 // 🚨🚨🚨 여기가 추가/수정된 부분입니다 🚨🚨🚨
 
 /**
+ * 요금제 생성/수정 페이지에 필요한 초기 정보 (태그 및 결합 혜택 목록)를 조회하는 API 함수
+ * 백엔드의 AdminPlanController @GetMapping("/Info")에 매핑됩니다.
+ */
+export const getPlanCreationInfoAPI = async () => {
+    try {
+        // 백엔드 컨트롤러의 @GetMapping("/Info")에 맞춥니다.
+        // 만약 실제 라우팅이 /api/admin/plan/Info라면 그렇게 수정해야 합니다.
+        // 현재 추정으로는 /admin/plan/Info 입니다.
+        const response = await api.get('/admin/plan/Info'); 
+        return response.data;
+    } catch (error) {
+        console.error("API Error: getPlanCreationInfoAPI", error);
+        throw error;
+    }
+};
+
+
+/**
  * 모바일 요금제 정보를 수정하는 API 함수
  * @param {number} planId - 수정할 요금제의 ID
  * @param {object} planData - 수정할 데이터 (AdminMobilePlanUpdateRequest DTO와 일치)
@@ -161,7 +181,7 @@ export const deletePlanAPI = async (planId) => {
 
 export const getMobilePlans = async () => {
     try {
-        const response = await api.get('/plan/mobile'); // 경로 수정
+        const response = await api.get('/plan/Cmobile'); // 경로 수정
         return response.data.data; // Assuming CommonResponse.success wraps data in 'data' field
     } catch (error) {
         console.error("Error fetching mobile plans:", error);
@@ -171,7 +191,7 @@ export const getMobilePlans = async () => {
 
 export const getInternetPlans = async () => {
     try {
-        const response = await api.get('/plan/internet'); // 경로 수정
+        const response = await api.get('/plan/Cinternet'); // 경로 수정
         return response.data.data;
     } catch (error) {
         console.error("Error fetching internet plans:", error);
@@ -181,7 +201,7 @@ export const getInternetPlans = async () => {
 
 export const getIptvPlans = async () => {
     try {
-        const response = await api.get('/plan/iptv'); // 경로 수정
+        const response = await api.get('/plan/Ciptv'); // 경로 수정
         return response.data.data;
     } catch (error) {
         console.error("Error fetching IPTV plans:", error);
