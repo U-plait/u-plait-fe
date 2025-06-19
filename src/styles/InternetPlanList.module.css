@@ -1,23 +1,25 @@
-.plan-container {
+.interp-plan-container {
     max-width: 960px;
     margin: 0 auto;
     padding: 2rem 1rem;
 }
 
-.plan-title {
-    font-size: 1.75rem;
+.interp-plan-title {
+    font-size: 40px;
     font-weight: bold;
+    margin-top: 150px;
     margin-bottom: 1.5rem;
     color: #333;
+    text-align: left;
 }
 
-.plan-list {
+.interp-plan-list {
     display: flex;
     flex-direction: column;
-    gap: 1.5rem;
+    gap: 2rem;
 }
 
-.plan-card {
+.interp-plan-card {
     position: relative;
     display: flex;
     justify-content: space-between;
@@ -27,17 +29,17 @@
     box-shadow: 0 0 12px rgba(0, 0, 0, 0.05);
 }
 
-.plan-info {
+.interp-plan-info {
     max-width: 65%;
 }
 
-.plan-name {
+.interp-plan-name {
     font-size: 1.25rem;
     font-weight: 600;
     margin-bottom: 0.5rem;
 }
 
-.plan-benefits {
+.interp-plan-benefits {
     list-style: none;
     padding-left: 0;
     color: #666;
@@ -45,7 +47,7 @@
     line-height: 1.4;
 }
 
-.plan-price-box {
+.interp-plan-price-box {
     display: flex;
     flex-direction: column;
     justify-content: flex-end;
@@ -54,14 +56,14 @@
     margin-left: 1rem;
 }
 
-.plan-price {
+.interp-plan-price {
     font-size: 1.2rem;
     font-weight: bold;
     color: #d60087;
     margin-bottom: 0.5rem;
 }
 
-.plan-detail-button {
+.interp-plan-detail-button {
     padding: 0.4rem 0.8rem;
     font-size: 0.9rem;
     background-color: #d60087;
@@ -71,19 +73,19 @@
     cursor: pointer;
 }
 
-.plan-detail-button:hover {
+.interp-plan-detail-button:hover {
     background-color: #bd006f;
 }
 
-.plan-loading,
-.plan-end-message {
+.interp-plan-loading,
+.interp-plan-end-message {
     text-align: center;
     margin-top: 1rem;
     color: #777;
     font-size: 0.95rem;
 }
 
-.favorite-button {
+.interp-favorite-button {
     position: absolute;
     top: 1rem;
     right: 1rem;
@@ -95,10 +97,10 @@
     transition: color 0.3s ease;
 }
 
-.favorite-button:hover {
+.interp-favorite-button:hover {
     color: #D63484;
 }
 
-.favorite-button.active {
+.interp-favorite-button.interp-active {
     color: #D63484;
 }

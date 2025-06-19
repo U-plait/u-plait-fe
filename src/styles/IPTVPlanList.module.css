@@ -1,23 +1,26 @@
-.plan-container {
+.iptvp-plan-container {
     max-width: 960px;
     margin: 0 auto;
     padding: 2rem 1rem;
 }
 
-.plan-title {
-    font-size: 1.75rem;
+.iptvp-plan-title {
+    font-size: 40px;
     font-weight: bold;
+    margin-top: 150px;
     margin-bottom: 1.5rem;
     color: #333;
+    text-align: left;
 }
 
-.plan-list {
+.iptvp-plan-list {
     display: flex;
     flex-direction: column;
-    gap: 1.5rem;
+    gap: 2rem;
 }
 
-.plan-card {
+.iptvp-plan-card {
+    position: relative;
     display: flex;
     justify-content: space-between;
     background-color: #fff;
@@ -26,17 +29,17 @@
     box-shadow: 0 0 12px rgba(0, 0, 0, 0.05);
 }
 
-.plan-info {
+.iptvp-plan-info {
     max-width: 65%;
 }
 
-.plan-name {
+.iptvp-plan-name {
     font-size: 1.25rem;
     font-weight: 600;
     margin-bottom: 0.5rem;
 }
 
-.plan-benefits {
+.iptvp-plan-benefits {
     list-style: none;
     padding-left: 0;
     color: #666;
@@ -44,7 +47,7 @@
     line-height: 1.4;
 }
 
-.plan-price-box {
+.iptvp-plan-price-box {
     display: flex;
     flex-direction: column;
     justify-content: flex-end;
@@ -53,14 +56,14 @@
     margin-left: 1rem;
 }
 
-.plan-price {
+.iptvp-plan-price {
     font-size: 1.2rem;
     font-weight: bold;
     color: #d60087;
     margin-bottom: 0.5rem;
 }
 
-.plan-detail-button {
+.iptvp-plan-detail-button {
     padding: 0.4rem 0.8rem;
     font-size: 0.9rem;
     background-color: #d60087;
@@ -70,39 +73,34 @@
     cursor: pointer;
 }
 
-.plan-detail-button:hover {
+.iptvp-plan-detail-button:hover {
     background-color: #bd006f;
 }
 
-.plan-loading,
-.plan-end-message {
+.iptvp-plan-loading,
+.iptvp-plan-end-message {
     text-align: center;
     margin-top: 1rem;
     color: #777;
     font-size: 0.95rem;
 }
 
-.plan-card {
-    position: relative; /* 즐겨찾기 버튼 위치 기준 */
-}
-
-/* 즐겨찾기 버튼 스타일 */
-.favorite-button {
+.iptvp-favorite-button {
     position: absolute;
     top: 1rem;
     right: 1rem;
     font-size: 1.5rem;
-    color: #ccc; /* 기본 회색 별 */
+    color: #ccc;
     background: none;
     border: none;
     cursor: pointer;
     transition: color 0.3s ease;
 }
 
-.favorite-button:hover {
-    color: #D63484; /* 호버 시에도 강조 */
+.iptvp-favorite-button:hover {
+    color: #D63484;
 }
 
-.favorite-button.active {
-    color: #D63484; /* 즐겨찾기 된 경우 진한 핑크 */
+.iptvp-favorite-button.iptvp-active {
+    color: #D63484;
 }
