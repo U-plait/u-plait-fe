@@ -5,44 +5,34 @@
 }
 
 .plan-title {
-    font-size: 1.75rem;
+    font-size: 40px;
     font-weight: bold;
+    margin-top: 150px;
     margin-bottom: 1.5rem;
     color: #333;
+    text-align: left;
 }
 
 .plan-list {
     display: flex;
     flex-direction: column;
-    gap: 1.5rem;
+    gap: 2rem;
 }
 
 .plan-card {
-    position: relative;
     display: flex;
     justify-content: space-between;
     background-color: #fff;
     padding: 1.5rem;
     border-radius: 1rem;
     box-shadow: 0 0 12px rgba(0, 0, 0, 0.05);
-}
-
-.plan-info {
-    max-width: 65%;
+    position: relative; /* 즐겨찾기 버튼 위치를 위해 필요 */
 }
 
 .plan-name {
-    font-size: 1.25rem;
+    font-size: 30px;
     font-weight: 600;
     margin-bottom: 0.5rem;
-}
-
-.plan-benefits {
-    list-style: none;
-    padding-left: 0;
-    color: #666;
-    font-size: 0.95rem;
-    line-height: 1.4;
 }
 
 .plan-price-box {
@@ -75,27 +65,26 @@
     background-color: #bd006f;
 }
 
-.plan-loading,
-.plan-end-message {
+.plan-loading {
     text-align: center;
     margin-top: 1rem;
     color: #777;
     font-size: 0.95rem;
 }
 
+/* 즐겨찾기 버튼 스타일 */
 .favorite-button {
     position: absolute;
     top: 1rem;
     right: 1rem;
     font-size: 1.5rem;
-    color: #ccc;
+    color: #ccc; /* 기본 회색 별 */
     background: none;
     border: none;
     cursor: pointer;
     transition: color 0.3s ease;
 }
 
-.favorite-button:hover,
 .favorite-button.active {
-    color: #D63484;
+    color: #D63484; /* 즐겨찾기 된 경우 진한 핑크 */
 }
