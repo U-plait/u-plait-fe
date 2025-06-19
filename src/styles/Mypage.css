@@ -1,128 +1,147 @@
 .mypage-container {
-    display: flex;
-    min-height: 100vh;
-    background-color: #f9fafb;
-    font-family: 'Segoe UI', sans-serif;
-    color: #333;
+  display: flex;
+  min-height: 100vh;
+  background-color: #f9fafb;
+  font-family: "Segoe UI", sans-serif;
+  color: #333;
 }
 
 /* Sidebar */
 .sidebar {
-    width: 250px;
-    background-color: #fff;
-    border-right: 1px solid #eee;
-    padding: 2rem;
-    display: flex;
-    flex-direction: column;
+  width: 250px;
+  background-color: #fff;
+  border-right: 1px solid #eee;
+  padding: 2rem;
+  display: flex;
+  flex-direction: column;
 }
 
 .menu {
-    display: flex;
-    flex-direction: column;
-    gap: 1rem;
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
 }
 
 .menu-item {
-    background: none;
-    border: none;
-    padding: 0.75rem 1rem;
-    text-align: left;
-    border-radius: 8px;
-    cursor: pointer;
-    font-size: 0.95rem;
-    transition: background 0.2s;
-    color: #555;
+  background: none;
+  border: none;
+  padding: 0.75rem 1rem;
+  text-align: left;
+  border-radius: 8px;
+  cursor: pointer;
+  font-size: 0.95rem;
+  transition: background 0.2s;
+  color: #555;
 }
 
 .menu-item:hover {
-    background-color: #fef2f2;
-    color: #f43f5e;
+  background-color: #fef2f2;
+  color: #f43f5e;
 }
 
 .menu-item.active {
-    background-color: #ffe4e6;
-    color: #e11d48;
-    font-weight: bold;
+  background-color: #ffe4e6;
+  color: #e11d48;
+  font-weight: bold;
 }
 
 .side-menu {
-    font-size: 1.25rem;        /* 폰트 크기 */
-    font-weight: 700;          /* 굵기: bold */
-    color: #111827;            /* 진한 텍스트 색 */
-    margin-bottom: 1rem;       /* 아래 간격 */
-    padding-left: 1rem;        /* 좌측 여백 */
-    text-transform: uppercase; /* 대문자화 (선택) */
-    letter-spacing: 0.05rem;   /* 자간 조절 (선택) */
+  font-size: 1.25rem; /* 폰트 크기 */
+  font-weight: 700; /* 굵기: bold */
+  color: #111827; /* 진한 텍스트 색 */
+  margin-bottom: 1rem; /* 아래 간격 */
+  padding-left: 1rem; /* 좌측 여백 */
+  text-transform: uppercase; /* 대문자화 (선택) */
+  letter-spacing: 0.05rem; /* 자간 조절 (선택) */
 }
 
 /* Main Content */
 .main-content {
-    flex: 1;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    padding: 4rem 2rem;
-    background-color: #f9fafb;
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 4rem 2rem;
+  background-color: #f9fafb;
 }
 
 .page-title {
-    font-size: 2rem;
-    font-weight: bold;
-    margin-bottom: 2rem;
-    align-self: flex-start;
-    text-align: center;
-    width: 100%;
+  font-size: 2rem;
+  font-weight: bold;
+  margin-bottom: 2rem;
+  align-self: flex-start;
+  text-align: center;
+  width: 100%;
 }
 
 .profile-card {
-    background-color: white;
-    border-radius: 1rem;
-    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.05);
-    padding: 2rem 3rem;
-    max-width: 500px;
-    width: 100%;
+  background-color: white;
+  border-radius: 1rem;
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.05);
+  padding: 2rem 3rem;
+  max-width: 500px;
+  width: 100%;
 }
 
 .info-list {
-    list-style: none;
-    padding: 0;
-    margin: 0;
+  list-style: none;
+  padding: 0;
+  margin: 0;
 }
 
 .info-item {
-    display: flex;
-    justify-content: space-between;
-    padding: 1rem 0;
-    border-bottom: 1px solid #eee;
+  display: flex;
+  justify-content: space-between;
+  padding: 1rem 0;
+  border-bottom: 1px solid #eee;
 }
 
 .info-label {
-    font-weight: 500;
-    color: #777;
+  font-weight: 500;
+  color: #777;
 }
 
 .info-value {
-    font-weight: 600;
+  font-weight: 600;
 }
 
 /* Edit Button */
 .edit-btn-wrapper {
-    text-align: right;
-    margin-top: 2rem;
+  text-align: right;
+  margin-top: 2rem;
 }
 
 .edit-btn {
-    background-color: #f472b6;
-    color: white;
-    border: none;
-    padding: 0.75rem 1.5rem;
-    border-radius: 8px;
-    cursor: pointer;
-    font-weight: 500;
-    box-shadow: 0 2px 6px rgba(0,0,0,0.1);
-    transition: background 0.2s;
+  background-color: #f472b6;
+  color: white;
+  border: none;
+  padding: 0.75rem 1.5rem;
+  border-radius: 8px;
+  cursor: pointer;
+  font-weight: 500;
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
+  transition: background 0.2s;
 }
 
 .edit-btn:hover {
-    background-color: #ec4899;
+  background-color: #ec4899;
+}
+
+.logout-section {
+  margin-top: auto;
+  padding: 1rem;
+  text-align: center;
+}
+
+.logout-btn {
+  background: transparent;
+  border: none;
+  color: #999; /* 연한 회색 텍스트 */
+  font-size: 1rem;
+  cursor: pointer;
+  padding: 0.4rem 0.8rem;
+}
+
+.logout-btn:hover {
+  color: #666; /* hover 시 조금 진해짐 */
 }
