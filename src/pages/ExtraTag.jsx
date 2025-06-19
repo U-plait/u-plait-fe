@@ -1,8 +1,10 @@
 import { useState, useEffect } from "react";
+import { useNavigate } from "react-router-dom";
 import api from "../api/api";
 import "../styles/ExtraTag.css";
 
 const ExtraTag = () => {
+    const navigate = useNavigate(); // 추가
     const [availableTags, setAvailableTags] = useState([]);
     const [selectedTags, setSelectedTags] = useState([]);
     const [loading, setLoading] = useState(true);
@@ -52,7 +54,7 @@ const ExtraTag = () => {
             const tagIds = selectedTags.map((id) => Number(id));
             await api.post("/user/extra-tag", { tagIds });
             alert("저장되었습니다.");
-            window.location.href = "/";
+            navigate("/");
         } catch (err) {
             console.error("저장 에러:", err);
             alert("저장에 실패했습니다.");
