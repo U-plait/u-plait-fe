@@ -18,7 +18,7 @@ const ExtraTag = () => {
                 const tagList = response.data?.data?.tagList ?? [];
 
                 const transformedTags = tagList.map((tag) => ({
-                    id: String(tag.tagId),
+                    id: String(tag.id),
                     label: tag.tagName,
                 }));
 
