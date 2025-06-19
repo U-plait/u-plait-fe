@@ -88,7 +88,7 @@ const ExtraInfo = () => {
     try {
       await api.post("/user/extra-info", form);
       alert("회원가입이 완료되었습니다.");
-      navigate("/");
+      navigate("/extra-tag");
     } catch (err) {
       alert("회원가입 중 오류가 발생했습니다.");
     }
