@@ -1,12 +1,12 @@
 import React, { useState, useRef, useEffect } from "react";
 import "../styles/chat.css";
 import { fetchWithAuth } from "../api/fetchClient";
-import { useNavigate } from "react-router-dom";
+// import { useNavigate } from "react-router-dom";
 
 const CHATBOT_URL = process.env.REACT_APP_CHATBOT_URL;
 
 const ChatPage = () => {
-  const navigate = useNavigate();
+  // const navigate = useNavigate();
   const [messages, setMessages] = useState([]);
   const [query, setQuery] = useState("");
   const [isBotTyping, setIsBotTyping] = useState(false);
@@ -17,10 +17,16 @@ const ChatPage = () => {
     messagesEndRef.current?.scrollIntoView({ behavior: "smooth" });
   };
 
+  // const handleCardClick = (plan) => {
+  //   const dtype = plan.dtype?.slice(0, -4).toLowerCase();
+  //   const path = `/${dtype}/plan/${plan.id}`;
+  //   navigate(path);
+  // };
+
   const handleCardClick = (plan) => {
-    const dtype = plan.dtype?.slice(0, -4).toLowerCase();
-    const path = `/${dtype}/plan/${plan.id}`;
-    navigate(path);
+    const dtype = plan.dtype?.slice(0, -4).toLowerCase(); // "MobilePlan" → "mobile"
+    const url = `/${dtype}/plan/${plan.id}`;
+    window.open(url, "_blank"); // 새 탭에서 열기
   };
 
   useEffect(() => {
