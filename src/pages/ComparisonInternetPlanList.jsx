@@ -82,7 +82,6 @@ function ComparisonInternetPlanList() {
                             <h2 className={styles.planName}>{plan.planName}</h2>
                             <p className={styles.monthlyFeeText}>월정액 (부가세 포함 금액)</p>
                             <p className={styles.planPrice}>월 {getDisplayValue(plan.planPrice)}원</p>
-                            <div className={styles.highlightLine}></div>
                         </div>
 
                         {/* 할인 상세내역 섹션 */}
@@ -90,7 +89,6 @@ function ComparisonInternetPlanList() {
                             <h3 className={styles.sectionTitle}>할인 상세내역</h3>
                             {/* DTO의 internetDiscount 필드 사용 */}
                             <p className={styles.discountDetail}>월 {getDisplayValue(plan.internetDiscount)}원</p>
-                            <p className={styles.discountSubtext}>최종 예상 할인 적용가</p>
                             {/* 다른 할인 관련 필드가 있다면 여기에 추가 */}
                         </div>
 
