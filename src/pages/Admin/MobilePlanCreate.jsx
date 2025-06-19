@@ -1,11 +1,19 @@
 import React, { useState } from "react";
 import { useNavigate } from 'react-router-dom';
-import { createMobilePlanAPI } from "../../api/plan.js";
-import "../../styles/MobilePlanCreate.css"; // IPTV와 동일한 공통 CSS 사용
+import { createMobilePlanAPI, getPlanCreationInfoAPI } from "../../api/plan.js";
+import "../../styles/MobilePlanCreate.css";
+import TagSelectionModal from "./TagSelectionModal";
+import CommunityBenefitSelectionModal from "./CommunityBenefitSelectionModal"; // communityBenefit 관련 모달 유지
 
 const MobilePlanCreate = () => {
   const navigate = useNavigate();
-  // 모바일 요금제에 맞는 초기 상태
+  const [isDataLoading, setIsDataLoading] = useState(false);
+  // availableTags, availableCommunityBenefits는 이제 각 모달 내에서 관리
+  const [isTagModalOpen, setIsTagModalOpen] = useState(false);
+  const [isCommunityBenefitModalOpen, setIsCommunityBenefitModalOpen] = useState(false); // communityBenefit 관련 모달 상태 유지
+
+  const mediaBenefitOptions = ["NORMAL", "PREMIUM", "NONE"];
+
   const initialState = {
     planName: "",
     planPrice: "",
@@ -18,25 +26,46 @@ const MobilePlanCreate = () => {
     extraData: "",
     durationDiscountRate: "",
     premierDiscountRate: "",
-    tagIdList: [],
-    communityBenefitList: [],
+    tagIdList: [], // 초기화
+    communityBenefitIdList: [], // communityBenefit 관련 유지 및 초기화
     availability: true,
-    mediaBenefit: false,
+    mediaBenefit: "NONE",
   };
 
   const [formData, setFormData] = useState(initialState);
   const [isSubmitting, setIsSubmitting] = useState(false);
 
-  // 입력값 변경 핸들러
-  const handleChange = (e) => {
-    const { name, value, type, checked } = e.target;
-    setFormData({
-      ...formData,
-      [name]: type === "checkbox" ? checked : value,
-    });
+  // 태그 모달 열기 핸들러
+  const handleOpenTagModal = () => {
+    setIsTagModalOpen(true);
   };
 
-  // 폼 제출 핸들러
+  // communityBenefit 모달 열기 핸들러 (기존 유지)
+  const handleOpenCommunityBenefitModal = () => {
+    setIsCommunityBenefitModalOpen(true);
+  };
+
+  // --- tagIdList 관련 수정 ---
+  const handleTagSelect = (selectedTagIds) => {
+    // console.log("handleTagSelect called with:", selectedTagIds); // 디버깅용
+    setFormData((prev) => ({ ...prev, tagIdList: selectedTagIds }));
+  };
+  // --- tagIdList 관련 수정 끝 ---
+
+  // communityBenefit 관련 핸들러 (기존 유지)
+  const handleCommunityBenefitSelect = (selectedBenefitIds) => {
+    // console.log("handleCommunityBenefitSelect called with:", selectedBenefitIds); // 디버깅용
+    setFormData((prev) => ({ ...prev, communityBenefitIdList: selectedBenefitIds }));
+  };
+
+  const handleChange = (e) => {
+    const { name, value, type, checked } = e.target;
+    setFormData((prevData) => ({
+      ...prevData,
+      [name]: type === "checkbox" ? checked : value,
+    }));
+  };
+
   const handleSubmit = async (e) => {
     e.preventDefault();
     if (isSubmitting) return;
@@ -57,17 +86,18 @@ const MobilePlanCreate = () => {
       mediaBenefit: formData.mediaBenefit,
       durationDiscountRate: parseInt(formData.durationDiscountRate, 10) || 0,
       premierDiscountRate: parseInt(formData.premierDiscountRate, 10) || 0,
-      tagIdList: [],
-      communityBenefitList: [],
+      tagIdList: formData.tagIdList, // 이미 배열이므로 그대로 전송
+      communityBenefitIdList: formData.communityBenefitIdList, // communityBenefit 관련 유지
     };
+
+    // console.log("Request Body sent:", requestBody); // 최종 전송될 데이터 확인용
 
     try {
       const result = await createMobilePlanAPI(requestBody);
 
-      // 백엔드가 명시한 생성 성공 코드(3005) 또는 범용 성공 코드(0)를 기준으로 판단합니다.
       if (result && (result.statusCode === 3005 || result.statusCode === 0)) {
         alert("모바일 요금제가 성공적으로 생성되었습니다.");
-        navigate('/admin/plan'); // 성공 시 목록 페이지로 즉시 이동
+        navigate('/admin/plan');
       } else {
         alert(`생성에 실패했습니다: ${result?.message || "알 수 없는 오류"}`);
       }
@@ -81,11 +111,10 @@ const MobilePlanCreate = () => {
   };
 
   return (
-    // 사이드바 없는 전체 화면 레이아웃
     <div className="plan-create-wrapper">
       <form className="plan-create-card" onSubmit={handleSubmit}>
         <h2>모바일 요금제 추가</h2>
-        
+
         {/* 공통 정보 입력 필드 */}
         <div className="form-group">
           <label htmlFor="planName">요금제 이름</label>
@@ -134,18 +163,53 @@ const MobilePlanCreate = () => {
           <input id="premierDiscountRate" name="premierDiscountRate" type="number" value={formData.premierDiscountRate} placeholder="숫자만 입력 (예: 10)" onChange={handleChange} />
         </div>
 
-        {/* 체크박스 그룹 */}
+        {/* 가입 가능 여부 체크박스 */}
         <div className="checkbox-group">
           <label className="checkbox-label">
             <input name="availability" type="checkbox" checked={formData.availability} onChange={handleChange} />
             가입 가능
           </label>
-          <label className="checkbox-label">
-            <input name="mediaBenefit" type="checkbox" checked={formData.mediaBenefit} onChange={handleChange} />
-            미디어 혜택 제공
-          </label>
         </div>
-        
+
+        {/* 미디어 혜택 유형 선택 드롭다운 */}
+        <div className="form-group">
+          <label htmlFor="mediaBenefit">미디어 혜택 유형</label>
+          <select id="mediaBenefit" name="mediaBenefit" value={formData.mediaBenefit} onChange={handleChange}>
+            {mediaBenefitOptions.map(option => (
+              <option key={option} value={option}>{option}</option>
+            ))}
+          </select>
+        </div>
+
+        {/* 태그 및 결합 혜택 불러오기 버튼 -> 이제 각각의 모달을 엽니다. */}
+        <div className="form-group">
+          <button type="button" onClick={handleOpenTagModal} disabled={isSubmitting}>
+            태그 선택
+          </button>
+          <button type="button" onClick={handleOpenCommunityBenefitModal} disabled={isSubmitting}>
+            결합 혜택 선택
+          </button>
+        </div>
+
+        {/* 태그 선택 모달 */}
+        {isTagModalOpen && (
+          <TagSelectionModal
+            onClose={() => setIsTagModalOpen(false)}
+            onSelect={handleTagSelect}
+            initialSelectedIds={formData.tagIdList}
+          />
+        )}
+
+        {/* 결합 혜택 선택 모달 */}
+        {isCommunityBenefitModalOpen && (
+          <CommunityBenefitSelectionModal
+            onClose={() => setIsCommunityBenefitModalOpen(false)}
+            onSelect={handleCommunityBenefitSelect}
+            initialSelectedIds={formData.communityBenefitIdList}
+          />
+        )}
+
+        {/* 폼 제출 버튼 */}
         <button className="submit-btn" type="submit" disabled={isSubmitting}>
           {isSubmitting ? "생성 중..." : "모바일 요금제 생성"}
         </button>

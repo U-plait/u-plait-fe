@@ -18,7 +18,7 @@ const PlanCard = ({ plan, onShowDetails, onDelete }) => {
     return (
         <div className="plan-card-container">
             <div className="plan-card-header">
-                <input type="checkbox" />
+                {/* 체크박스 영역 완전히 삭제 */}
             </div>
 
             <div className="plan-card-main-info">

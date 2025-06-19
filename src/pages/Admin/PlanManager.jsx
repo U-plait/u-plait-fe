@@ -176,12 +176,12 @@ const PlanManager = () => {
                 <h1>요금제 관리</h1>
                 <div className="plan-toolbar">
                     <div className="left-toolbar">
-                        <SearchBar />
+                        {/* <SearchBar /> */}
                         <div className="tab-bar">
-                            {["모바일", "인터넷", "IPTV"].map((t) => (
+                            {['모바일', '인터넷', 'IPTV'].map((t) => (
                                 <button
                                     key={t}
-                                    className={`tab ${selectedTab === t ? "active" : ""}`}
+                                    className={`tab ${selectedTab === t ? 'active' : ''}`}
                                     onClick={() => handleTabClick(t)}
                                 >
                                     {t}
@@ -189,9 +189,6 @@ const PlanManager = () => {
                             ))}
                         </div>
                     </div>
-                    <button className="add-plan-button" onClick={handleAddPlanClick}>
-                        {getAddButtonText()}
-                    </button>
                 </div>
                 <div className="plan-grid">
                     {plans.length > 0 ? (
@@ -206,6 +203,11 @@ const PlanManager = () => {
                     ) : (
                         <p>등록된 요금제가 없습니다.</p>
                     )}
+                </div>
+                <div className="add-plan-button-container">
+                    <button className="add-plan-button" onClick={handleAddPlanClick}>
+                        {getAddButtonText()}
+                    </button>
                 </div>
                 {totalPages > 1 && (
                      <div className="pagination-controls">

@@ -2,6 +2,8 @@ import React, { useState } from "react";
 import { useNavigate } from 'react-router-dom';
 import { createIptvPlanAPI } from "../../api/plan.js"; // IPTV 생성 API import
 import "../../styles/IPTVPlanCreate.css"; // IPTV 생성 페이지 전용 CSS import
+import TagSelectionModal from "./TagSelectionModal";
+import CommunityBenefitSelectionModal from "./CommunityBenefitSelectionModal";
 
 const IPTVPlanCreate = () => {
   const navigate = useNavigate();
@@ -19,6 +21,8 @@ const IPTVPlanCreate = () => {
 
   const [formData, setFormData] = useState(initialState);
   const [isSubmitting, setIsSubmitting] = useState(false); // 중복 제출 방지 상태
+  const [isTagModalOpen, setIsTagModalOpen] = useState(false);
+  const [isBenefitModalOpen, setIsBenefitModalOpen] = useState(false);
 
   // 입력값 변경 핸들러
   const handleChange = (e) => {
@@ -67,6 +71,24 @@ const IPTVPlanCreate = () => {
     }
   };
 
+  const handleTagButton = () => {
+    setIsTagModalOpen(true);
+  };
+
+  const handleBenefitButton = () => {
+    setIsBenefitModalOpen(true);
+  };
+
+  const handleTagSelect = (selectedTagIds) => {
+    setFormData((prev) => ({ ...prev, tagIdList: selectedTagIds }));
+    setIsTagModalOpen(false);
+  };
+
+  const handleBenefitSelect = (selectedBenefitIds) => {
+    setFormData((prev) => ({ ...prev, communityBenefitIdList: selectedBenefitIds }));
+    setIsBenefitModalOpen(false);
+  };
+
   return (
     // admin-page div와 AdminSidebar를 제거하고, wrapper가 최상위 요소가 됩니다.
     <div className="plan-create-wrapper">
@@ -107,6 +129,30 @@ const IPTVPlanCreate = () => {
             가입 가능
           </label>
         </div>
+        
+        {/* 태그/혜택 불러오기 버튼 분리 */}
+        <div className="form-group" style={{ display: 'flex', gap: '16px' }}>
+          <button type="button" onClick={handleTagButton}>태그 불러오기</button>
+          <button type="button" onClick={handleBenefitButton}>결합 혜택 불러오기</button>
+        </div>
+
+        {/* 태그 선택 모달 */}
+        {isTagModalOpen && (
+          <TagSelectionModal
+            onClose={() => setIsTagModalOpen(false)}
+            onSelect={handleTagSelect}
+            initialSelectedIds={formData.tagIdList}
+          />
+        )}
+
+        {/* 결합 혜택 선택 모달 */}
+        {isBenefitModalOpen && (
+          <CommunityBenefitSelectionModal
+            onClose={() => setIsBenefitModalOpen(false)}
+            onSelect={handleBenefitSelect}
+            initialSelectedIds={formData.communityBenefitIdList}
+          />
+        )}
         
         <button className="submit-btn" type="submit" disabled={isSubmitting}>
           {isSubmitting ? "생성 중..." : "IPTV 요금제 생성"}

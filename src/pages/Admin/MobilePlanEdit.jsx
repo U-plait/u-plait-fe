@@ -2,6 +2,8 @@ import React, { useState, useEffect } from 'react';
 import { useParams, useNavigate } from 'react-router-dom';
 import { getPlanDetailAPI, updateMobilePlanAPI } from '../../api/plan';
 import '../../styles/PlanEdit.css'; // 공통 수정 페이지 CSS 재사용
+import TagSelectionModal from "./TagSelectionModal";
+import CommunityBenefitSelectionModal from "./CommunityBenefitSelectionModal";
 
 const MobilePlanEdit = () => {
     const { planId } = useParams();
@@ -9,6 +11,8 @@ const MobilePlanEdit = () => {
 
     const [planData, setPlanData] = useState(null);
     const [isLoading, setIsLoading] = useState(true);
+    const [isTagModalOpen, setIsTagModalOpen] = useState(false);
+    const [isCommunityBenefitModalOpen, setIsCommunityBenefitModalOpen] = useState(false);
 
     useEffect(() => {
         const fetchPlanDetailsForEdit = async () => {
@@ -42,12 +46,36 @@ const MobilePlanEdit = () => {
         }));
     };
 
+    const handleTagSelect = (selectedTagIds) => {
+        setPlanData(prev => ({ ...prev, tagIdList: selectedTagIds }));
+    };
+
+    const handleCommunityBenefitSelect = (selectedBenefitIds) => {
+        setPlanData(prev => ({ ...prev, communityBenefitIdList: selectedBenefitIds }));
+    };
+
     const handleSubmit = async (e) => {
         e.preventDefault();
         if (!planData) return;
-
+        const requestBody = {
+            planName: planData.planName,
+            planPrice: parseInt(planData.planPrice, 10) || 0,
+            planBenefit: planData.planBenefit,
+            description: planData.description,
+            data: planData.data,
+            sharedData: planData.sharedData,
+            voiceCall: planData.voiceCall,
+            message: planData.message,
+            extraData: planData.extraData,
+            mediaBenefit: planData.mediaBenefit,
+            durationDiscountRate: parseInt(planData.durationDiscountRate, 10) || 0,
+            premierDiscountRate: parseInt(planData.premierDiscountRate, 10) || 0,
+            availability: planData.availability,
+            tagIdList: planData.tagIdList || [],
+            communityBenefitIdList: planData.communityBenefitIdList || [],
+        };
         try {
-            const response = await updateMobilePlanAPI(planId, planData);
+            const response = await updateMobilePlanAPI(planId, requestBody);
             if (response.statusCode === 0 || response.statusCode === 3004) {
                 alert('모바일 요금제가 성공적으로 수정되었습니다.');
                 navigate('/admin/plan');
@@ -126,6 +154,14 @@ const MobilePlanEdit = () => {
                         <input id="availability" type="checkbox" name="availability" checked={!!planData.availability} onChange={handleChange} />
                         <label htmlFor="availability">가입 가능</label>
                     </div>
+                    <div className="form-group">
+                        <button type="button" onClick={() => setIsTagModalOpen(true)}>
+                            태그 선택
+                        </button>
+                        <button type="button" onClick={() => setIsCommunityBenefitModalOpen(true)}>
+                            결합 혜택 선택
+                        </button>
+                    </div>
                 </div>
                 
                 <div className="form-actions">
@@ -133,6 +169,20 @@ const MobilePlanEdit = () => {
                     <button type="submit" className="submit-btn">수정 완료</button>
                 </div>
             </form>
+            {isTagModalOpen && (
+                <TagSelectionModal
+                    onClose={() => setIsTagModalOpen(false)}
+                    onSelect={handleTagSelect}
+                    initialSelectedIds={planData.tagIdList || []}
+                />
+            )}
+            {isCommunityBenefitModalOpen && (
+                <CommunityBenefitSelectionModal
+                    onClose={() => setIsCommunityBenefitModalOpen(false)}
+                    onSelect={handleCommunityBenefitSelect}
+                    initialSelectedIds={planData.communityBenefitIdList || []}
+                />
+            )}
         </div>
     );
 };
