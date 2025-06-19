@@ -1,14 +1,12 @@
 import React, { useState } from "react";
 import { useNavigate } from 'react-router-dom';
-import { createMobilePlanAPI, getPlanCreationInfoAPI } from "../../api/plan.js";
+import { createMobilePlanAPI } from "../../api/plan.js";
 import "../../styles/MobilePlanCreate.css";
 import TagSelectionModal from "./TagSelectionModal";
 import CommunityBenefitSelectionModal from "./CommunityBenefitSelectionModal"; // communityBenefit 관련 모달 유지
 
 const MobilePlanCreate = () => {
   const navigate = useNavigate();
-  const [isDataLoading, setIsDataLoading] = useState(false);
-  // availableTags, availableCommunityBenefits는 이제 각 모달 내에서 관리
   const [isTagModalOpen, setIsTagModalOpen] = useState(false);
   const [isCommunityBenefitModalOpen, setIsCommunityBenefitModalOpen] = useState(false); // communityBenefit 관련 모달 상태 유지
 

@@ -1,7 +1,6 @@
 import React, { useState, useEffect, useCallback } from "react";
 import AdminSidebar from "../../components/AdminSidebar";
 import PlanCard from "../../components/PlanCard";
-import SearchBar from "../../components/SearchBar";
 import "../../styles/PlanManager.css";
 import { useNavigate } from "react-router-dom";
 // 🚨 각각의 상세 정보 모달을 모두 import합니다.
@@ -176,7 +175,6 @@ const PlanManager = () => {
                 <h1>요금제 관리</h1>
                 <div className="plan-toolbar">
                     <div className="left-toolbar">
-                        {/* <SearchBar /> */}
                         <div className="tab-bar">
                             {['모바일', '인터넷', 'IPTV'].map((t) => (
                                 <button
