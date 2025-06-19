@@ -5,11 +5,14 @@ import "./App.css";
 // import Home from "./pages/Home";
 import Login from "./pages/Login";
 import KakaoCallback from "./pages/KakaoCallback";
+import ExtraInfo from "./pages/ExtraInfo";
+import ExtraTag from "./pages/ExtraTag";
 import PlanManager from "./pages/Admin/PlanManager";
 import MobilePlanCreate from "./pages/Admin/MobilePlanCreate";
 import IPTVPlanCreate from "./pages/Admin/IPTVPlanCreate";
 import InternetPlanCreate from "./pages/Admin/InternetPlanCreate";
 import BanWordsManager from "./pages/Admin/BanWordsManager";
+import AllowWordsManager from "./pages/Admin/AllowWordsManager";
 import ReviewManager from "./pages/Admin/ReviewManager";
 import Mypage from "./pages/Mypage";
 import MypageEdit from "./pages/MypageEdit";
@@ -20,7 +23,6 @@ import IPTVPlanList from "./pages/IPTVPlanList";
 import MobilePlanDetail from "./pages/MobilePlanDetail";
 import InternetPlanDetail from "./pages/InternetPlanDetail";
 import IPTVPlanDetail from "./pages/IPTVPlanDetail";
-import ExtraInfo from "./pages/ExtraInfo";
 import MobilePlanEdit from "./pages/Admin/MobilePlanEdit";
 import IPTVPlanEdit from "./pages/Admin/IPTVPlanEdit";
 import InternetPlanEdit from "./pages/Admin/InternetPlanEdit";
@@ -50,6 +52,7 @@ function App() {
             <Route path="/kakaocallback" element={<KakaoCallback />} />
             <Route path="/extra-info" element={<ExtraInfo />} />
             <Route path="/chat" element={<ChatPage />} />
+            <Route path="/extra-tag" element={<ExtraTag />} />
             <Route path="/admin/plan" element={<PlanManager />} />
             <Route path="/admin/mobile/create" element={<MobilePlanCreate />} />
             <Route path="/admin/iptv/create" element={<IPTVPlanCreate />} />
@@ -67,7 +70,8 @@ function App() {
               element={<InternetPlanEdit />}
             />
             <Route path="/admin/banwords" element={<BanWordsManager />} />
-            <Route path="/admin/review" element={<ReviewManager />} />
+            <Route path="/admin/allowwords" element={<AllowWordsManager />} />
+            <Route path="/admin/reviews" element={<ReviewManager />} />
             <Route path="/mypage" element={<Mypage />} />
             <Route path="/mypage/edit" element={<MypageEdit />} />
             <Route path="/myreviews" element={<MyReviews />} />
