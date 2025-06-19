@@ -1,106 +1,122 @@
 .interp-plan-container {
-    max-width: 960px;
-    margin: 0 auto;
-    padding: 2rem 1rem;
+  max-width: 960px;
+  margin: 0 auto;
+  padding: 2rem 1rem;
+  z-index: 0;
+}
+
+.interp-plan-container::before {
+  content: "";
+  position: absolute;
+  top: 60px;
+  right: 0px;
+  width: 500px;
+  height: 500px;
+  background: url("../assets/img/background_circle.png") no-repeat;
+  background-size: cover;
+  background-position: center;
+  opacity: 1;
+  z-index: -1;
+  pointer-events: none;
 }
 
 .interp-plan-title {
-    font-size: 40px;
-    font-weight: bold;
-    margin-top: 150px;
-    margin-bottom: 1.5rem;
-    color: #333;
-    text-align: left;
+  font-size: 40px;
+  font-weight: bold;
+  margin-top: 150px;
+  margin-bottom: 1.5rem;
+  color: #333;
+  text-align: left;
 }
 
 .interp-plan-list {
-    display: flex;
-    flex-direction: column;
-    gap: 2rem;
+  display: flex;
+  flex-direction: column;
+  gap: 2rem;
 }
 
 .interp-plan-card {
-    position: relative;
-    display: flex;
-    justify-content: space-between;
-    background-color: #fff;
-    padding: 1.5rem;
-    border-radius: 1rem;
-    box-shadow: 0 0 12px rgba(0, 0, 0, 0.05);
+  position: relative;
+  display: flex;
+  justify-content: space-between;
+  background-color: #fff;
+  padding: 1.5rem;
+  border-radius: 1rem;
+  box-shadow: 0 0 12px rgba(0, 0, 0, 0.05);
 }
 
 .interp-plan-info {
-    max-width: 65%;
+  max-width: 65%;
 }
 
 .interp-plan-name {
-    font-size: 1.25rem;
-    font-weight: 600;
-    margin-bottom: 0.5rem;
+  font-size: 1.25rem;
+  font-weight: 600;
+  margin-bottom: 0.5rem;
 }
 
 .interp-plan-benefits {
-    list-style: none;
-    padding-left: 0;
-    color: #666;
-    font-size: 0.95rem;
-    line-height: 1.4;
+  list-style: none;
+  padding-left: 0;
+  color: #666;
+  font-size: 0.95rem;
+  line-height: 1.4;
 }
 
 .interp-plan-price-box {
-    display: flex;
-    flex-direction: column;
-    justify-content: flex-end;
-    align-items: flex-end;
-    min-width: 120px;
-    margin-left: 1rem;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-end;
+  align-items: flex-end;
+  min-width: 120px;
+  margin-left: 1rem;
 }
 
 .interp-plan-price {
-    font-size: 1.2rem;
-    font-weight: bold;
-    color: #d60087;
-    margin-bottom: 0.5rem;
+  font-size: 1.2rem;
+  font-weight: bold;
+  color: #d60087;
+  margin-bottom: 0.5rem;
 }
 
 .interp-plan-detail-button {
-    padding: 0.4rem 0.8rem;
-    font-size: 0.9rem;
-    background-color: #d60087;
-    color: white;
-    border: none;
-    border-radius: 0.375rem;
-    cursor: pointer;
+  padding: 0.4rem 0.8rem;
+  font-size: 0.9rem;
+  background-color: #d60087;
+  color: white;
+  border: none;
+  border-radius: 0.375rem;
+  cursor: pointer;
 }
 
 .interp-plan-detail-button:hover {
-    background-color: #bd006f;
+  background-color: #bd006f;
 }
 
 .interp-plan-loading,
 .interp-plan-end-message {
-    text-align: center;
-    margin-top: 1rem;
-    color: #777;
-    font-size: 0.95rem;
+  text-align: center;
+  margin-top: 1rem;
+  color: #777;
+  font-size: 0.95rem;
 }
 
 .interp-favorite-button {
-    position: absolute;
-    top: 1rem;
-    right: 1rem;
-    font-size: 1.5rem;
-    color: #ccc;
-    background: none;
-    border: none;
-    cursor: pointer;
-    transition: color 0.3s ease;
+  position: absolute;
+  top: 1rem;
+  right: 1rem;
+  font-size: 1.5rem;
+  color: #ccc;
+  background: none;
+  border: none;
+  cursor: pointer;
+  transition: color 0.3s ease;
 }
 
 .interp-favorite-button:hover {
-    color: #D63484;
+  color: #d63484;
 }
 
 .interp-favorite-button.interp-active {
-    color: #D63484;
+  color: #d63484;
 }
