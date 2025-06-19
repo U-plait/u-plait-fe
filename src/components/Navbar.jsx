@@ -36,6 +36,13 @@ const Navbar = () => {
             <button className="nav-button">MyPage</button>
           </Link>
         </li> */}
+        {user?.userRole === "ADMIN" && (
+          <li className="nav-item">
+            <Link to="/admin/reviews">
+              <button className="nav-button">Admin</button>
+            </Link>
+          </li>
+        )}
       </ul>
       <div className="auth-buttons">
         {user ? (
