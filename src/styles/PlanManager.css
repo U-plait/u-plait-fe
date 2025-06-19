@@ -93,6 +93,12 @@
   filter: brightness(0.95);
 }
 
+.add-plan-button-container {
+  display: flex;
+  justify-content: flex-end;
+  margin: 16px 0;
+}
+
 /* ==================================
     요금제 카드 목록 그리드
    ================================== */
