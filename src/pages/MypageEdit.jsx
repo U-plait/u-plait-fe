@@ -131,6 +131,9 @@ const MypageEdit = () => {
                     >
                         💬 Reviews
                     </button>
+                    <button className="menu-item" onClick={() => navigate("/")}>
+                        🌟 Bookmark
+                    </button>
                 </nav>
             </aside>
 
