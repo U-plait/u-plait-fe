@@ -161,7 +161,7 @@ export const deletePlanAPI = async (planId) => {
 
 export const getMobilePlans = async () => {
     try {
-        const response = await api.get('/plan/mobile'); // 경로 수정
+        const response = await api.get('/plan/Cmobile'); // 경로 수정
         return response.data.data; // Assuming CommonResponse.success wraps data in 'data' field
     } catch (error) {
         console.error("Error fetching mobile plans:", error);
@@ -171,7 +171,7 @@ export const getMobilePlans = async () => {
 
 export const getInternetPlans = async () => {
     try {
-        const response = await api.get('/plan/internet'); // 경로 수정
+        const response = await api.get('/plan/Cinternet'); // 경로 수정
         return response.data.data;
     } catch (error) {
         console.error("Error fetching internet plans:", error);
@@ -181,7 +181,7 @@ export const getInternetPlans = async () => {
 
 export const getIptvPlans = async () => {
     try {
-        const response = await api.get('/plan/iptv'); // 경로 수정
+        const response = await api.get('/plan/Ciptv'); // 경로 수정
         return response.data.data;
     } catch (error) {
         console.error("Error fetching IPTV plans:", error);

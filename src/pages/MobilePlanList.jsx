@@ -14,7 +14,7 @@ const MobilePlanList = () => {
     const fetchPlans = async (pageNum) => {
         try {
             setLoading(true);
-            const res = await api.get(`/admin/plan/mobile?page=${pageNum}&size=5`);
+            const res = await api.get(`/plan/mobile?page=${pageNum}&size=5`);
             const newPlans = res.data?.data?.content || [];
             const lastPage = res.data?.data?.last;
 

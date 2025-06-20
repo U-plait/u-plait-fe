@@ -14,7 +14,7 @@ const InternetPlanList = () => {
     const fetchPlans = async (pageNum) => {
         try {
             setLoading(true);
-            const res = await api.get(`/admin/plan/internet?page=${pageNum}&size=5`);
+            const res = await api.get(`/plan/internet?page=${pageNum}&size=5`);
             const newPlans = res.data?.data?.content || [];
             const lastPage = res.data?.data?.last;
 
