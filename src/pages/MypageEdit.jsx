@@ -32,56 +32,61 @@ const MypageEdit = () => {
         return "기타";
     };
 
-    const validatePhone = (number) =>
-        /^010-\d{4}-\d{4}$/.test(number);
+    const checkDuplicate = async (type) => {
+        try {
+            const param = type === "이메일" ? "email" : "phone";
+            const value = type === "이메일" ? email : phoneNumber;
+            const current = type === "이메일" ? userInfo.email : userInfo.phoneNumber;
 
-    const validateEmail = (email) =>
-        /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email);
+            const res = await api.get(`/user/duplicate/${param}`, {
+                params: {
+                    value,
+                    current
+                },
+            });
 
-    const checkPhoneDuplicate = () => {
-        if (!validatePhone(phoneNumber)) {
-            setErrors(prev => ({ ...prev, phone: "전화번호 형식이 올바르지 않습니다." }));
-            return;
+            const isDuplicated = res.data.data.duplicated;
+
+            const successMsg =
+                type === "이메일"
+                    ? "사용 가능한 이메일입니다."
+                    : "사용 가능한 전화번호입니다.";
+            const errorMsg =
+                type === "이메일"
+                    ? "이미 사용 중인 이메일입니다."
+                    : "이미 사용 중인 전화번호입니다.";
+
+            if (type === "이메일") {
+                setErrors((prev) => ({
+                    ...prev,
+                    email: isDuplicated ? errorMsg : successMsg,
+                }));
+                setDupChecked((prev) => ({
+                    ...prev,
+                    email: !isDuplicated,
+                }));
+            } else {
+                setErrors((prev) => ({
+                    ...prev,
+                    phone: isDuplicated ? errorMsg : successMsg,
+                }));
+                setDupChecked((prev) => ({
+                    ...prev,
+                    phone: !isDuplicated,
+                }));
+            }
+        } catch (err) {
+            setErrors((prev) => ({
+                ...prev,
+                [type === "이메일" ? "email" : "phone"]: `${type} 중복 확인 중 오류가 발생했습니다.`,
+            }));
         }
-        api
-            .get(`/user/duplicate/phone?value=${phoneNumber}`)
-            .then((res) => {
-                if (res.data.data.duplicated) {
-                    setErrors(prev => ({ ...prev, phone: "이미 사용 중인 번호입니다." }));
-                    setDupChecked(prev => ({ ...prev, phone: false }));
-                } else {
-                    setErrors(prev => ({ ...prev, phone: "" }));
-                    setDupChecked(prev => ({ ...prev, phone: true }));
-                    alert("사용 가능한 전화번호입니다.");
-                }
-            })
-            .catch(() => alert("전화번호 중복 확인 실패"));
-    };
-
-    const checkEmailDuplicate = () => {
-        if (!validateEmail(email)) {
-            setErrors(prev => ({ ...prev, email: "이메일 형식이 올바르지 않습니다." }));
-            return;
-        }
-        api
-            .get(`/user/duplicate/email?value=${email}`)
-            .then((res) => {
-                if (res.data.data.duplicated) {
-                    setErrors(prev => ({ ...prev, email: "이미 사용 중인 이메일입니다." }));
-                    setDupChecked(prev => ({ ...prev, email: false }));
-                } else {
-                    setErrors(prev => ({ ...prev, email: "" }));
-                    setDupChecked(prev => ({ ...prev, email: true }));
-                    alert("사용 가능한 이메일입니다.");
-                }
-            })
-            .catch(() => alert("이메일 중복 확인 실패"));
     };
 
     const handleSubmit = () => {
         const newErrors = {};
-        if (!validatePhone(phoneNumber)) newErrors.phone = "전화번호 형식이 올바르지 않습니다.";
-        if (!validateEmail(email)) newErrors.email = "이메일 형식이 올바르지 않습니다.";
+        if (!phoneNumber) newErrors.phone = "전화번호를 입력해주세요.";
+        if (!email) newErrors.email = "이메일을 입력해주세요.";
         if (!dupChecked.phone) newErrors.phone = "전화번호 중복 확인이 필요합니다.";
         if (!dupChecked.email) newErrors.email = "이메일 중복 확인이 필요합니다.";
 
@@ -89,11 +94,15 @@ const MypageEdit = () => {
 
         if (Object.keys(newErrors).length === 0) {
             api
-                .put("/user/detail/update", {
-                    phoneNumber,
-                    email,
-                    adAgree
-                }, { withCredentials: true })
+                .put(
+                    "/user/detail/update",
+                    {
+                        phoneNumber,
+                        email,
+                        adAgree,
+                    },
+                    { withCredentials: true }
+                )
                 .then(() => {
                     alert("개인정보가 성공적으로 수정되었습니다.");
                     navigate("/mypage");
@@ -106,18 +115,19 @@ const MypageEdit = () => {
 
     return (
         <div className="mypage-edit-container">
-            {/* Sidebar - Mypage와 동일하게 하드코딩 */}
+            {/* Sidebar */}
             <aside className="sidebar">
                 <div className="side-menu">User Menu</div>
                 <nav className="menu">
-                    <button className="menu-item active"
-                            onClick={() => navigate('/mypage')}
+                    <button
+                        className="menu-item active"
+                        onClick={() => navigate("/mypage")}
                     >
                         👤 User profile
                     </button>
                     <button
                         className="menu-item"
-                        onClick={() => navigate('/myreviews')}
+                        onClick={() => navigate("/myreviews")}
                     >
                         💬 Reviews
                     </button>
@@ -142,10 +152,16 @@ const MypageEdit = () => {
                                     value={phoneNumber}
                                     onChange={(e) => {
                                         setPhoneNumber(e.target.value);
-                                        setDupChecked(prev => ({ ...prev, phone: false }));
+                                        setDupChecked((prev) => ({ ...prev, phone: false }));
+                                        setErrors((prev) => ({ ...prev, phone: "" }));
                                     }}
+                                    placeholder="010-1234-5678"
                                 />
-                                <button className="edit-btn" onClick={checkPhoneDuplicate}>
+                                <button
+                                    className="edit-btn"
+                                    type="button"
+                                    onClick={() => checkDuplicate("전화번호")}
+                                >
                                     중복 확인
                                 </button>
                             </div>
@@ -160,10 +176,16 @@ const MypageEdit = () => {
                                     value={email}
                                     onChange={(e) => {
                                         setEmail(e.target.value);
-                                        setDupChecked(prev => ({ ...prev, email: false }));
+                                        setDupChecked((prev) => ({ ...prev, email: false }));
+                                        setErrors((prev) => ({ ...prev, email: "" }));
                                     }}
+                                    placeholder="example@domain.com"
                                 />
-                                <button className="edit-btn" onClick={checkEmailDuplicate}>
+                                <button
+                                    className="edit-btn"
+                                    type="button"
+                                    onClick={() => checkDuplicate("이메일")}
+                                >
                                     중복 확인
                                 </button>
                             </div>
