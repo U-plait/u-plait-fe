@@ -36,9 +36,15 @@ const MypageEdit = () => {
         try {
             const param = type === "이메일" ? "email" : "phone";
             const value = type === "이메일" ? email : phoneNumber;
+            const current = type === "이메일" ? userInfo.email : userInfo.phoneNumber;
+
             const res = await api.get(`/user/duplicate/${param}`, {
-                params: { value },
+                params: {
+                    value,
+                    current
+                },
             });
+
             const isDuplicated = res.data.data.duplicated;
 
             const successMsg =
