@@ -1,0 +1,172 @@
+.icard-card-wrapper {
+  display: flex;
+  justify-content: center; /* 가로 중앙 */
+  align-items: center;     /* 세로 중앙 */
+}
+
+.icard-plan-card {
+  background: #fff;
+  border-radius: 2.5rem;
+  box-shadow: 0 8px 20px 0 rgba(214, 52, 132, 0.10);
+  padding: 4rem 5rem;
+  max-width: 900px;
+  min-width: 1000px;
+  margin: 0 auto;
+  position: relative;
+  transition: box-shadow 0.2s;
+}
+
+.icard-card-inner {
+  display: flex;
+  flex-direction: row;
+  align-items: flex-start;
+  justify-content: flex-start;
+  gap: 2.5rem;
+}
+
+.icard-card-left {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  justify-content: flex-start;
+  gap: 1.1rem;
+  min-width: 200px;
+  flex: 0 0 200px;
+}
+
+
+.icard-plan-name {
+  white-space: nowrap;
+  font-size: 30px;
+  font-weight: 750;
+  color: #231f20;
+}
+
+.icard-plan-detail-button {
+  background: #d63484;
+  color: #fff;
+  border: none;
+  border-radius: 0.5rem;
+  font-size: 1rem;
+  font-weight: 700;
+  padding: 0.7rem 0;
+  width: 170px;
+  text-align: center;
+  cursor: pointer;
+  margin-top: 0.7rem;
+  transition: background 0.2s;
+}
+.icard-plan-detail-button:hover {
+  background: #a83372;
+}
+
+.icard-favorite-button {
+  position: absolute;
+  top: 1.2rem;
+  right: 1.7rem;
+  font-size: 2.1rem;
+  color: #e5e5e5;
+  background: none;
+  border: none;
+  cursor: pointer;
+  transition: color 0.3s;
+  z-index: 2;
+}
+.icard-favorite-button.icard-active {
+  color: #c13c83;
+}
+
+.icard-card-right {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end; 
+  justify-content: center;
+  gap: 1.2rem;
+  margin-left: auto;
+  margin-right: 60px;
+}
+
+.icard-price-block {
+  margin-left: 35%;
+  margin-top: 5%;
+  text-align: right;
+  white-space: nowrap;
+}
+
+.icard-plan-price {
+  font-size: 2rem;
+  font-weight: bold;
+  color: #c13c83;
+  margin-bottom: 0.2rem;
+}
+.icard-plan-price span {
+  font-size: 2.2rem;
+  font-weight: 900;
+  color: #c13c83;
+}
+.icard-plan-discount-price {
+  font-size: 20px;
+  color: #888;
+  font-weight: 500;
+}
+
+.icard-plan-description {
+    white-space: nowrap;
+    font-size: 19px;
+}
+
+.icard-default-info {
+  display: flex;
+  flex-direction: row;
+  gap: 1.2rem;
+  align-items: center;
+  margin-top: auto; /* 바닥에 붙임 */
+}
+
+.icard-default-info div {
+  display: flex;
+  align-items: center;
+  gap: 0.7rem;
+  font-size: 1.13rem;
+  color: #231f20;
+}
+
+.icard-default-info img {
+  width: 25px;
+  height: 25px;
+  display: block;
+}
+
+@media (max-width: 600px) {
+  .icard-card-inner {
+    flex-direction: column;
+    gap: 1.5rem;
+  }
+  
+  .icard-card-left {
+    min-width: 0;
+    width: 100%;
+  }
+  .icard-card-right {
+    min-width: 0;
+    width: 100%;
+  }
+
+  .icard-plan-detail-button {
+    width: 100%;
+  }
+}
+
+.icard-discount-badge {
+  display: inline-block;
+  background: #727272;
+  color: #fff;
+  font-size: 0.98rem;
+  font-weight: 700;
+  padding: 0.23em 0.95em;
+  border-radius: 1.2em;
+  margin-bottom: 0.55em;
+  margin-right: 0.3em;
+  letter-spacing: -0.5px;
+  box-shadow: 0 1px 4px rgba(214,52,132,0.07);
+}

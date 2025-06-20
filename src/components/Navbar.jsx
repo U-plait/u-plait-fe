@@ -31,6 +31,11 @@ const Navbar = () => {
             <button className="nav-button">IPTV</button>
           </Link>
         </li>
+        <li className="nav-item">
+          <Link to="/Cmobile">
+            <button className="nav-button">Compare</button>
+          </Link>
+        </li>
         {/* <li className="nav-item">
           <Link to="/mypage">
             <button className="nav-button">MyPage</button>

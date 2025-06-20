@@ -1,11 +1,11 @@
-.plan-detail {
+.pd-plan-detail {
   font-family: sans-serif;
   padding: 20px;
   margin-left: 100px;
   margin-right: 100px;
 }
 
-.plan-card {
+.pd-plan-card {
   background-color: #fce4ec;
   padding: 20px;
   border-radius: 10px;
@@ -13,30 +13,30 @@
   position: relative;
 }
 
-.wrap {
+.pd-wrap {
   margin-left: 200px;
   margin-right: 200px;
 }
 
-.plan-header {
+.pd-plan-header {
   display: flex;
   justify-content: space-between;
   align-items: flex-end;
   margin-bottom: 24px;
 }
 
-.plan-title {
+.pd-plan-title {
   font-size: 27px;
   font-weight: 650;
   text-align: left;
   margin-bottom: 8px;
 }
 
-.plan-benefit {
+.pd-plan-benefit {
   text-align: left;
 }
 
-.plan-price-box {
+.pd-plan-price-box {
   top: 28px;
   right: 32px;
   text-align: right;
@@ -45,35 +45,35 @@
   align-items: flex-end;
 }
 
-.plan-price-box p:first-child {
+.pd-plan-price-box p:first-child {
   font-weight: bold;
   font-size: 18px;
 }
 
-.plan-price-box p:last-child {
+.pd-plan-price-box p:last-child {
   font-size: 12px;
   color: #666;
 }
 
-.plan-price-main {
+.pd-plan-price-main {
   font-size: 25px;
   font-weight: 500;
   margin-right: 20px;
 }
 
-.plan-price-sub {
+.pd-plan-price-sub {
   color: #666;
   margin-right: 20px;
 }
 
-.plan-features {
+.pd-plan-features {
   display: flex;
   gap: 20px;
   margin-top: 20px;
   flex-wrap: wrap;
 }
 
-.feature-card {
+.pd-feature-card {
   flex: 1 0 150px;
   background-color: #fff;
   padding: 15px;
@@ -84,13 +84,13 @@
   min-width: 120px;
 }
 
-.feature-title {
+.pd-feature-title {
   font-weight: 750;
   font-size: 16px;
   margin-bottom: 8px;
 }
 
-.feature-title-benefit {
+.pd-feature-title-benefit {
   font-weight: 750;
   font-size: 16px;
   margin-bottom: 8px;
@@ -98,7 +98,7 @@
   text-align: left;
 }
 
-.feature-value-benefit {
+.pd-feature-value-benefit {
   font-size: 14px;
   margin-left: 15px;
   text-align: left;
@@ -107,36 +107,36 @@
   line-height: 1.8;
 }
 
-.plan-benefits {
+.pd-plan-benefits {
   background-color: #fafafa;
   border-radius: 10px;
   padding: 20px;
   margin-bottom: 30px;
 }
 
-.benefit-title {
+.pd-benefit-title {
   font-size: 25px;
   margin-bottom: 12px;
   text-align: left;
   margin-left: 20px;
 }
 
-.benefit-subtitle {
+.pd-benefit-subtitle {
   margin-bottom: 15px;
 }
 
-.benefit-label {
+.pd-benefit-label {
   font-weight: bold;
   margin-bottom: 20px;
 }
 
-.media-boxes {
+.pd-media-boxes {
   display: flex;
   gap: 20px;
   flex-wrap: wrap;
 }
 
-.media-box {
+.pd-media-box {
   flex: 1 0 200px;
   background-color: #fff;
   border-radius: 10px;
@@ -145,26 +145,26 @@
   box-shadow: 0 1px 4px rgba(0, 0, 0, 0.1);
 }
 
-.media-icon {
+.pd-media-icon {
   font-size: 30px;
 }
 
-.media-title {
+.pd-media-title {
   margin: 10px 0 5px;
   font-weight: bold;
 }
 
-.media-desc {
+.pd-media-desc {
   font-size: 14px;
   color: #555;
 }
 
-.error-message {
+.pd-error-message {
   color: red;
   font-weight: bold;
 }
 
-.discount-benefits {
+.pd-discount-benefits {
   background: #fff;
   border-radius: 16px;
   padding: 24px;
@@ -175,20 +175,20 @@
   gap: 24px;
 }
 
-.discount-card-header {
+.pd-discount-card-header {
   display: flex;
   align-items: center;
   gap: 12px;
   margin-bottom: 10px;
 }
 
-.discount-icon {
+.pd-discount-icon {
   width: 44px;
   height: 44px;
   object-fit: contain;
 }
 
-.discount-card {
+.pd-discount-card {
   background: #fcfcfc;
   border-radius: 12px;
   padding: 24px 32px;
@@ -198,12 +198,12 @@
   width: 100%;
 }
 
-.discount-row {
+.pd-discount-row {
   display: flex;
   align-items: center;
 }
 
-.discount-title {
+.pd-discount-title {
   min-width: 200px;
   font-weight: 700;
   font-size: 1.08rem;
@@ -213,21 +213,21 @@
   padding-left: 0;
 }
 
-.discount-divider {
+.pd-discount-divider {
   width: 1px;
   height: 60px;
   background: #e0e0e0;
   margin: 0 24px;
 }
 
-.discount-desc {
+.pd-discount-desc {
   margin: 0;
   color: #444;
   font-size: 1rem;
   line-height: 1.7;
 }
 
-.discount-desc li {
+.pd-discount-desc li {
   margin-bottom: 2px;
   padding-left: 0;
   list-style: disc inside;
@@ -235,20 +235,20 @@
 }
 
 /* 리뷰 폼 */
-.review-text-input {
+.pd-review-text-input {
   background-color: #fff;
   border: 1.5px solid #c2185b;
   border-radius: 10px;
   position: relative;
 }
 
-.review-form-wrapper form {
+.pd-review-form-wrapper form {
   display: flex;
   flex-direction: column;
   gap: 16px;
 }
 
-.review-title-input {
+.pd-review-title-input {
   width: 100%;
   padding: 10px 12px;
   border: 1.5px solid #c2185b;
@@ -258,7 +258,7 @@
   box-sizing: border-box;
 }
 
-.review-rating-input {
+.pd-review-rating-input {
   display: flex;
   align-items: center;
   gap: 4px;
@@ -266,7 +266,7 @@
   margin-bottom: 4px;
 }
 
-.review-textarea {
+.pd-review-textarea {
   width: 100%;
   min-height: 100px;
   padding: 12px 16px;
@@ -279,13 +279,13 @@
   box-sizing: border-box;
 }
 
-.review-textarea:disabled {
+.pd-review-textarea:disabled {
   background-color: #f9f9f9;
   color: #999;
   cursor: not-allowed;
 }
 
-.review-submit {
+.pd-review-submit {
   align-self: flex-end;
   padding: 10px 28px;
   background-color: #c2185b;
@@ -299,12 +299,12 @@
   margin-bottom: 30px;
 }
 
-.review-submit:disabled {
+.pd-review-submit:disabled {
   background-color: #e0a9b8;
   cursor: not-allowed;
 }
 
-.review-warning {
+.pd-review-warning {
   position: absolute;
   top: 50%;
   left: 50%;
@@ -323,17 +323,17 @@
   word-break: keep-all;
 }
 
-.review-form-wrapper.blurred form {
+.pd-review-form-wrapper.pd-blurred form {
   filter: blur(3px) grayscale(0.3) brightness(1.04);
   pointer-events: none;
 }
 
-.blurred {
+.pd-blurred {
   filter: blur(3px) grayscale(0.3) brightness(1.04);
   pointer-events: none;
 }
 
-.plan-info-on-blur {
+.pd-plan-info-on-blur {
   position: absolute;
   top: 32px;
   left: 50%;
@@ -349,22 +349,22 @@
   pointer-events: none;
 }
 
-.plan-info-on-blur .plan-name {
+.pd-plan-info-on-blur .pd-plan-name {
   font-size: 1.15rem;
   margin-bottom: 6px;
 }
 
-.plan-info-on-blur .plan-price {
+.pd-plan-info-on-blur .pd-plan-price {
   font-size: 1rem;
   color: #222;
 }
 
-.review-form-wrapper.blurred {
+.pd-review-form-wrapper.pd-blurred {
   filter: blur(3px) grayscale(0.3) brightness(1.04);
   pointer-events: none;
 }
 
-.review-textarea {
+.pd-review-textarea {
   width: 100%;
   min-height: 60px;
   font-size: 1rem;
@@ -374,11 +374,11 @@
   background: transparent;
 }
 
-.review-form-wrapper {
+.pd-review-form-wrapper {
   position: relative;
 }
 
-.review-submit {
+.pd-review-submit {
   float: right;
   margin-top: 18px;
   background: #c2185b;
@@ -392,20 +392,20 @@
   transition: background 0.2s;
 }
 
-.review-submit:disabled {
+.pd-review-submit:disabled {
   background: #eee;
   color: #aaa;
   cursor: not-allowed;
 }
 
 /* 리뷰 리스트 */
-.review-list {
+.pd-review-list {
   list-style: none;
   padding: 0;
   margin: 0;
 }
 
-.review-item {
+.pd-review-item {
   background: #f5f6fa;
   border-radius: 10px;
   box-shadow: 0 1px 4px rgba(0,0,0,0.08);
@@ -415,39 +415,39 @@
   transition: box-shadow 0.2s;
 }
 
-.review-row {
+.pd-review-row {
   display: flex;
   justify-content: space-between;
   align-items: flex-start;
   margin-bottom: 8px;
 }
 
-.review-title-rating {
+.pd-review-title-rating {
   text-align: left;
 }
 
-.review-title {
+.pd-review-title {
   font-size: 1.08rem;
   font-weight: 700;
   margin-bottom: 2px;
   color: #222;
 }
 
-.review-rating {
+.pd-review-rating {
   margin-bottom: 2px;
 }
 
-.star {
+.pd-star {
   font-size: 1.15rem;
   color: #ccc;
   margin-right: 1px;
 }
 
-.star-filled {
+.pd-star-filled {
   color: #FFD600;
 }
 
-.review-meta {
+.pd-review-meta {
   display: flex;
   flex-direction: column;
   align-items: flex-end;
@@ -455,19 +455,19 @@
   gap: 2px;
 }
 
-.review-nickname {
+.pd-review-nickname {
   font-size: 1rem;
   font-weight: 600;
   color: #222;
 }
 
-.review-date {
+.pd-review-date {
   font-size: 0.95rem;
   color: #888;
   margin-top: 2px;
 }
 
-.review-content {
+.pd-review-content {
   font-size: 1rem;
   color: #222;
   margin: 12px 0 0 0;
@@ -477,15 +477,15 @@
   text-align: left;
 }
 
-.review-actions {
+.pd-review-actions {
   display: flex;
   justify-content: flex-end;
   gap: 8px;
   margin-top: 8px;
 }
 
-.review-edit-btn,
-.review-delete-btn {
+.pd-review-edit-btn,
+.pd-review-delete-btn {
   background: none;
   border: none;
   font-size: 1.15rem;
@@ -495,30 +495,30 @@
   transition: color 0.2s;
 }
 
-.review-edit-btn:hover,
-.review-delete-btn:hover {
+.pd-review-edit-btn:hover,
+.pd-review-delete-btn:hover {
   color: #c2185b;
 }
 
-.review-empty {
+.pd-review-empty {
   text-align: center;
   color: #999;
   padding: 20px 0;
   font-size: 1rem;
 }
 
-.star {
+.pd-star {
   color: #eee;
   font-size: 1.15rem;
   margin-right: 1px;
   vertical-align: middle;
 }
 
-.star-filled {
+.pd-star-filled {
   color: #FFD600;
 }
 
-.review-meta {
+.pd-review-meta {
   display: flex;
   flex-direction: column;
   align-items: flex-end;
@@ -526,19 +526,19 @@
   gap: 2px;
 }
 
-.review-nickname {
+.pd-review-nickname {
   font-size: 20px;
   font-weight: 600;
   color: #222;
 }
 
-.review-date {
+.pd-review-date {
   font-size: 0.95rem;
   color: #888;
   margin-top: 2px;
 }
 
-.review-content {
+.pd-review-content {
   font-size: 1rem;
   color: #222;
   margin: 12px 0 0 0;
@@ -549,15 +549,15 @@
   text-align: left;  margin-top: 0px;
 }
 
-.review-actions {
+.pd-review-actions {
   display: flex;
   justify-content: flex-end;
   gap: 8px;
   margin-top: 8px;
 }
 
-.review-edit-btn,
-.review-delete-btn {
+.pd-review-edit-btn,
+.pd-review-delete-btn {
   background: none;
   border: none;
   font-size: 1.15rem;
@@ -567,12 +567,12 @@
   transition: color 0.2s;
 }
 
-.review-edit-btn:hover,
-.review-delete-btn:hover {
+.pd-review-edit-btn:hover,
+.pd-review-delete-btn:hover {
   color: #c2185b;
 }
 
-.review-more-btn {
+.pd-review-more-btn {
   display: block;
   margin: 18px auto 0 auto;
   padding: 10px 32px;
@@ -586,6 +586,28 @@
   transition: background 0.2s;
 }
 
-.review-more-btn:hover {
+.pd-review-more-btn:hover {
   background: #ad1457;
+}
+
+.pd-review-item-editing {
+  box-shadow: 0 0 0 1.5px #ad1457;
+  transition: background 0.2s, box-shadow 0.2s;
+}
+
+.pd-review-item-editing .pd-review-title-input,
+.pd-review-item-editing .pd-review-textarea {
+  outline: none;
+  box-shadow: 0 0 0 1.5px #ad1457;
+}
+
+.pd-review-item-editing .pd-review-edit-btn {
+  color: #ad1457;
+  font-weight: bold;
+}
+
+.pd-buttons {
+  display: flex;
+  align-items: flex-end;
+  gap: 12px
 }
