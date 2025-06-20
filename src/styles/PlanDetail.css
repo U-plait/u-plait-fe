@@ -140,9 +140,25 @@
   flex: 1 0 200px;
   background-color: #fff;
   border-radius: 10px;
-  padding: 15px;
+  padding: 10px;
+  padding-top: 30px;
   text-align: center;
   box-shadow: 0 1px 4px rgba(0, 0, 0, 0.1);
+  flex-wrap: wrap;
+}
+
+.pd-prim-media-boxes {
+  flex: 1 1 300px;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  background-color: #fff;
+  padding: 20px;
+  text-align: left;
+  box-shadow: 0 1px 4px rgba(0, 0, 0, 0.1);
+  gap: 16px;
+  min-width: 280px;
+  max-width: 100%;
 }
 
 .pd-media-icon {
@@ -189,7 +205,7 @@
 }
 
 .pd-discount-card {
-  background: #fcfcfc;
+  background: #f7f7f7;
   border-radius: 12px;
   padding: 24px 32px;
   margin-bottom: 18px;
@@ -610,4 +626,28 @@
   display: flex;
   align-items: flex-end;
   gap: 12px
+}
+
+.pd-premium-slider {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 12px;
+  padding: 30px;
+}
+
+.pd-media-boxes {
+  display: flex;
+  gap: 20px;
+  padding-left: 20px;
+  padding-right: 20px;
+}
+
+.pd-media-desc {
+  white-space: pre-line;
+}
+
+.pd-media-desc {
+  white-space: pre-line;
+  line-height: 1.4;
 }

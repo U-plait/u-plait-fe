@@ -4,6 +4,12 @@ import api from '../api/api';
 import '../styles/PlanDetail.css';
 import editIcon from '../assets/img/edit_button.png';
 import trashIcon from '../assets/img/trashcan_button.png';
+import ailandIcon from '../assets/img/ailand_icon.png';
+import genieIcon from '../assets/img/genie_icon.png';
+import millieIcon from '../assets/img/millie_icon.png';
+import uplayIcon from '../assets/img/uplay_icon.png';
+import vibeIcon from '../assets/img/vibe_icon.png';
+
 
 function MobilePlanDetail() {
   const { planId } = useParams();
@@ -19,6 +25,7 @@ function MobilePlanDetail() {
   const [editTitle, setEditTitle] = useState('');
   const [editContent, setEditContent] = useState('');
   const [editRating, setEditRating] = useState(0);
+  const [premiumPage, setPremiumPage] = useState(0);
 
   const combineList = [1, 2];
 
@@ -142,7 +149,6 @@ function MobilePlanDetail() {
     }
   };
 
-
   // 리뷰 수정 취소
   const handleEditCancel = () => {
     setEditingReviewId(null);
@@ -177,6 +183,52 @@ function MobilePlanDetail() {
     </div>
   );
 
+  const premieritems = [
+    { icon: "🧒", title: "폰교체 패스", desc: "휴대폰이 파손됐을 때\n수리 또는 교체 중 원하는 방식을\n선택할 수 있는 폰케어 서비스" },
+    { icon: "🎵", title: "삼성팩", desc: "삼성 디바이스 할부금 할인\n삼성팩 대신 다른 카테고리 팩 선택 가능" },
+    { icon: "🎧", title: "티빙 이용권 할인", desc: "유독에서 '티빙 이용권(U+ 요금제 전용)'\n가입 시 티빙 이용권 매달 9,500원 할인" },
+    { icon: "📚", title: "디즈니+", desc: "요금이 U+통신료와 함께 청구되기 때문에\n결제 정보를 따로 입력할 필요가 없는\n디즈니+ 서비스" },
+    { icon: "📚", title: "넷플릭스", desc: "U+통신료와 한번에 결제하여\n신용카드 정보를 등록할 필요없이\n편리하게 넷플릭스를 이용 가능한 서비스" },
+    { icon: "📚", title: "헬로렌탈 구독", desc: "LG헬로렌탈 월 이용요금 8,000원 할인 제공\n헬로렌탈 구독팩 대신\n다른 카테고리 팩 선택 가능" },
+    { icon: "📚", title: "일리커피 구독", desc: "일리 커피 구독 팩을 무료로 이용 가능\n일리 커피 구독 팩 대신\n다른 카테고리 팩 선택 가능" },
+    { icon: "📚", title: "우리집지킴이 Easy2+", desc: "해킹 차단 보안 칩이 내장된 맘카와\n각종 보안 센서로 우리집을 지키고\n도난/화재 보험 혜택을 누릴 수 있는\n스마트홈 패키지" },
+    { icon: "📚", title: "우리집돌봄이 Kids", desc: "초고화질의 프리미엄 홈 CCTV 1대\n화재/가전/가구 파손 보험을\n이용할 수 있는 스마트홈 패키지" },
+    { icon: "📚", title: "신한카드 Air", desc: "'LG U+ SKYPASS 신한카드'로\n통신요금 자동이체를 설정하면\n매달 대한항공 마일리지 적립,\n여행 특화 혜택 등을 받을 수 있는 혜택" },
+    { icon: "📚", title: "유튜브 프리미엄 할인", desc: "유독에서 '유튜브 프리미엄(U+ 요금제 전용)'\n가입 시, 매달 구독료를 할인 받아\n유튜브 프리미엄 이용 가능\n(월 4,450원 추가 청구)" },
+    { icon: "📚", title: "멀티팩", desc: "프리미엄 서비스 대신 미디어 서비스 4개\n(아이들나라 스탠다드+러닝, 바이브 음악감상,\n지니뮤직 음악감상, 밀리의 서재) 중 3개 선택 가능" }
+  ];
+
+  const basicitems = [
+    {
+      icon: <img src={ailandIcon} alt="삭제" width={60} height={60} />,
+      title: "아이들나라 스탠다드+러닝",
+      desc: "검증된 학습 콘텐츠와 유아동 베스트셀러 등\n2만여 편의 아이들나라 콘텐츠를\n앱으로 만나볼 수 있는 서비스"
+    },
+    {
+      icon: <img src={vibeIcon} alt="삭제" width={60} height={60} />,
+      title: "바이브 300회 음악감상",
+      desc: "기존에 없던 새로운 오디오 경험과\n취향에 맞는 음악을 제공하는 뮤직 앱"
+    },
+    {
+      icon: <img src={uplayIcon} alt="삭제" width={60} height={60} />,
+      title: "유플레이",
+      desc: "최신 영화, OTT 오리지널 콘텐츠 등\n8만여 편의 콘텐츠를 볼 수 있는 서비스"
+    },
+    {
+      icon: <img src={genieIcon} alt="삭제" width={60} height={60} />,
+      title: "지니뮤직 300회 음악감상",
+      desc: "지니뮤직 앱과 홈페이지에서 좋아하는 음악을\n월 300회 감상할 수 있는 서비스"
+    },
+    {
+      icon: <img src={millieIcon} alt="삭제" width={60} height={60} />,
+      title: "밀리의 서재",
+      desc: "독서 컨텐츠를 언제 어디서나\n무제한으로 즐길 수 있는\n국내 최대 독서 플랫폼 서비스"
+    }
+  ];
+
+
+  const ITEMS_PER_PAGE = 4;
+
   if (error) return <div className="pd-error-message">{error}</div>;
   if (!plan) return <div>로딩중...</div>;
 
@@ -188,7 +240,7 @@ function MobilePlanDetail() {
           <div className="pd-plan-header">
             <div className="pd-plan-title-box">
               <h2 className="pd-plan-title">{plan.planName}</h2>
-              <div className="pd-plan-benefit">{plan.planBenefit}</div>
+              <div className="pd-plan-benefit">{plan.description}</div>
             </div>
             <div className="pd-plan-price-box">
               <div className="pd-plan-price-main">월 {plan.planPrice.toLocaleString()}원</div>
@@ -202,7 +254,9 @@ function MobilePlanDetail() {
             <div className="pd-feature-card">
               <div className="pd-feature-title">데이터</div>
               <div className="pd-feature-value">{plan.data}</div>
-              <div className="pd-feature-value">다 쓰면 {plan.extraData}</div>
+              {plan.extraData !== "없음" && (
+                <div className="pd-feature-value">다 쓰면 {plan.extraData}</div>
+              )}
             </div>
             <div className="pd-feature-card">
               <div className="pd-feature-title">공유 데이터</div>
@@ -234,18 +288,52 @@ function MobilePlanDetail() {
       </div>
 
       {/* 요금제 가입 혜택 */}
-      {plan.mediaBenefit && (
+      {plan.mediaBenefit !== "NONE" && (
         <div className="pd-margin">
           <h3 className="pd-benefit-title"><br />요금제 가입 혜택</h3>
           <div className="pd-plan-benefits">
-            <h4 className="pd-benefit-subtitle">특별 혜택</h4>
+            <h4 className="pd-benefit-subtitle">기본 혜택</h4>
             <p className="pd-benefit-label">미디어 서비스 기본 제공 (택 1)</p>
+              <div className="pd-media-boxes">
+                {basicitems
+                  .map((item, idx) => (
+                    <MediaBox key={idx} icon={item.icon} title={item.title} desc={item.desc} />
+                  ))}
+              </div>
+          </div>
+        </div>
+      )}
 
-            <div className="pd-media-boxes">
-              <MediaBox icon="🧒" title="아이들나라 스탠다드+러닝" desc="참여형 학습, 인기 발달 콘텐츠 엄선" />
-              <MediaBox icon="🎵" title="바이브 300회 음악감상" desc="기존에 없던 새로운 오디오 경험과 큐레이션 음악" />
-              <MediaBox icon="🎧" title="유플레이" desc="정밀한 취향에 맞춘 오디오 플랫폼" />
-              <MediaBox icon="📚" title="밀리의 서재" desc="무제한 국내 최대 독서 플랫폼" />
+      {plan.mediaBenefit === "PREMIUM" && (
+        <div className="pd-margin">
+          <div className="pd-plan-benefits">
+            <h4 className="pd-benefit-subtitle">특별 혜택</h4>
+            <div className="pd-benefit-label">프리미엄 서비스 기본 제공 (택 1)</div>
+
+            {/* 슬라이더 */}
+            <div className="pd-premium-slider">
+              <button onClick={() => setPremiumPage(p => Math.max(p - 1, 0))} disabled={premiumPage === 0}>
+                ◀
+              </button>
+
+              <div className="pd-prim-media-boxes">
+                {premieritems
+                  .slice(premiumPage * ITEMS_PER_PAGE, premiumPage * ITEMS_PER_PAGE + ITEMS_PER_PAGE)
+                  .map((item, idx) => (
+                    <MediaBox key={idx} icon={item.icon} title={item.title} desc={item.desc} />
+                  ))}
+              </div>
+
+              <button
+                onClick={() =>
+                  setPremiumPage(p =>
+                    p < Math.ceil(premieritems.length / ITEMS_PER_PAGE) - 1 ? p + 1 : p
+                  )
+                }
+                disabled={premiumPage >= Math.ceil(premieritems.length / ITEMS_PER_PAGE) - 1}
+              >
+                ▶
+              </button>
             </div>
           </div>
         </div>
