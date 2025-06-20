@@ -82,7 +82,6 @@ function ComparisonMobilePlanList() {
                             <h2 className={styles.planName}>{plan.planName}</h2>
                             <p className={styles.monthlyFeeText}>월정액 (부가세 포함 금액)</p>
                             <p className={styles.planPrice}>월 {getDisplayValue(plan.planPrice)}원</p>
-                            <div className={styles.highlightLine}></div> {/* 스크린샷의 파란색/자주색 라인 */}
                         </div>
 
                         <div className={styles.cardSection}>
@@ -90,8 +89,6 @@ function ComparisonMobilePlanList() {
                             {/* 실제 할인 상세 내역 데이터가 있다면 여기에 매핑합니다. */}
                             {/* 현재 DTO에는 직접적인 할인 금액 필드가 없으므로, 예시 텍스트로 대체하거나 추가 DTO 필드를 활용해야 합니다. */}
                             <p className={styles.discountDetail}>월 {getDisplayValue(plan.premierDiscountRate)}원</p> {/* premierDiscountRate를 할인 상세 금액으로 가정 */}
-                            <p className={styles.discountSubtext}>최종 예상 할인 적용가</p>
-                            <p className={styles.discountSubtext}>월 {getDisplayValue(plan.durationDiscountRate)}원</p> {/* durationDiscountRate도 표시 (예시) */}
                             <div className={styles.discountItem}>
                                 <span className={styles.discountLabel}>선택 약정 할인</span>
                                 <span className={styles.discountValue}>{getDisplayValue(plan.durationDiscountRate, 'number')}%</span>

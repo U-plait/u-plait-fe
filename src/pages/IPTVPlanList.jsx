@@ -1,7 +1,7 @@
-import React, { useEffect, useRef, useState, useCallback } from "react";
-import { Link } from "react-router-dom";
+import { useEffect, useRef, useState, useCallback } from "react";
 import api from "../api/api";
-import "../styles/IPTVPlanList.css";
+import styles from "../styles/IPTVPlanList.module.css";
+import IPTVCard from "../components/IPTVCard";
 
 const IPTVPlanList = () => {
     const [plans, setPlans] = useState([]);
@@ -11,6 +11,7 @@ const IPTVPlanList = () => {
     const [loading, setLoading] = useState(false);
     const observer = useRef();
 
+    // 요금제 불러오기
     const fetchPlans = async (pageNum) => {
         try {
             setLoading(true);
@@ -20,8 +21,17 @@ const IPTVPlanList = () => {
 
             setPlans((prev) => [...prev, ...newPlans]);
             setHasMore(!lastPage);
+
+            // 서버에서 즐겨찾기 정보(plan.isBookmarked)가 내려온다면 Set에 추가
+            setFavorites(prev => {
+                const newSet = new Set(prev);
+                newPlans.forEach(plan => {
+                    if (plan.isBookmarked) newSet.add(plan.planId);
+                });
+                return newSet;
+            });
         } catch (error) {
-            console.error("IPTV 요금제 불러오기 실패:", error);
+            console.error("요금제 불러오기 실패:", error);
         } finally {
             setLoading(false);
         }
@@ -29,65 +39,61 @@ const IPTVPlanList = () => {
 
     useEffect(() => {
         fetchPlans(page);
+        // eslint-disable-next-line
     }, [page]);
 
-    const lastPlanRef = useCallback((node) => {
-        if (loading) return;
-        if (observer.current) observer.current.disconnect();
+    // 페이지네이션 (무한스크롤)
+    const lastPlanRef = useCallback(
+        (node) => {
+            if (loading) return;
+            if (observer.current) observer.current.disconnect();
 
-        observer.current = new IntersectionObserver((entries) => {
-            if (entries[0].isIntersecting && hasMore) {
-                setPage((prev) => prev + 1);
+            observer.current = new IntersectionObserver((entries) => {
+                if (entries[0].isIntersecting && hasMore) {
+                    setPage((prev) => prev + 1);
+                }
+            });
+
+            if (node) observer.current.observe(node);
+        },
+        [loading, hasMore]
+    );
+
+    // 즐겨찾기 토글
+    const toggleFavorite = async (planId) => {
+        const isBookmarked = favorites.has(planId);
+        try {
+            if (isBookmarked) {
+                await api.delete(`/bookmark`, { params: { planId } });
+            } else {
+                await api.post(`/bookmark`, null, { params: { planId } });
             }
-        });
-
-        if (node) observer.current.observe(node);
-    }, [loading, hasMore]);
-
-    const toggleFavorite = (id) => {
-        setFavorites((prev) => {
-            const newFavorites = new Set(prev);
-            newFavorites.has(id) ? newFavorites.delete(id) : newFavorites.add(id);
-            return newFavorites;
-        });
+            setFavorites(prev => {
+                const newFavorites = new Set(prev);
+                isBookmarked ? newFavorites.delete(planId) : newFavorites.add(planId);
+                return newFavorites;
+            });
+        } catch (error) {
+            alert("즐겨찾기 처리 중 오류가 발생했습니다.");
+            console.error(error);
+        }
     };
 
     return (
-        <div className="plan-container">
-            <h2 className="plan-title">IPTV 요금제</h2>
-            <div className="plan-list">
+        <div className={styles["iptvp-plan-container"]}>
+            <div className={styles["iptvp-plan-title"]}>IPTV 요금제</div>
+            <div className={styles["iptvp-plan-list"]}>
                 {plans.map((plan, index) => (
-                    <div
+                    <IPTVCard
                         key={plan.planId}
-                        ref={index === plans.length - 1 ? lastPlanRef : null}
-                        className="plan-card"
-                    >
-                        <button
-                            className={`favorite-button ${favorites.has(plan.planId) ? "active" : ""}`}
-                            onClick={() => toggleFavorite(plan.planId)}
-                            aria-label="즐겨찾기"
-                        >
-                            ★
-                        </button>
-
-                        <div className="plan-info">
-                            <h3 className="plan-name">{plan.planName}</h3>
-                            <ul className="plan-benefits">
-                                <li>{plan.planBenefit}</li>
-                                {!plan.availability && <li>현재 가입 불가</li>}
-                            </ul>
-                        </div>
-
-                        <div className="plan-price-box">
-                            <p className="plan-price">월 {plan.planPrice.toLocaleString()}원</p>
-                            <Link to={`/iptv/plan/${plan.planId}`} className="plan-detail-button">
-                                상세보기
-                            </Link>
-                        </div>
-                    </div>
+                        plan={plan}
+                        isFavorite={favorites.has(plan.planId)}
+                        toggleFavorite={toggleFavorite}
+                        lastPlanRef={index === plans.length - 1 ? lastPlanRef : null}
+                    />
                 ))}
             </div>
-            {loading && <p className="plan-loading">불러오는 중...</p>}
+            {loading && <p className={styles["iptvp-plan-loading"]}>불러오는 중...</p>}
         </div>
     );
 };

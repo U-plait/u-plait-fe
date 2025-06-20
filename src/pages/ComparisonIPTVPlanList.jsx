@@ -82,7 +82,6 @@ function ComparisonIPTVPlanList() {
                             <h2 className={styles.planName}>{plan.planName}</h2>
                             <p className={styles.monthlyFeeText}>월정액 (부가세 포함 금액)</p>
                             <p className={styles.planPrice}>월 {getDisplayValue(plan.planPrice)}원</p>
-                            <div className={styles.highlightLine}></div>
                         </div>
 
                         {/* 할인 상세내역 섹션 */}
@@ -90,7 +89,6 @@ function ComparisonIPTVPlanList() {
                             <h3 className={styles.sectionTitle}>할인 상세내역</h3>
                             {/* IPTV는 iptvDiscount 필드만 있으므로 해당 값만 표시 */}
                             <p className={styles.discountDetail}>월 {getDisplayValue(plan.iptvDiscount)}원</p>
-                            <p className={styles.discountSubtext}>최종 예상 할인 적용가</p>
                             {/* IPTV는 선택 약정/프리미엄 약정 할인 필드가 없으므로 생략 */}
                         </div>
 

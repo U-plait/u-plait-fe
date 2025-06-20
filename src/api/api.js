@@ -1,4 +1,5 @@
 import axios from "axios";
+import useUserStore from "../context/userStore";
 
 const API_URL = process.env.REACT_APP_API_BASE_URL;
 
@@ -30,6 +31,8 @@ api.interceptors.response.use(
         );
         return api(originalRequest);
       } catch (refreshError) {
+        const setUser = useUserStore.getState().setUser;
+        setUser(null);
         alert("로그인이 만료되었습니다. 다시 로그인해주세요.");
         window.location.href = "/login";
         return Promise.reject(refreshError);
@@ -38,6 +41,8 @@ api.interceptors.response.use(
 
     if ([401, 403].includes(error.response?.status)) {
       if (window.location.pathname !== "/") {
+        const setUser = useUserStore.getState().setUser;
+        setUser(null);
         alert("접근 권한이 없습니다. 로그인 후 이용해주세요.");
         window.location.href = "/login";
       }

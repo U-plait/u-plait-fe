@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
+import { BrowserRouter as Router, Routes, Route, Navigate } from "react-router-dom";
 import Navbar from "./components/Navbar";
 import "./App.css";
 // import Home from "./pages/Home";
@@ -48,6 +48,7 @@ function App() {
           {showChat && <ChatModal onClose={() => setShowChat(false)} />}
           <Routes>
             {/* <Route path="/" element={<Home />} /> */}
+            <Route path="/" element={<Navigate to="/mobile" />} />
             <Route path="/login" element={<Login />} />
             <Route path="/kakaocallback" element={<KakaoCallback />} />
             <Route path="/extra-info" element={<ExtraInfo />} />

@@ -1,0 +1,147 @@
+.mcard-card-wrapper {
+  display: flex;
+  justify-content: center; /* 가로 중앙 */
+  align-items: center;     /* 세로 중앙 */
+}
+
+.mcard-plan-card {
+  background: #fff;
+  border-radius: 2.5rem;
+  box-shadow: 0 8px 20px 0 rgba(214, 52, 132, 0.10);
+  padding: 4rem 5rem;
+  max-width: 900px;
+  min-width: 1000px;
+  margin: 0 auto;
+  position: relative;
+  transition: box-shadow 0.2s;
+}
+
+.mcard-card-inner {
+  display: flex;
+  flex-direction: row;
+  align-items: flex-start;
+  justify-content: flex-start;
+  gap: 2.5rem;
+}
+
+.mcard-card-left {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  justify-content: flex-start;
+  gap: 1.1rem;
+  min-width: 200px;
+  flex: 0 0 200px;
+}
+
+.mcard-plan-name {
+  white-space: nowrap;
+  font-size: 30px;
+  font-weight: 750;
+  color: #231f20;
+}
+
+.mcard-plan-detail-button {
+  background: #d63484;
+  color: #fff;
+  border: none;
+  border-radius: 0.5rem;
+  font-size: 1rem;
+  font-weight: 700;
+  padding: 0.7rem 0;
+  width: 170px;
+  text-align: center;
+  cursor: pointer;
+  margin-top: 0.7rem;
+  transition: background 0.2s;
+}
+.mcard-plan-detail-button:hover {
+  background: #a83372;
+}
+
+.mcard-favorite-button {
+  position: absolute;
+  top: 1.2rem;
+  right: 1.7rem;
+  font-size: 2.1rem;
+  color: #e5e5e5;
+  background: none;
+  border: none;
+  cursor: pointer;
+  transition: color 0.3s;
+  z-index: 2;
+}
+.mcard-favorite-button.mcard-active {
+  color: #c13c83;
+}
+
+.mcard-card-right {
+  display: flex;
+  flex-direction: row;
+  align-items: flex-start;
+  width: 100%;
+  gap: 2.5rem; /* 두 블록 사이 간격 */
+}
+
+.mcard-price-block {
+  margin-left: 35%;
+  margin-top: 5%;
+  text-align: right;
+}
+
+.mcard-plan-price {
+  font-size: 2rem;
+  font-weight: bold;
+  color: #c13c83;
+  margin-bottom: 0.2rem;
+}
+.mcard-plan-price span {
+  font-size: 2.2rem;
+  font-weight: 900;
+  color: #c13c83;
+}
+.mcard-plan-discount-price {
+  font-size: 1.05rem;
+  color: #888;
+}
+
+.mcard-default-info {
+  display: flex;
+  flex-direction: column;
+  gap: 1.2rem;
+  align-items: flex-start;
+  margin-left: 20px; /* 오른쪽 정보도 살짝 왼쪽으로 */
+}
+
+.mcard-default-info div {
+  display: flex;
+  align-items: center;
+  gap: 0.7rem;
+  font-size: 1.13rem;
+  color: #231f20;
+}
+
+.mcard-default-info img {
+  width: 25px;
+  height: 25px;
+  display: block;
+}
+
+@media (max-width: 600px) {
+  .mcard-card-inner {
+    flex-direction: column;
+    gap: 1.5rem;
+  }
+  .mcard-card-left {
+    min-width: 0;
+    width: 100%;
+  }
+  .mcard-card-right {
+    min-width: 0;
+    width: 100%;
+  }
+
+  .mcard-plan-detail-button {
+    width: 100%;
+  }
+}

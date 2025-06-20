@@ -32,6 +32,14 @@ const AdminInternetPlanDetail = ({ plan, isLoading, onClose }) => {
               <DetailItem label="인터넷 결합 할인" value={`${plan.internetDiscount.toLocaleString()}원`} />
               <DetailItem label="등록 가능 여부" value={plan.availability ? '가능' : '불가능'} />
               <DetailItem label="사용 여부" value={plan.inUse ? '사용 중' : '미사용'} />
+              {/* 태그 목록 */}
+              {plan.tagList && plan.tagList.length > 0 && (
+                <DetailItem label="태그" value={plan.tagList.map(tag => tag.tagName).join(', ')} />
+              )}
+              {/* 결합 혜택 목록 */}
+              {plan.communityBenefitList && plan.communityBenefitList.length > 0 && (
+                <DetailItem label="결합 혜택" value={plan.communityBenefitList.map(b => b.communityName).join(', ')} />
+              )}
             </div>
           )}
         </div>
