@@ -120,11 +120,13 @@ LLM 기반 챗봇과의 대화를 통해 사용자는 자신에게 알맞는 요
 
 ### 4.3 메인 (요금제 목록)
 <td align="center">
-      <img src="https://github.com/user-attachments/assets/d9c445fe-1615-4fde-8b40-fab9879e7456" width="800" height="400" />
+      <img src="https://github.com/user-attachments/assets/c7cd000b-8a1e-4450-aa02-b67514db774a" width="800" height="400" />
 </td>
 
 - 메인 화면에서는 사용자가 Uplait의 모바일 요금제 목록을 확인할 수 있습니다.
 - 모바일 요금제 이외에도 화면 상단의 네비게이션 바를 통해 인터넷, IPTV의 요금제 목록도 확인할 수 있습니다.
+- 각 요금제 우측 상단의 별 아이콘을 눌러 즐겨찾기 추가가 가능합니다.
+- 화면 상단의 네비게이션 바를 통해 요금제 비교 역시 가능합니다.
 <br><br />
 
 ### 4.4 챗봇
