@@ -133,10 +133,21 @@
 .pd-media-boxes {
   display: flex;
   gap: 20px;
+  justify-content: center;
   flex-wrap: wrap;
 }
 
 .pd-media-box {
+  flex: 1 1 180px;
+  background-color: #fff;
+  border-radius: 10px;
+  padding-top: 30px;
+  text-align: center;
+  box-shadow: 0 1px 4px rgba(0, 0, 0, 0.1);
+  flex-wrap: wrap;
+}
+
+.pd-prem-media-box {
   flex: 1 0 240px;
   height: 220px;
   background-color: #fff;
@@ -653,6 +664,34 @@
 .pd-media-desc {
   white-space: pre-line;
   line-height: 1.4;
+}
+
+.pd-slider-arrow-button {
+  width: 36px;
+  height: 36px;
+  border: none;
+  border-radius: 50%;
+  background-color: #f5f6fa;
+  color: #333;
+  font-size: 16px;
+  font-weight: bold;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  transition: all 0.2s ease-in-out;
+}
+
+.pd-slider-arrow-button:hover:not(:disabled) {
+  background-color: #e1e4ea;
+  transform: scale(1.05);
+}
+
+.pd-slider-arrow-button:disabled {
+  opacity: 0.3;
+  cursor: not-allowed;
+  transform: none;
 }
 
 /* 반응형 미디어 박스 */

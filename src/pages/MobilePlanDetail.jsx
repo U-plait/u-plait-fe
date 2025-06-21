@@ -218,6 +218,14 @@ function MobilePlanDetail() {
     </div>
   );
 
+  const PremMediaBox = ({ icon, title, desc }) => (
+    <div className="pd-prem-media-box">
+      <div className="pd-media-icon">{icon}</div>
+      <h5 className="pd-media-title">{title}</h5>
+      <p className="pd-media-desc">{desc}</p>
+    </div>
+  );
+
   const premieritems = [
     {
       icon: <img src={prem1} alt="삭제" width={160} height={100} />,
@@ -407,6 +415,7 @@ function MobilePlanDetail() {
             {/* 슬라이더 */}
             <div className="pd-premium-slider">
               <button
+                className="pd-slider-arrow-button"
                 onClick={() => setPremiumPage((p) => Math.max(p - 1, 0))}
                 disabled={premiumPage === 0}
               >
@@ -420,7 +429,7 @@ function MobilePlanDetail() {
                     premiumPage * itemsPerPage + itemsPerPage
                   )
                   .map((item, idx) => (
-                    <MediaBox
+                    <PremMediaBox
                       key={idx}
                       icon={item.icon}
                       title={item.title}
@@ -430,6 +439,7 @@ function MobilePlanDetail() {
               </div>
 
               <button
+                className="pd-slider-arrow-button"
                 onClick={() =>
                   setPremiumPage((p) =>
                     p < Math.ceil(premieritems.length / itemsPerPage) - 1
