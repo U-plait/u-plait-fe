@@ -8,6 +8,25 @@
     flex-direction: column;
 }
 
+.plan-list {
+    display: flex;
+    flex-direction: column;
+    gap: 2rem;
+    margin-top: 2rem;
+}
+
+.plan-loading {
+    text-align: center;
+    margin-top: 1rem;
+    color: #777;
+    font-size: 0.95rem;
+}
+
+.plan-empty {
+    font-size: 1rem;
+    color: #aaa;
+}
+
 .bookmark-type-buttons {
     display: flex;
     gap: 1rem;
@@ -25,9 +44,6 @@
     border: none;
     cursor: pointer;
     transition: background-color 0.2s;
-    display: inline-flex;
-    align-items: center;
-    justify-content: center;
 }
 
 .bookmark-type-button:hover {
@@ -37,25 +53,4 @@
 .bookmark-type-button.active {
     background-color: #d63484;
     color: white;
-}
-
-.plan-list {
-    display: flex;
-    flex-direction: column;
-    gap: 2rem;
-    margin-top: 2rem;
-}
-
-.plan-empty {
-    text-align: center;
-    color: #999;
-    font-size: 0.95rem;
-    margin-top: 2rem;
-}
-
-.plan-loading {
-    text-align: center;
-    margin-top: 1rem;
-    color: #777;
-    font-size: 0.95rem;
 }
