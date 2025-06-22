@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import api from "../api/api";
-import "../styles/MyBookmark.css";
+import "../styles/MyBookmark.module.css";
 
 const MyBookmark = () => {
     const [userInfo, setUserInfo] = useState(null);
