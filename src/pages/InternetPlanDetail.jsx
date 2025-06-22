@@ -13,7 +13,6 @@ function InternetPlanDetail() {
   const [hasNext, setHasNext] = useState(false);
   const [lastReviewId, setLastReviewId] = useState(null);
   const [error, setError] = useState(null);
-  const combineList = [1, 2];
   const [reviewTitle, setReviewTitle] = useState('');
   const [reviewRating, setReviewRating] = useState(0);
   const [reviewContent, setReviewContent] = useState('');
@@ -207,7 +206,7 @@ function InternetPlanDetail() {
 
       {/* 할인 혜택 */}
       <h3 className="pd-benefit-title"><br />할인 혜택</h3>
-      {combineList.map((type, idx) => {
+      {plan.communityIdList.map((type, idx) => {
         if (type === 1) {
           return (
             <div className="pd-discount-card" key={`combine-1-${idx}`}>
@@ -257,7 +256,7 @@ function InternetPlanDetail() {
             <span className="pd-rating-label">{reviewRating} / 5</span>
           </div>
           <input
-            className="pd-review-title-input"
+            className="pd-review-title-input-edit"
             type="text"
             placeholder="리뷰 제목을 입력하세요"
             maxLength={40}

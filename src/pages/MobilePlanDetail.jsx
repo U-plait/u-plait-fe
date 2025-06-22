@@ -10,6 +10,20 @@ import millieIcon from '../assets/img/millie_icon.png';
 import uplayIcon from '../assets/img/uplay_icon.png';
 import vibeIcon from '../assets/img/vibe_icon.png';
 
+import phoneChangeIcon from '../assets/img/phone_change.png';
+import disneyIcon from '../assets/img/disney.png';
+import helloRentalIcon from '../assets/img/hello_rental.png';
+import homeLookIcon from '../assets/img/home_look.png';
+import homeProtectIcon from '../assets/img/home_protect.png';
+import iliCoffeeIcon from '../assets/img/ili_coffee.png';
+import multiIcon from '../assets/img/multi.png';
+import netfilxIcon from '../assets/img/netflix.png';
+import samsungIcon from '../assets/img/samsung.png';
+import shinhanIcon from '../assets/img/shinhan.png';
+import tvingIcon from '../assets/img/tving.png';
+import youtubeIcon from '../assets/img/youtube.png';
+
+
 
 function MobilePlanDetail() {
   const { planId } = useParams();
@@ -26,8 +40,6 @@ function MobilePlanDetail() {
   const [editContent, setEditContent] = useState('');
   const [editRating, setEditRating] = useState(0);
   const [premiumPage, setPremiumPage] = useState(0);
-
-  const combineList = [1, 2];
 
   useEffect(() => {
     api.get(`/plan/${planId}`)
@@ -184,18 +196,18 @@ function MobilePlanDetail() {
   );
 
   const premieritems = [
-    { icon: "🧒", title: "폰교체 패스", desc: "휴대폰이 파손됐을 때\n수리 또는 교체 중 원하는 방식을\n선택할 수 있는 폰케어 서비스" },
-    { icon: "🎵", title: "삼성팩", desc: "삼성 디바이스 할부금 할인\n삼성팩 대신 다른 카테고리 팩 선택 가능" },
-    { icon: "🎧", title: "티빙 이용권 할인", desc: "유독에서 '티빙 이용권(U+ 요금제 전용)'\n가입 시 티빙 이용권 매달 9,500원 할인" },
-    { icon: "📚", title: "디즈니+", desc: "요금이 U+통신료와 함께 청구되기 때문에\n결제 정보를 따로 입력할 필요가 없는\n디즈니+ 서비스" },
-    { icon: "📚", title: "넷플릭스", desc: "U+통신료와 한번에 결제하여\n신용카드 정보를 등록할 필요없이\n편리하게 넷플릭스를 이용 가능한 서비스" },
-    { icon: "📚", title: "헬로렌탈 구독", desc: "LG헬로렌탈 월 이용요금 8,000원 할인 제공\n헬로렌탈 구독팩 대신\n다른 카테고리 팩 선택 가능" },
-    { icon: "📚", title: "일리커피 구독", desc: "일리 커피 구독 팩을 무료로 이용 가능\n일리 커피 구독 팩 대신\n다른 카테고리 팩 선택 가능" },
-    { icon: "📚", title: "우리집지킴이 Easy2+", desc: "해킹 차단 보안 칩이 내장된 맘카와\n각종 보안 센서로 우리집을 지키고\n도난/화재 보험 혜택을 누릴 수 있는\n스마트홈 패키지" },
-    { icon: "📚", title: "우리집돌봄이 Kids", desc: "초고화질의 프리미엄 홈 CCTV 1대\n화재/가전/가구 파손 보험을\n이용할 수 있는 스마트홈 패키지" },
-    { icon: "📚", title: "신한카드 Air", desc: "'LG U+ SKYPASS 신한카드'로\n통신요금 자동이체를 설정하면\n매달 대한항공 마일리지 적립,\n여행 특화 혜택 등을 받을 수 있는 혜택" },
-    { icon: "📚", title: "유튜브 프리미엄 할인", desc: "유독에서 '유튜브 프리미엄(U+ 요금제 전용)'\n가입 시, 매달 구독료를 할인 받아\n유튜브 프리미엄 이용 가능\n(월 4,450원 추가 청구)" },
-    { icon: "📚", title: "멀티팩", desc: "프리미엄 서비스 대신 미디어 서비스 4개\n(아이들나라 스탠다드+러닝, 바이브 음악감상,\n지니뮤직 음악감상, 밀리의 서재) 중 3개 선택 가능" }
+    { icon: <img src={phoneChangeIcon} alt="삭제" width={100} height={60} />, title: "폰교체 패스", desc: "휴대폰이 파손됐을 때\n수리 또는 교체 중 원하는 방식을\n선택할 수 있는 폰케어 서비스" },
+    { icon: <img src={samsungIcon} alt="삭제" width={100} height={60} />, title: "삼성팩", desc: "삼성 디바이스 할부금 할인\n삼성팩 대신 다른 카테고리 팩 선택 가능" },
+    { icon: <img src={tvingIcon} alt="삭제" width={100} height={60} />, title: "티빙 이용권 할인", desc: "유독에서 '티빙 이용권(U+ 요금제 전용)'\n가입 시 티빙 이용권 매달 9,500원 할인" },
+    { icon: <img src={disneyIcon} alt="삭제" width={100} height={60} />, title: "디즈니+", desc: "요금이 U+통신료와 함께 청구되기 때문에\n결제 정보를 따로 입력할 필요가 없는\n디즈니+ 서비스" },
+    { icon: <img src={netfilxIcon} alt="삭제" width={100} height={60} />, title: "넷플릭스", desc: "U+통신료와 한번에 결제하여\n신용카드 정보를 등록할 필요없이\n편리하게 넷플릭스를 이용 가능한 서비스" },
+    { icon: <img src={helloRentalIcon} alt="삭제" width={100} height={60} />, title: "헬로렌탈 구독", desc: "LG헬로렌탈 월 이용요금 8,000원 할인 제공\n헬로렌탈 구독팩 대신\n다른 카테고리 팩 선택 가능" },
+    { icon: <img src={iliCoffeeIcon} alt="삭제" width={100} height={60} />, title: "일리커피 구독", desc: "일리 커피 구독 팩을 무료로 이용 가능\n일리 커피 구독 팩 대신\n다른 카테고리 팩 선택 가능" },
+    { icon: <img src={homeProtectIcon} alt="삭제" width={100} height={60} />, title: "우리집지킴이 Easy2+", desc: "해킹 차단 보안 칩이 내장된 맘카와\n각종 보안 센서로 우리집을 지키고\n도난/화재 보험 혜택을 누릴 수 있는\n스마트홈 패키지" },
+    { icon: <img src={homeLookIcon} alt="삭제" width={100} height={60} />, title: "우리집돌봄이 Kids", desc: "초고화질의 프리미엄 홈 CCTV 1대\n화재/가전/가구 파손 보험을\n이용할 수 있는 스마트홈 패키지" },
+    { icon: <img src={shinhanIcon} alt="삭제" width={100} height={60} />, title: "신한카드 Air", desc: "'LG U+ SKYPASS 신한카드'로\n통신요금 자동이체를 설정하면\n매달 대한항공 마일리지 적립,\n여행 특화 혜택 등을 받을 수 있는 혜택" },
+    { icon: <img src={youtubeIcon} alt="삭제" width={100} height={60} />, title: "유튜브 프리미엄 할인", desc: "유독에서 '유튜브 프리미엄(U+ 요금제 전용)'\n가입 시, 매달 구독료를 할인 받아\n유튜브 프리미엄 이용 가능\n(월 4,450원 추가 청구)" },
+    { icon: <img src={multiIcon} alt="삭제" width={100} height={60} />, title: "멀티팩", desc: "프리미엄 서비스 대신 미디어 서비스 4개\n(아이들나라 스탠다드+러닝, 바이브 음악감상,\n지니뮤직 음악감상, 밀리의 서재) 중 3개 선택 가능" }
   ];
 
   const basicitems = [
@@ -353,22 +365,8 @@ function MobilePlanDetail() {
           </div>
         </div>
       )}
-      {combineList.map((type, idx) => {
+      {plan.communityIdList.map((type, idx) => {
         if (type === 1) {
-          return (
-            <div className="pd-discount-card" key={`combine-1-${idx}`}>
-              <div className="pd-discount-row">
-                <div className="pd-discount-title">가족결합할인</div>
-                <div className="pd-discount-divider" />
-                <ul className="pd-discount-desc">
-                  <li>가족 결합 시 요금제에서 추가 할인을 받을 수 있습니다.</li>
-                  <li>자세한 내용은 고객센터 또는 매장에서 확인해 주세요.</li>
-                </ul>
-              </div>
-            </div>
-          );
-        }
-        if (type === 2) {
           return (
             <div className="pd-discount-card" key={`combine-2-${idx}`}>
               <div className="pd-discount-row">
@@ -377,6 +375,20 @@ function MobilePlanDetail() {
                 <ul className="pd-discount-desc">
                   <li>U+ 휴대폰을 쓰는 친구, 가족과 결합 시 요금제를 더 저렴하게 이용할 수 있습니다.</li>
                   <li>만 18세 이하 청소년은 매달 추가 할인을 받을 수 있습니다.</li>
+                </ul>
+              </div>
+            </div>
+          );
+        }
+        if (type === 2) {
+          return (
+            <div className="pd-discount-card" key={`combine-1-${idx}`}>
+              <div className="pd-discount-row">
+                <div className="pd-discount-title">가족결합할인</div>
+                <div className="pd-discount-divider" />
+                <ul className="pd-discount-desc">
+                  <li>가족 결합 시 요금제에서 추가 할인을 받을 수 있습니다.</li>
+                  <li>자세한 내용은 고객센터 또는 매장에서 확인해 주세요.</li>
                 </ul>
               </div>
             </div>
@@ -452,7 +464,7 @@ function MobilePlanDetail() {
                   {editingReviewId === reviewId ? (
                     <>
                       <input
-                        className="pd-review-title-input"
+                        className="pd-review-title-input-edit"
                         type="text"
                         value={editTitle}
                         onChange={e => setEditTitle(e.target.value)}
