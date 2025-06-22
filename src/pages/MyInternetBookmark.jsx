@@ -88,19 +88,19 @@ const MyInternetBookmark = () => {
                         to="/mymobilebookmark"
                         className={`${styles["bookmark-type-button"]} ${currentPath === "/mymobilebookmark" ? styles["active"] : ""}`}
                     >
-                        📱 모바일
+                        모바일
                     </Link>
                     <Link
                         to="/myinternetbookmark"
                         className={`${styles["bookmark-type-button"]} ${currentPath === "/myinternetbookmark" ? styles["active"] : ""}`}
                     >
-                        🌐 인터넷
+                        인터넷
                     </Link>
                     <Link
                         to="/myiptvbookmark"
                         className={`${styles["bookmark-type-button"]} ${currentPath === "/myiptvbookmark" ? styles["active"] : ""}`}
                     >
-                        📺 IPTV
+                        IPTV
                     </Link>
                 </div>
 
