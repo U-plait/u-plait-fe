@@ -52,7 +52,12 @@ const ChatPage = () => {
 
   // 요금제 카드를 클릭하면 상세 페이지를 새 탭에서 엽니다
   const handleCardClick = (plan) => {
-    const dtype = plan.dtype?.slice(0, -4).toLowerCase(); // "MobilePlan" → "mobile"
+    if (!plan || !plan.dtype || !plan.id) {
+      console.warn("유효하지 않은 plan 객체입니다:", plan);
+      return;
+    }
+
+    const dtype = plan.dtype.slice(0, -4).toLowerCase(); // "MobilePlan" → "mobile"
     const url = `/${dtype}/plan/${plan.id}`;
     window.open(url, "_blank"); // 새 탭에서 열기
   };
@@ -102,7 +107,7 @@ const ChatPage = () => {
     const decoder = new TextDecoder("utf-8");
     let buffer = "";
     let botMessageStarted = false;
-    let emptyDataCount = 0; // 빈 data 카운트
+    let lastData = ""; // 이전 data를 기억
 
     // 스트리밍으로 한 글자씩 받아서 처리
     while (true) {
@@ -122,48 +127,42 @@ const ChatPage = () => {
           continue;
         }
 
-        // 빈 data 처리 (띄어쓰기/줄바꿈)
+        // 빈 문자열 처리: 앞에 온 게 .이거나 빈 문자열이면 줄바꿈, 아니면 띄어쓰기
         if (data === "") {
-          emptyDataCount++;
+          if (lastData === "." || lastData === "") {
+            // 마침표 뒤이거나 빈 문자열이 연속으로 오면 줄바꿈
+            if (!botMessageStarted) {
+              setIsBotTyping(false);
+              setMessages((prev) => [...prev, { from: "bot", text: "\n" }]);
+              botMessageStarted = true;
+            } else {
+              setMessages((prev) =>
+                prev.map((msg, i) =>
+                  i === prev.length - 1 && msg.from === "bot"
+                    ? { ...msg, text: String(msg.text ?? "") + "\n" }
+                    : msg
+                )
+              );
+            }
+          } else {
+            // 그 외에는 띄어쓰기
+            if (!botMessageStarted) {
+              setIsBotTyping(false);
+              setMessages((prev) => [...prev, { from: "bot", text: " " }]);
+              botMessageStarted = true;
+            } else {
+              setMessages((prev) =>
+                prev.map((msg, i) =>
+                  i === prev.length - 1 && msg.from === "bot"
+                    ? { ...msg, text: String(msg.text ?? "") + " " }
+                    : msg
+                )
+              );
+            }
+          }
+          lastData = data;
           continue;
         }
-        if (emptyDataCount === 1) {
-          // 한 번 비었으면 공백 추가
-          if (!botMessageStarted) {
-            setIsBotTyping(false);
-            setMessages((prev) => [...prev, { from: "bot", text: " " }]);
-            botMessageStarted = true;
-          } else {
-            setMessages((prev) =>
-              prev.map((msg, i) =>
-                i === prev.length - 1 && msg.from === "bot"
-                  ? { ...msg, text: String(msg.text ?? "") + " " }
-                  : msg
-              )
-            );
-          }
-          emptyDataCount = 0;
-          // 다음 data 처리로 넘어감
-          continue;
-        } else if (emptyDataCount >= 2) {
-          // 두 번 이상 비었으면 줄바꿈 추가
-          if (!botMessageStarted) {
-            setIsBotTyping(false);
-            setMessages((prev) => [...prev, { from: "bot", text: "\n\n" }]);
-            botMessageStarted = true;
-          } else {
-            setMessages((prev) =>
-              prev.map((msg, i) =>
-                i === prev.length - 1 && msg.from === "bot"
-                  ? { ...msg, text: String(msg.text ?? "") + "\n\n" }
-                  : msg
-              )
-            );
-          }
-          emptyDataCount = 0;
-          //continue;
-        }
-        emptyDataCount = 0;
 
         // 일반 텍스트/JSON 응답 처리
         try {
@@ -178,9 +177,11 @@ const ChatPage = () => {
               ...prev,
               { from: "plan", plans: json.plans },
             ]);
+            lastData = data;
             continue;
           }
 
+          // 일반 텍스트 응답
           const text = String(json);
           if (!botMessageStarted) {
             setIsBotTyping(false);
@@ -195,6 +196,7 @@ const ChatPage = () => {
               )
             );
           }
+          lastData = data;
         } catch {
           // 파싱이 안 되면 일반 텍스트로 처리
           const text = String(data);
@@ -211,6 +213,7 @@ const ChatPage = () => {
               )
             );
           }
+          lastData = data;
         }
       }
     }
