@@ -151,6 +151,9 @@ const MyReviews = () => {
                     >
                         💬 Reviews
                     </button>
+                    <button className="menu-item" onClick={() => navigate("/mybookmark")}>
+                        🌟 Bookmark
+                    </button>
                 </nav>
             </aside>
 

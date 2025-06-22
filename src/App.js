@@ -17,6 +17,7 @@ import ReviewManager from "./pages/Admin/ReviewManager";
 import Mypage from "./pages/Mypage";
 import MypageEdit from "./pages/MypageEdit";
 import MyReviews from "./pages/MyReviews";
+import MyBookmark from "./pages/MyBookmark";
 import MobilePlanList from "./pages/MobilePlanList";
 import InternetPlanList from "./pages/InternetPlanList";
 import IPTVPlanList from "./pages/IPTVPlanList";
@@ -76,6 +77,7 @@ function App() {
             <Route path="/mypage" element={<Mypage />} />
             <Route path="/mypage/edit" element={<MypageEdit />} />
             <Route path="/myreviews" element={<MyReviews />} />
+            <Route path="/mybookmark" element={<MyBookmark />} />
             <Route path="/mobile" element={<MobilePlanList />} />
             <Route path="/internet" element={<InternetPlanList />} />
             <Route path="/iptv" element={<IPTVPlanList />} />

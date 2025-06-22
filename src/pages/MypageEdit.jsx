@@ -131,7 +131,7 @@ const MypageEdit = () => {
                     >
                         💬 Reviews
                     </button>
-                    <button className="menu-item" onClick={() => navigate("/")}>
+                    <button className="menu-item" onClick={() => navigate("/mybookmark")}>
                         🌟 Bookmark
                     </button>
                 </nav>

@@ -37,7 +37,7 @@ const Mypage = () => {
             <button className="menu-item" onClick={() => navigate("/myreviews")}>
                 💬 Reviews
             </button>
-            <button className="menu-item" onClick={() => navigate("/")}>
+            <button className="menu-item" onClick={() => navigate("/mybookmark")}>
                 🌟 Bookmark
             </button>
         </nav>
