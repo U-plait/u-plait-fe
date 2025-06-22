@@ -1,0 +1,9 @@
+/* Sidebar */
+.sidebar {
+    width: 250px;
+    background-color: #fff;
+    border-right: 1px solid #eee;
+    padding: 2rem;
+    display: flex;
+    flex-direction: column;
+}

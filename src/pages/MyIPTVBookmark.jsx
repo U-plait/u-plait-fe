@@ -1,9 +1,9 @@
 import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import api from "../api/api";
-import "../styles/MyBookmark.module.css";
+import "../styles/MyMoblieBookmark.module.css";
 
-const MyBookmark = () => {
+const MyMobileBookmark = () => {
     const [userInfo, setUserInfo] = useState(null);
 
     useEffect(() => {
@@ -36,13 +36,18 @@ const MyBookmark = () => {
                     <button className="menu-item" onClick={() => navigate("/myreviews")}>
                         💬 Reviews
                     </button>
-                    <button className="menu-item active" onClick={() => navigate("/mybookmark")}>
+                    <button className="menu-item active" onClick={() => navigate("/mymobilebookmark")}>
                         🌟 Bookmark
                     </button>
                 </nav>
             </aside>
+
+            <main className="main-content">
+                <h1 className="page-title">마이페이지</h1>
+
+            </main>
         </div>
     );
 };
 
-export default MyBookmark;
+export default MyMobileBookmark;
