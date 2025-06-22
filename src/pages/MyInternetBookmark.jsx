@@ -2,24 +2,53 @@ import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import api from "../api/api";
 import "../styles/MyMoblieBookmark.module.css";
+import InternetCard from "../components/InternetCard";
 
-const MyMobileBookmark = () => {
-    const [userInfo, setUserInfo] = useState(null);
-
-    useEffect(() => {
-        api
-            .get("/user/detail", { withCredentials: true })
-            .then((res) => setUserInfo(res.data.data))
-            .catch((err) => console.error("마이페이지 정보 불러오기 실패:", err));
-    }, []);
-
-    const formatGender = (gender) => {
-        if (gender === "MALE") return "남성";
-        if (gender === "FEMALE") return "여성";
-        return "기타";
-    };
+const MyInternetBookmark = () => {
 
     const navigate = useNavigate();
+
+    // 북마크 요금제 불러오기
+    const fetchPlans = async (pageNum) => {
+        try {
+            setLoading(true);
+            const res = await api.get("/bookmark", {
+                params: {
+                    planType,          // 'MOBILE' 또는 'INTERNET' 또는 'IPTV'
+                    size,              // 기본값 5
+                    lastBookmarkId,    // 없으면 undefined 처리됨
+                },
+            });
+            const newPlans = res.data?.data?.content || [];
+            const lastPage = res.data?.data?.last;
+
+            setPlans((prev) => [...prev, ...newPlans]);
+            setHasMore(!lastPage);
+
+            return response.data;
+        } catch (error) {
+            console.error("요금제 불러오기 실패:", error);
+        } finally {
+            setLoading(false);
+        }
+    };
+
+    // 페이지네이션 (무한스크롤)
+    const lastPlanRef = useCallback(
+        (node) => {
+            if (loading) return;
+            if (observer.current) observer.current.disconnect();
+
+            observer.current = new IntersectionObserver((entries) => {
+                if (entries[0].isIntersecting && hasMore) {
+                    setPage((prev) => prev + 1);
+                }
+            });
+
+            if (node) observer.current.observe(node);
+        },
+        [loading, hasMore]
+    );
 
     return (
         <div className="mypage-container">
@@ -43,11 +72,11 @@ const MyMobileBookmark = () => {
             </aside>
 
             <main className="main-content">
-                <h1 className="page-title">마이페이지</h1>
+                <h1 className="page-title">인터넷 요금제 북마크</h1>
 
             </main>
         </div>
     );
 };
 
-export default MyMobileBookmark;
+export default MyInternetBookmark;
