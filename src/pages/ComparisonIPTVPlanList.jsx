@@ -73,46 +73,43 @@ function ComparisonIPTVPlanList() {
             <button onClick={() => navigate(-1)} className={styles.backButton}>뒤로 가기</button>
 
             <div className={styles.comparisonCardsContainer}>
-                {comparisonResults.map((plan, index) => (
-                    <div key={plan.planId || index} className={styles.planCard}>
-                        {/* 카드 상단 배경 (MobilePlan과 동일) */}
-                        <div className={styles.cardTopBackground}></div>
+                {comparisonResults.map((plan, index) => {
+                    const finalPrice = plan.iptvDiscount || plan.planPrice;
+                    const totalDiscount = plan.planPrice - finalPrice;
 
-                        <div className={styles.cardHeader}>
-                            <h2 className={styles.planName}>{plan.planName}</h2>
-                            <p className={styles.monthlyFeeText}>월정액 (부가세 포함 금액)</p>
-                            <p className={styles.planPrice}>월 {getDisplayValue(plan.planPrice)}원</p>
-                        </div>
+                    return (
+                        <div key={plan.planId || index} className={`${styles.planCard} ${styles.alwaysShadow}`}>
+                            <div className={styles.cardTopBackground}></div>
 
-                        {/* 할인 상세내역 섹션 */}
-                        <div className={styles.cardSection}>
-                            <h3 className={styles.sectionTitle}>할인 상세내역</h3>
-                            {/* IPTV는 iptvDiscount 필드만 있으므로 해당 값만 표시 */}
-                            <p className={styles.discountDetail}>월 {getDisplayValue(plan.iptvDiscount)}원</p>
-                            {/* IPTV는 선택 약정/프리미엄 약정 할인 필드가 없으므로 생략 */}
-                        </div>
-
-                        {/* IPTV 고유 정보 섹션 */}
-                        <div className={styles.cardSection}>
-                            <div className={styles.detailItem}>
-                                <h3 className={styles.detailTitle}>채널 수</h3>
-                                <p className={styles.detailValue}>{getDisplayValue(plan.channel)}개</p>
+                            <div className={styles.cardHeader}>
+                                <h2 className={styles.planName}>{plan.planName}</h2>
+                                <p className={styles.originalPrice}>월 {getDisplayValue(plan.planPrice)}원</p>
+                                <p className={styles.planPrice}>월 {getDisplayValue(finalPrice)}원</p>
                             </div>
-                            {/* 'VOD 포함 여부', '셋톱박스 종류' 등 IPTVPlanDetailResponse에 정의되지 않은 필드는 제거 */}
-                            {/* DTO에 추가되면 여기에 렌더링 로직 추가 */}
-                        </div>
 
-                        {/* 요금제 혜택 (PlanDetailResponse의 공통 필드) */}
-                        {plan.planBenefit && ( // planBenefit 필드가 있을 때만 렌더링
                             <div className={styles.cardSection}>
-                                <h3 className={styles.sectionTitle}>요금제 혜택</h3>
+                                <h3 className={styles.sectionTitle}>할인 상세내역</h3>
+                                <p className={styles.discountDetail}>월 {getDisplayValue(totalDiscount)}원</p>
+                            </div>
+
+                            <div className={styles.cardSection}>
                                 <div className={styles.detailItem}>
-                                    <p className={styles.detailValue}>{getDisplayValue(plan.planBenefit)}</p>
+                                    <h3 className={styles.detailTitle}>채널 수</h3>
+                                    <p className={styles.detailValue}>{getDisplayValue(plan.channel)}개</p>
                                 </div>
                             </div>
-                        )}
-                    </div>
-                ))}
+
+                            {plan.planBenefit && (
+                                <div className={styles.cardSection}>
+                                    <h3 className={styles.sectionTitle}>요금제 혜택</h3>
+                                    <div className={styles.detailItem}>
+                                        <p className={styles.detailValue}>{getDisplayValue(plan.planBenefit)}</p>
+                                    </div>
+                                </div>
+                            )}
+                        </div>
+                    );
+                })}
             </div>
 
             {showModal && (
