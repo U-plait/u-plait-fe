@@ -87,7 +87,7 @@ const MobilePlanList = () => {
           <MobileCard
             key={plan.planId}
             plan={plan}
-            isFavorite={plan.isBookmarked}
+            isFavorite={favorites.has(plan.planId)}
             toggleFavorite={toggleFavorite}
             lastPlanRef={index === plans.length - 1 ? lastPlanRef : null}
           />
