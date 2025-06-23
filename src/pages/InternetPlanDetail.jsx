@@ -13,7 +13,6 @@ function InternetPlanDetail() {
   const [hasNext, setHasNext] = useState(false);
   const [lastReviewId, setLastReviewId] = useState(null);
   const [error, setError] = useState(null);
-  const combineList = [1, 2];
   const [reviewTitle, setReviewTitle] = useState('');
   const [reviewRating, setReviewRating] = useState(0);
   const [reviewContent, setReviewContent] = useState('');
@@ -23,6 +22,10 @@ function InternetPlanDetail() {
   const [editTitle, setEditTitle] = useState('');
   const [editContent, setEditContent] = useState('');
   const [editRating, setEditRating] = useState(0);
+
+  // 모달 상태
+  const [pdShowModal, setPdShowModal] = useState(false);
+  const [pdModalMessage, setPdModalMessage] = useState('');
 
   // 리뷰 목록을 불러오는 함수
   const fetchReviews = async () => {
@@ -96,7 +99,13 @@ function InternetPlanDetail() {
       setReviewRating(0);
       fetchReviews();
     } catch (err) {
-      console.error("리뷰 등록 실패:", err);
+      if (err.response?.data?.statusCode === 6002) {
+        setPdModalMessage("리뷰에 부적절한 단어가 포함되어 있어 등록할 수 없습니다.");
+        setPdShowModal(true);
+      } else {
+        setPdModalMessage("리뷰 등록 중 오류가 발생했습니다.");
+        setPdShowModal(true);
+      }
     }
   };
 
@@ -207,7 +216,7 @@ function InternetPlanDetail() {
 
       {/* 할인 혜택 */}
       <h3 className="pd-benefit-title"><br />할인 혜택</h3>
-      {combineList.map((type, idx) => {
+      {plan.communityIdList.map((type, idx) => {
         if (type === 1) {
           return (
             <div className="pd-discount-card" key={`combine-1-${idx}`}>
@@ -241,8 +250,6 @@ function InternetPlanDetail() {
 
       {/* 리뷰 섹션 */}
       <h3 className="pd-benefit-title"><br />리뷰</h3>
-
-      {/* 리뷰 작성 form 칸 */}
       <div className="pd-review-form-wrapper">
         <form className={!plan.inUse ? "pd-blurred" : ""} onSubmit={handleSubmit}>
           <div className="pd-review-rating-input">
@@ -257,7 +264,7 @@ function InternetPlanDetail() {
             <span className="pd-rating-label">{reviewRating} / 5</span>
           </div>
           <input
-            className="pd-review-title-input"
+            className="pd-review-title-input-edit"
             type="text"
             placeholder="리뷰 제목을 입력하세요"
             maxLength={40}
@@ -413,6 +420,26 @@ function InternetPlanDetail() {
         <button className="pd-review-more-btn" onClick={handleLoadMore}>
           더 보기
         </button>
+      )}
+
+      {/* 모달 */}
+      {pdShowModal && (
+        <div className="pd-modal-overlay" onClick={() => setPdShowModal(false)}>
+          <div
+            className="pd-modal"
+            onClick={e => e.stopPropagation()}
+          >
+            <div className="pd-modal-message">
+              {pdModalMessage}
+            </div>
+            <button
+              className="pd-modal-close-btn"
+              onClick={() => setPdShowModal(false)}
+            >
+              확인
+            </button>
+          </div>
+        </div>
       )}
     </div>
   );

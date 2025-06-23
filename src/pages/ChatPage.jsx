@@ -52,7 +52,12 @@ const ChatPage = () => {
 
   // 요금제 카드를 클릭하면 상세 페이지를 새 탭에서 엽니다
   const handleCardClick = (plan) => {
-    const dtype = plan.dtype?.slice(0, -4).toLowerCase(); // "MobilePlan" → "mobile"
+    if (!plan || !plan.dtype || !plan.id) {
+      console.warn("유효하지 않은 plan 객체입니다:", plan);
+      return;
+    }
+
+    const dtype = plan.dtype.slice(0, -4).toLowerCase(); // "MobilePlan" → "mobile"
     const url = `/${dtype}/plan/${plan.id}`;
     window.open(url, "_blank"); // 새 탭에서 열기
   };

@@ -73,65 +73,61 @@ function ComparisonMobilePlanList() {
             <button onClick={() => navigate(-1)} className={styles.backButton}>뒤로 가기</button>
 
             <div className={styles.comparisonCardsContainer}>
-                {comparisonResults.map((plan, index) => (
-                    <div key={plan.planId || index} className={styles.planCard}>
-                        {/* 카드 상단 배경 (스크린샷의 곡선 부분) */}
-                        <div className={styles.cardTopBackground}></div>
+                {comparisonResults.map((plan, index) => {
+                    const selectiveContractDiscount = Math.floor(plan.planPrice * (plan.durationDiscountRate / 100));
+                    const premiumContractDiscount = plan.premierDiscountRate || 0;
+                    const totalDiscount = selectiveContractDiscount + premiumContractDiscount;
+                    const finalPrice = plan.planPrice - totalDiscount;
 
-                        <div className={styles.cardHeader}>
-                            <h2 className={styles.planName}>{plan.planName}</h2>
-                            <p className={styles.monthlyFeeText}>월정액 (부가세 포함 금액)</p>
-                            <p className={styles.planPrice}>월 {getDisplayValue(plan.planPrice)}원</p>
-                        </div>
-
-                        <div className={styles.cardSection}>
-                            <h3 className={styles.sectionTitle}>할인 상세내역</h3>
-                            {/* 실제 할인 상세 내역 데이터가 있다면 여기에 매핑합니다. */}
-                            {/* 현재 DTO에는 직접적인 할인 금액 필드가 없으므로, 예시 텍스트로 대체하거나 추가 DTO 필드를 활용해야 합니다. */}
-                            <p className={styles.discountDetail}>월 {getDisplayValue(plan.premierDiscountRate)}원</p> {/* premierDiscountRate를 할인 상세 금액으로 가정 */}
-                            <div className={styles.discountItem}>
-                                <span className={styles.discountLabel}>선택 약정 할인</span>
-                                <span className={styles.discountValue}>{getDisplayValue(plan.durationDiscountRate, 'number')}%</span>
+                    return (
+                        <div key={plan.planId || index} className={`${styles.planCard} ${styles.alwaysShadow}`}>
+                            <div className={styles.cardTopBackground}></div>
+                            <div className={styles.cardHeader}>
+                                <h2 className={styles.planName}>{plan.planName}</h2>
+                                <p className={styles.originalPrice}>월 {getDisplayValue(plan.planPrice)}원</p>
+                                <p className={styles.planPrice}>월 {getDisplayValue(finalPrice)}원</p>
                             </div>
-                            <div className={styles.discountItem}>
-                                <span className={styles.discountLabel}>프리미엄 요금제 약정 할인</span>
-                                <span className={styles.discountValue}>{getDisplayValue(plan.premierDiscountRate, 'number')}원</span>
-                            </div>
-                        </div>
-
-                        <div className={styles.cardSection}>
-                            <div className={styles.detailItem}>
-                                <h3 className={styles.detailTitle}>데이터</h3>
-                                <p className={styles.detailValue}>{getDisplayValue(plan.data)}</p>
-                                {plan.extraData && <p className={styles.detailSubtext}>추가 데이터: {getDisplayValue(plan.extraData)}</p>}
-                                {plan.sharedData && <p className={styles.detailSubtext}>기본제공량 내 테더링+쉐어링 {getDisplayValue(plan.sharedData)}</p>}
-                            </div>
-
-                            <div className={styles.detailItem}>
-                                <h3 className={styles.detailTitle}>음성통화</h3>
-                                <p className={styles.detailValue}>{getDisplayValue(plan.voiceCall)}</p>
-                            </div>
-
-                            <div className={styles.detailItem}>
-                                <h3 className={styles.detailTitle}>문자메시지</h3>
-                                <p className={styles.detailValue}>{getDisplayValue(plan.message)}</p>
-                            </div>
-
-                            <div className={styles.detailItem}>
-                                <h3 className={styles.detailTitle}>미디어 혜택</h3>
-                                <p className={styles.detailValue}>{getDisplayValue(plan.mediaBenefit, 'boolean')}</p>
-                            </div>
-
-                            {/* 기타 필드들을 유사하게 추가 */}
-                            {plan.planBenefit && (
-                                <div className={styles.detailItem}>
-                                    <h3 className={styles.detailTitle}>요금제 혜택</h3>
-                                    <p className={styles.detailValue}>{getDisplayValue(plan.planBenefit)}</p>
+                            <div className={styles.cardSection}>
+                                <h3 className={styles.sectionTitle}>할인 상세내역</h3>
+                                <p className={styles.discountDetail}>월 {totalDiscount.toLocaleString()}원</p>
+                                <div className={styles.discountItem}>
+                                    <span className={styles.discountLabel}>선택 약정 할인</span>
+                                    <span className={styles.discountValue}>{getDisplayValue(plan.durationDiscountRate, 'number')}%</span>
                                 </div>
-                            )}
+                                <div className={styles.discountItem}>
+                                    <span className={styles.discountLabel}>프리미엄 요금제 약정 할인</span>
+                                    <span className={styles.discountValue}>{getDisplayValue(premiumContractDiscount, 'number')}원</span>
+                                </div>
+                            </div>
+                            <div className={styles.cardSection}>
+                                <div className={styles.detailItem}>
+                                    <h3 className={styles.detailTitle}>데이터</h3>
+                                    <p className={styles.detailValue}>{getDisplayValue(plan.data)}</p>
+                                    {plan.extraData && <p className={styles.detailSubtext}>추가 데이터: {getDisplayValue(plan.extraData)}</p>}
+                                    {plan.sharedData && <p className={styles.detailSubtext}>기본제공량 내 테더링+쉐어링 {getDisplayValue(plan.sharedData)}</p>}
+                                </div>
+                                <div className={styles.detailItem}>
+                                    <h3 className={styles.detailTitle}>음성통화</h3>
+                                    <p className={styles.detailValue}>{getDisplayValue(plan.voiceCall)}</p>
+                                </div>
+                                <div className={styles.detailItem}>
+                                    <h3 className={styles.detailTitle}>문자메시지</h3>
+                                    <p className={styles.detailValue}>{getDisplayValue(plan.message)}</p>
+                                </div>
+                                <div className={styles.detailItem}>
+                                    <h3 className={styles.detailTitle}>미디어 혜택</h3>
+                                    <p className={styles.detailValue}>{getDisplayValue(plan.mediaBenefit, 'boolean')}</p>
+                                </div>
+                                {plan.planBenefit && (
+                                    <div className={styles.detailItem}>
+                                        <h3 className={styles.detailTitle}>요금제 혜택</h3>
+                                        <p className={styles.detailValue}>{getDisplayValue(plan.planBenefit)}</p>
+                                    </div>
+                                )}
+                            </div>
                         </div>
-                    </div>
-                ))}
+                    );
+                })}
             </div>
 
             {showModal && (

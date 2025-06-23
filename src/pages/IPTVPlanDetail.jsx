@@ -13,7 +13,6 @@ function IPTVPlanDetail() {
   const [hasNext, setHasNext] = useState(false);
   const [lastReviewId, setLastReviewId] = useState(null);
   const [error, setError] = useState(null);
-  const combineList = [1, 2];
   const [reviewTitle, setReviewTitle] = useState('');
   const [reviewRating, setReviewRating] = useState(0);
   const [reviewContent, setReviewContent] = useState('');
@@ -23,6 +22,10 @@ function IPTVPlanDetail() {
   const [editTitle, setEditTitle] = useState('');
   const [editContent, setEditContent] = useState('');
   const [editRating, setEditRating] = useState(0);
+
+  // 모달 상태
+  const [pdShowModal, setPdShowModal] = useState(false);
+  const [pdModalMessage, setPdModalMessage] = useState('');
 
   // 리뷰 목록을 새로 가져오는 함수
   const fetchReviews = async () => {
@@ -44,7 +47,7 @@ function IPTVPlanDetail() {
         setLastReviewId(null);
       }
     } catch (err) {
-      console.error("리뷰 불러오기 실패:", err);
+      // 에러 처리 필요시 추가
     }
   };
 
@@ -67,7 +70,7 @@ function IPTVPlanDetail() {
         }
       })
       .catch(err => {
-        console.error("리뷰 더 불러오기 실패:", err);
+        // 에러 처리 필요시 추가
       });
   };
 
@@ -78,7 +81,7 @@ function IPTVPlanDetail() {
       await api.delete(`/review/${reviewId}`);
       fetchReviews();
     } catch (err) {
-      console.error("리뷰 삭제 실패:", err);
+      // 에러 처리 필요시 추가
     }
   };
 
@@ -97,7 +100,13 @@ function IPTVPlanDetail() {
       setReviewRating(0);
       fetchReviews();
     } catch (err) {
-      console.error("리뷰 등록 실패:", err);
+      if (err.response?.data?.statusCode === 6002) {
+        setPdModalMessage("리뷰에 부적절한 단어가 포함되어 있어 등록할 수 없습니다.");
+        setPdShowModal(true);
+      } else {
+        setPdModalMessage("리뷰 등록 중 오류가 발생했습니다.");
+        setPdShowModal(true);
+      }
     }
   };
 
@@ -122,7 +131,7 @@ function IPTVPlanDetail() {
       setEditingReviewId(null);
       fetchReviews();
     } catch (err) {
-      console.error("리뷰 수정 실패:", err);
+      // 에러 처리 필요시 추가
     }
   };
 
@@ -135,16 +144,13 @@ function IPTVPlanDetail() {
     api.get(`/plan/${planId}`)
       .then(res => {
         const { statusCode, data } = res.data;
-
         if (statusCode !== 0) {
           setError("요금제 정보를 찾을 수 없습니다.");
           return;
         }
-
         setPlan(data);
       })
       .catch(err => {
-        console.error("요금제 불러오기 실패:", err);
         setError("요금제 정보를 불러오는 중 오류가 발생했습니다.");
       });
   }, [planId]);
@@ -206,7 +212,7 @@ function IPTVPlanDetail() {
 
       {/* 할인 혜택 */}
       <h3 className="pd-benefit-title"><br />할인 혜택</h3>
-      {combineList.map((type, idx) => {
+      {plan.communityIdList.map((type, idx) => {
         if (type === 1) {
           return (
             <div className="pd-discount-card" key={`combine-1-${idx}`}>
@@ -304,7 +310,7 @@ function IPTVPlanDetail() {
                   {editingReviewId === reviewId ? (
                     <>
                       <input
-                        className="pd-review-title-input"
+                        className="pd-review-title-input-edit"
                         type="text"
                         value={editTitle}
                         onChange={e => setEditTitle(e.target.value)}
@@ -408,6 +414,26 @@ function IPTVPlanDetail() {
         <button className="pd-review-more-btn" onClick={handleLoadMore}>
           더 보기
         </button>
+      )}
+
+      {/* 모달 */}
+      {pdShowModal && (
+        <div className="pd-modal-overlay" onClick={() => setPdShowModal(false)}>
+          <div
+            className="pd-modal"
+            onClick={e => e.stopPropagation()}
+          >
+            <div className="pd-modal-message">
+              {pdModalMessage}
+            </div>
+            <button
+              className="pd-modal-close-btn"
+              onClick={() => setPdShowModal(false)}
+            >
+              확인
+            </button>
+          </div>
+        </div>
       )}
     </div>
   );

@@ -17,6 +17,9 @@ import ReviewManager from "./pages/Admin/ReviewManager";
 import Mypage from "./pages/Mypage";
 import MypageEdit from "./pages/MypageEdit";
 import MyReviews from "./pages/MyReviews";
+import MyMobileBookmark from "./pages/MyMobileBookmark";
+import MyInternetBookmark from "./pages/MyInternetBookmark";
+import MyIPTVBookmark from "./pages/MyIPTVBookmark";
 import MobilePlanList from "./pages/MobilePlanList";
 import InternetPlanList from "./pages/InternetPlanList";
 import IPTVPlanList from "./pages/IPTVPlanList";
@@ -35,6 +38,7 @@ import ComparisonIPTVPlanList from "./pages/ComparisonIPTVPlanList";
 import ChatPage from "./pages/ChatPage";
 import FloatingChatButton from "./components/FloatingChatButton";
 import ChatModal from "./pages/ChatModal";
+import AdminRoute from "./route/AdminRoute";
 
 function App() {
   const [showChat, setShowChat] = useState(false);
@@ -48,34 +52,31 @@ function App() {
           {showChat && <ChatModal onClose={() => setShowChat(false)} />}
           <Routes>
             {/* <Route path="/" element={<Home />} /> */}
+            <Route path="/admin/*" element={<AdminRoute />}>
+              <Route path="plan" element={<PlanManager />} />
+              <Route path="mobile/create" element={<MobilePlanCreate />} />
+              <Route path="iptv/create" element={<IPTVPlanCreate />} />
+              <Route path="internet/create" element={<InternetPlanCreate />} />
+              <Route path="mobile/edit/:planId" element={<MobilePlanEdit />} />
+              <Route path="iptv/edit/:planId" element={<IPTVPlanEdit />} />
+              <Route path="internet/edit/:planId" element={<InternetPlanEdit />} />
+              <Route path="banwords" element={<BanWordsManager />} />
+              <Route path="allowwords" element={<AllowWordsManager />} />
+              <Route path="reviews" element={<ReviewManager />} />
+              <Route index element={<Navigate to="plan" />} />
+            </Route>
             <Route path="/" element={<Navigate to="/mobile" />} />
             <Route path="/login" element={<Login />} />
             <Route path="/kakaocallback" element={<KakaoCallback />} />
             <Route path="/extra-info" element={<ExtraInfo />} />
             <Route path="/chat" element={<ChatPage />} />
             <Route path="/extra-tag" element={<ExtraTag />} />
-            <Route path="/admin/plan" element={<PlanManager />} />
-            <Route path="/admin/mobile/create" element={<MobilePlanCreate />} />
-            <Route path="/admin/iptv/create" element={<IPTVPlanCreate />} />
-            <Route
-              path="/admin/internet/create"
-              element={<InternetPlanCreate />}
-            />
-            <Route
-              path="/admin/mobile/edit/:planId"
-              element={<MobilePlanEdit />}
-            />
-            <Route path="/admin/iptv/edit/:planId" element={<IPTVPlanEdit />} />
-            <Route
-              path="/admin/internet/edit/:planId"
-              element={<InternetPlanEdit />}
-            />
-            <Route path="/admin/banwords" element={<BanWordsManager />} />
-            <Route path="/admin/allowwords" element={<AllowWordsManager />} />
-            <Route path="/admin/reviews" element={<ReviewManager />} />
             <Route path="/mypage" element={<Mypage />} />
             <Route path="/mypage/edit" element={<MypageEdit />} />
             <Route path="/myreviews" element={<MyReviews />} />
+            <Route path="/mymobilebookmark" element={<MyMobileBookmark />} />
+            <Route path="/myinternetbookmark" element={<MyInternetBookmark />} />
+            <Route path="/myiptvbookmark" element={<MyIPTVBookmark />} />
             <Route path="/mobile" element={<MobilePlanList />} />
             <Route path="/internet" element={<InternetPlanList />} />
             <Route path="/iptv" element={<IPTVPlanList />} />
