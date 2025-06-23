@@ -28,15 +28,18 @@ const Mypage = () => {
       <aside className="sidebar">
         <div className="side-menu">User Menu</div>
         <nav className="menu">
-          <button
-            className="menu-item active"
-            onClick={() => navigate("/mypage")}
-          >
-            👤 User profile
-          </button>
-          <button className="menu-item" onClick={() => navigate("/myreviews")}>
-            💬 Reviews
-          </button>
+            <button
+                className="menu-item active"
+                onClick={() => navigate("/mypage")}
+            >
+                👤 User profile
+            </button>
+            <button className="menu-item" onClick={() => navigate("/myreviews")}>
+                💬 Reviews
+            </button>
+            <button className="menu-item" onClick={() => navigate("/mymobilebookmark")}>
+                🌟 Bookmark
+            </button>
         </nav>
         <div className="logout-section">
           <button
