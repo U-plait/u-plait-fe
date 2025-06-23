@@ -1,41 +1,41 @@
 /* src/styles/CIPTVPlanList.module.css */
 .container {
-    padding: 20px;
-    /* FIX: max-width를 100%로 설정하여 부모 컨테이너(main-content-area)의 너비를 따르도록 합니다. */
-    max-width: 100%;
-    margin: 0 auto;
-    display: flex;
-    flex-direction: column;
-    align-items: center; /* h1, planList, button을 중앙 정렬 */
-    box-sizing: border-box; /* 패딩이 너비 계산에 포함되도록 */
+  padding: 20px;
+  /* FIX: max-width를 100%로 설정하여 부모 컨테이너(main-content-area)의 너비를 따르도록 합니다. */
+  max-width: 100%;
+  margin: 0 auto;
+  display: flex;
+  flex-direction: column;
+  align-items: center; /* h1, planList, button을 중앙 정렬 */
+  box-sizing: border-box; /* 패딩이 너비 계산에 포함되도록 */
 }
 
 .planList {
-    display: grid;
-    /* FIX: Mobile과 동일하게 4개씩 표시되도록 auto-fill, minmax(200px, 1fr) 설정 */
-    grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
-    /* FIX: Mobile과 동일하게 gap 15px로 설정 */
-    gap: 15px;
-    margin-bottom: 30px; /* Mobile과 동일하게 마진 조정 */
-    justify-content: center; /* 그리드 아이템들을 가로 중앙에 정렬 */
-    align-items: stretch; /* 모든 그리드 아이템의 높이를 가장 높은 아이템에 맞춰 늘림 */
-    width: 100%; /* 그리드 컨테이너가 부모의 100% 너비를 차지하도록 명시 */
-    box-sizing: border-box;
+  display: grid;
+  /* FIX: Mobile과 동일하게 4개씩 표시되도록 auto-fill, minmax(200px, 1fr) 설정 */
+  grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+  /* FIX: Mobile과 동일하게 gap 15px로 설정 */
+  gap: 15px;
+  margin-bottom: 30px; /* Mobile과 동일하게 마진 조정 */
+  justify-content: center; /* 그리드 아이템들을 가로 중앙에 정렬 */
+  align-items: stretch; /* 모든 그리드 아이템의 높이를 가장 높은 아이템에 맞춰 늘림 */
+  width: 100%; /* 그리드 컨테이너가 부모의 100% 너비를 차지하도록 명시 */
+  box-sizing: border-box;
 }
 
 .planItem {
-    /* FIX: CPlanCard가 자체적으로 스타일을 가지므로, 여기서는 기본적인 Grid 아이템 역할만 수행 */
-    width: 100%;
-    height: 100%; /* Grid 아이템이 셀의 높이를 꽉 채우도록 */
-    /* Mobile과 동일하게, CPlanCard가 직접 스타일을 가지므로 아래 스타일 제거 */
-    /* border: 1px solid #ddd; */
-    /* border-radius: 8px; */
-    /* padding: 15px; */
-    /* display: flex; */
-    /* align-items: center; */
-    /* gap: 10px; */
-    /* background-color: #fff; */
-    /* box-shadow: 0 2px 4px rgba(0,0,0,0.1); */
+  /* FIX: CPlanCard가 자체적으로 스타일을 가지므로, 여기서는 기본적인 Grid 아이템 역할만 수행 */
+  width: 100%;
+  height: 100%; /* Grid 아이템이 셀의 높이를 꽉 채우도록 */
+  /* Mobile과 동일하게, CPlanCard가 직접 스타일을 가지므로 아래 스타일 제거 */
+  /* border: 1px solid #ddd; */
+  /* border-radius: 8px; */
+  /* padding: 15px; */
+  /* display: flex; */
+  /* align-items: center; */
+  /* gap: 10px; */
+  /* background-color: #fff; */
+  /* box-shadow: 0 2px 4px rgba(0,0,0,0.1); */
 }
 
 /* planItem 내부의 input[type="checkbox"]는 CPlanCard 내부로 이동했으므로 이 스타일은 더 이상 필요 없음 */
@@ -44,28 +44,28 @@
     cursor: pointer;
 } */
 
-button {
-    /* FIX: Mobile과 동일한 버튼 스타일 적용 */
-    padding: 12px 24px;
-    border-radius: 8px;
-    font-size: 1rem;
-    font-weight: 600;
-    border: none;
-    cursor: pointer;
-    transition: background-color 0.2s;
-    background-color: #d60087; /* Mobile의 핑크색 버튼 */
-    color: white;
-    width: auto;
-    display: block;
-    margin: 0 auto;
+.cButton {
+  /* FIX: Mobile과 동일한 버튼 스타일 적용 */
+  padding: 12px 24px;
+  border-radius: 8px;
+  font-size: 1rem;
+  font-weight: 600;
+  border: none;
+  cursor: pointer;
+  transition: background-color 0.2s;
+  background-color: #d60087; /* Mobile의 핑크색 버튼 */
+  color: white;
+  width: auto;
+  display: block;
+  margin: 0 auto;
 }
 
-button:disabled {
-    background-color: #e5e7eb;
-    color: #9ca3af;
-    cursor: not-allowed;
+.cButton:disabled {
+  background-color: #e5e7eb;
+  color: #9ca3af;
+  cursor: not-allowed;
 }
 
-button:hover:not(:disabled) {
-    background-color: #bd006f; /* Mobile의 호버 색상 */
+.cButton:hover:not(:disabled) {
+  background-color: #9a0563; /* Mobile의 호버 색상 */
 }
