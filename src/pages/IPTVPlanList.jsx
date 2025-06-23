@@ -87,7 +87,7 @@ const IPTVPlanList = () => {
           <IPTVCard
             key={plan.planId}
             plan={plan}
-            isFavorite={favorites.has(plan.planId)}
+            isFavorite={plan.isBookmarked}
             toggleFavorite={toggleFavorite}
             lastPlanRef={index === plans.length - 1 ? lastPlanRef : null}
           />

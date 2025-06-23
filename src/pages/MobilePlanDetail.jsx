@@ -148,7 +148,6 @@ function MobilePlanDetail() {
   };
 
   const handleEditSave = async (reviewId) => {
-    if (!window.confirm("수정을 완료하시겠습니까?")) return;
     try {
       await api.put("/review/update", {
         reviewId,
@@ -158,7 +157,15 @@ function MobilePlanDetail() {
       });
       setEditingReviewId(null);
       fetchReviews();
-    } catch (err) {}
+    } catch (err) {
+      if (err.response?.data?.statusCode === 6002) {
+        setPdModalMessage("리뷰에 부적절한 단어가 포함되어 있어 등록할 수 없습니다.");
+        setPdShowModal(true);
+      } else {
+        setPdModalMessage("리뷰 수정 중 오류가 발생했습니다.");
+        setPdShowModal(true);
+      }
+    }
   };
 
   // 리뷰 수정 취소
