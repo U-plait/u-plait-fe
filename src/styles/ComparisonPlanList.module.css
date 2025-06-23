@@ -81,7 +81,7 @@ h1 {
     max-width: 48%; /* 2개만 나란히 오도록 (gap 고려) */
     background: transparent; /* 기존 var(--card-bg)에서 투명으로 변경 */
     border-radius: 15px; /* 더 둥글게 */
-    box-shadow: none; /* 그림자 제거 */
+    box-shadow: none; /* 기본 그림자 제거 */
     overflow: hidden;
     display: flex;
     flex-direction: column;
@@ -92,6 +92,10 @@ h1 {
 .planCard:hover {
     transform: translateY(-8px);
     box-shadow: 0 15px 35px rgba(0,0,0,0.15); /* 호버 시 그림자 강조 */
+}
+
+.planCard.alwaysShadow {
+    box-shadow: 0 8px 25px rgba(0,0,0,0.1);
 }
 
 /* --- Card Top Background (for the curved shape) --- */
@@ -141,8 +145,16 @@ h1 {
     margin-top: 5px;
 }
 
+.originalPrice {
+    font-size: 1.1em;
+    color: rgba(255, 255, 255, 0.7);
+    text-decoration: line-through;
+    margin-top: 10px;
+    margin-bottom: -5px;
+}
+
 .planPrice {
-    font-size: 1.6em; /* 가격 글자 크기 키움 */
+    font-size: 1.8em; /* 가격 글자 크기 키움 */
     font-weight: bold;
     color: white; /* 가격도 흰색 */
     margin-top: 5px;
