@@ -1,4 +1,4 @@
-![header](https://capsule-render.vercel.app/api?type=venom&color=gradient&height=300&section=header&text=Uplait&fontSize=90&fontColor=ffffff)
+<img width="1205" alt="image" src="https://github.com/user-attachments/assets/04aa4a27-263f-49cb-a2e9-92ffa7b59ae4" />
 
 # U-Plait 프로젝트 소개
 
