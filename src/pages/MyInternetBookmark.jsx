@@ -3,6 +3,7 @@ import { useNavigate, useLocation, Link } from "react-router-dom";
 import api from "../api/api";
 import styles from "../styles/MyInternetBookmark.module.css"; // 동일 스타일 재사용
 import InternetCard from "../components/InternetCard";
+import useUserStore from "../context/userStore";
 
 const MyInternetBookmark = () => {
     const navigate = useNavigate();
@@ -79,6 +80,24 @@ const MyInternetBookmark = () => {
                     <button className="menu-item" onClick={() => navigate("/myreviews")}>💬 Reviews</button>
                     <button className="menu-item active" onClick={() => navigate("/myinternetbookmark")}>🌟 Bookmark</button>
                 </nav>
+                <div className="logout-section">
+                    <button
+                        className="logout-btn"
+                        onClick={async () => {
+                            try {
+                                await api.post("/auth/logout");
+                            } catch (e) {
+                                console.error("로그아웃 실패", e);
+                            } finally {
+                                const setUser = useUserStore.getState().setUser;
+                                setUser(null);
+                                window.location.href = "/login";
+                            }
+                        }}
+                    >
+                        로그아웃
+                    </button>
+                </div>
             </aside>
 
             <main className="main-content">

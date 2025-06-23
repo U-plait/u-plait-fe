@@ -3,6 +3,7 @@ import { useNavigate, useLocation, Link } from "react-router-dom";
 import api from "../api/api";
 import styles from "../styles/MyMobileBookmark.module.css";
 import MobileCard from "../components/MobileCard";
+import useUserStore from "../context/userStore";
 
 const MyMobileBookmark = () => {
     const navigate = useNavigate();
@@ -81,6 +82,24 @@ const MyMobileBookmark = () => {
                     <button className="menu-item" onClick={() => navigate("/myreviews")}>💬 Reviews</button>
                     <button className="menu-item active" onClick={() => navigate("/mymobilebookmark")}>🌟 Bookmark</button>
                 </nav>
+                <div className="logout-section">
+                    <button
+                        className="logout-btn"
+                        onClick={async () => {
+                            try {
+                                await api.post("/auth/logout");
+                            } catch (e) {
+                                console.error("로그아웃 실패", e);
+                            } finally {
+                                const setUser = useUserStore.getState().setUser;
+                                setUser(null);
+                                window.location.href = "/login";
+                            }
+                        }}
+                    >
+                        로그아웃
+                    </button>
+                </div>
             </aside>
 
             {/* Main */}

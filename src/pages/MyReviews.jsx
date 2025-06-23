@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import api from "../api/api";
 import '../styles/MyReviews.css';
+import useUserStore from "../context/userStore";
 
 const MyReviews = () => {
     const [reviews, setReviews] = useState([]);
@@ -155,6 +156,24 @@ const MyReviews = () => {
                         🌟 Bookmark
                     </button>
                 </nav>
+                <div className="logout-section">
+                    <button
+                        className="logout-btn"
+                        onClick={async () => {
+                            try {
+                                await api.post("/auth/logout");
+                            } catch (e) {
+                                console.error("로그아웃 실패", e);
+                            } finally {
+                                const setUser = useUserStore.getState().setUser;
+                                setUser(null);
+                                window.location.href = "/login";
+                            }
+                        }}
+                    >
+                        로그아웃
+                    </button>
+                </div>
             </aside>
 
             <div className="main-content">
