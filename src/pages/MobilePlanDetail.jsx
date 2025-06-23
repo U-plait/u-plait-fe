@@ -39,8 +39,6 @@ function MobilePlanDetail() {
   const [premiumPage, setPremiumPage] = useState(0);
   const [itemsPerPage, setItemsPerPage] = useState(4);
 
-  const combineList = [1, 2];
-
   useEffect(() => {
     api
       .get(`/plan/${planId}`)
@@ -481,16 +479,16 @@ function MobilePlanDetail() {
           </div>
         </div>
       )}
-      {combineList.map((type, idx) => {
+      {plan.communityIdList.map((type, idx) => {
         if (type === 1) {
           return (
-            <div className="pd-discount-card" key={`combine-1-${idx}`}>
+            <div className="pd-discount-card" key={`combine-2-${idx}`}>
               <div className="pd-discount-row">
-                <div className="pd-discount-title">가족결합할인</div>
+                <div className="pd-discount-title">U+ 투게더 결합</div>
                 <div className="pd-discount-divider" />
                 <ul className="pd-discount-desc">
-                  <li>가족 결합 시 요금제에서 추가 할인을 받을 수 있습니다.</li>
-                  <li>자세한 내용은 고객센터 또는 매장에서 확인해 주세요.</li>
+                  <li>U+ 휴대폰을 쓰는 친구, 가족과 결합 시 요금제를 더 저렴하게 이용할 수 있습니다.</li>
+                  <li>만 18세 이하 청소년은 매달 추가 할인을 받을 수 있습니다.</li>
                 </ul>
               </div>
             </div>
@@ -498,9 +496,9 @@ function MobilePlanDetail() {
         }
         if (type === 2) {
           return (
-            <div className="pd-discount-card" key={`combine-2-${idx}`}>
+            <div className="pd-discount-card" key={`combine-1-${idx}`}>
               <div className="pd-discount-row">
-                <div className="pd-discount-title">U+ 투게더 결합</div>
+                <div className="pd-discount-title">가족결합할인</div>
                 <div className="pd-discount-divider" />
                 <ul className="pd-discount-desc">
                   <li>
@@ -583,80 +581,54 @@ function MobilePlanDetail() {
         <p className="pd-review-empty">첫번째 리뷰어가 되어보세요!</p>
       ) : (
         <ul className="pd-review-list">
-          {reviews.map(
-            ({
-              reviewId,
-              userName,
-              title,
-              content,
-              rating,
-              createdAt,
-              author,
-            }) => (
-              <li
-                key={reviewId}
-                className={`pd-review-item${
-                  editingReviewId === reviewId ? " pd-review-item-editing" : ""
-                }`}
-              >
-                <div className="pd-review-row">
-                  <div className="pd-review-title-rating">
-                    {editingReviewId === reviewId ? (
-                      <>
-                        <input
-                          className="pd-review-title-input"
-                          type="text"
-                          value={editTitle}
-                          onChange={(e) => setEditTitle(e.target.value)}
-                          maxLength={40}
-                          required
-                        />
-                        <div className="pd-review-rating-input">
-                          {Array.from({ length: 5 }).map((_, i) => (
-                            <span
-                              key={i}
-                              className={
-                                i < editRating
-                                  ? "pd-star pd-star-filled"
-                                  : "pd-star"
-                              }
-                              onClick={() => setEditRating(i + 1)}
-                              style={{ cursor: "pointer" }}
-                            >
-                              ★
-                            </span>
-                          ))}
-                          <span className="pd-rating-label">
-                            {editRating} / 5
-                          </span>
-                        </div>
-                      </>
-                    ) : (
-                      <>
-                        <div className="pd-review-title">{title}</div>
-                        <div className="pd-review-rating">
-                          {Array.from({ length: 5 }).map((_, i) => (
-                            <span
-                              key={i}
-                              className={
-                                i < rating
-                                  ? "pd-star pd-star-filled"
-                                  : "pd-star"
-                              }
-                            >
-                              ★
-                            </span>
-                          ))}
-                        </div>
-                      </>
-                    )}
-                  </div>
-                  <div className="pd-review-meta">
-                    <div className="pd-review-nickname">
-                      {userName.length === 2
-                        ? userName[0] + "*"
-                        : userName.length > 2
-                        ? userName[0] + "*" + userName.slice(2)
+          {reviews.map(({ reviewId, userName, title, content, rating, createdAt, author }) => (
+            <li
+              key={reviewId}
+              className={
+                `pd-review-item${editingReviewId === reviewId ? ' pd-review-item-editing' : ''}`
+              }
+            >
+              <div className="pd-review-row">
+                <div className="pd-review-title-rating">
+                  {editingReviewId === reviewId ? (
+                    <>
+                      <input
+                        className="pd-review-title-input-edit"
+                        type="text"
+                        value={editTitle}
+                        onChange={e => setEditTitle(e.target.value)}
+                        maxLength={40}
+                        required
+                      />
+                      <div className="pd-review-rating-input">
+                        {Array.from({ length: 5 }).map((_, i) => (
+                          <span
+                            key={i}
+                            className={i < editRating ? "pd-star pd-star-filled" : "pd-star"}
+                            onClick={() => setEditRating(i + 1)}
+                            style={{ cursor: "pointer" }}
+                          >★</span>
+                        ))}
+                        <span className="pd-rating-label">{editRating} / 5</span>
+                      </div>
+                    </>
+                  ) : (
+                    <>
+                      <div className="pd-review-title">{title}</div>
+                      <div className="pd-review-rating">
+                        {Array.from({ length: 5 }).map((_, i) => (
+                          <span key={i} className={i < rating ? "pd-star pd-star-filled" : "pd-star"}>★</span>
+                        ))}
+                      </div>
+                    </>
+                  )}
+                </div>
+                <div className="pd-review-meta">
+                  <div className="pd-review-nickname">
+                    {userName.length === 2
+                      ? userName[0] + '*'
+                      : userName.length > 2
+                        ? userName[0] + '*' + userName.slice(2)
                         : userName}
                     </div>
                     <div className="pd-review-date">{createdAt}</div>

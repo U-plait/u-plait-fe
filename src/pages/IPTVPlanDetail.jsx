@@ -13,7 +13,6 @@ function IPTVPlanDetail() {
   const [hasNext, setHasNext] = useState(false);
   const [lastReviewId, setLastReviewId] = useState(null);
   const [error, setError] = useState(null);
-  const combineList = [1, 2];
   const [reviewTitle, setReviewTitle] = useState('');
   const [reviewRating, setReviewRating] = useState(0);
   const [reviewContent, setReviewContent] = useState('');
@@ -206,7 +205,7 @@ function IPTVPlanDetail() {
 
       {/* 할인 혜택 */}
       <h3 className="pd-benefit-title"><br />할인 혜택</h3>
-      {combineList.map((type, idx) => {
+      {plan.communityIdList.map((type, idx) => {
         if (type === 1) {
           return (
             <div className="pd-discount-card" key={`combine-1-${idx}`}>
@@ -304,7 +303,7 @@ function IPTVPlanDetail() {
                   {editingReviewId === reviewId ? (
                     <>
                       <input
-                        className="pd-review-title-input"
+                        className="pd-review-title-input-edit"
                         type="text"
                         value={editTitle}
                         onChange={e => setEditTitle(e.target.value)}
