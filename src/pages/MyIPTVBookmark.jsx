@@ -3,6 +3,7 @@ import { Link, useNavigate } from "react-router-dom";
 import api from "../api/api";
 import styles from "../styles/MyIPTVBookmark.module.css"; // IPTV 전용 스타일 모듈
 import IPTVCard from "../components/IPTVCard";
+import useUserStore from "../context/userStore";
 
 const MyIPTVBookmark = () => {
     const navigate = useNavigate();
@@ -77,6 +78,24 @@ const MyIPTVBookmark = () => {
                     <button className="menu-item" onClick={() => navigate("/myreviews")}>💬 Reviews</button>
                     <button className="menu-item active" onClick={() => navigate("/myiptvbookmark")}>🌟 Bookmark</button>
                 </nav>
+                <div className="logout-section">
+                    <button
+                        className="logout-btn"
+                        onClick={async () => {
+                            try {
+                                await api.post("/auth/logout");
+                            } catch (e) {
+                                console.error("로그아웃 실패", e);
+                            } finally {
+                                const setUser = useUserStore.getState().setUser;
+                                setUser(null);
+                                window.location.href = "/login";
+                            }
+                        }}
+                    >
+                        로그아웃
+                    </button>
+                </div>
             </aside>
 
             {/* Main content */}
