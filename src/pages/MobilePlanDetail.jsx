@@ -39,21 +39,22 @@ function MobilePlanDetail() {
   const [premiumPage, setPremiumPage] = useState(0);
   const [itemsPerPage, setItemsPerPage] = useState(4);
 
+  // 모달 상태
+  const [pdShowModal, setPdShowModal] = useState(false);
+  const [pdModalMessage, setPdModalMessage] = useState("");
+
   useEffect(() => {
     api
       .get(`/plan/${planId}`)
       .then((res) => {
         const { statusCode, data } = res.data;
-
         if (statusCode !== 0) {
           setError("요금제 정보를 찾을 수 없습니다.");
           return;
         }
-
         setPlan(data);
       })
       .catch((err) => {
-        console.error("요금제 불러오기 실패:", err);
         setError("요금제 정보를 불러오는 중 오류가 발생했습니다.");
       });
   }, [planId]);
@@ -79,9 +80,7 @@ function MobilePlanDetail() {
           setLastReviewId(null);
         }
       })
-      .catch((err) => {
-        console.error("리뷰 불러오기 실패:", err);
-      });
+      .catch((err) => {});
   };
 
   // 리뷰 더 불러오기
@@ -103,9 +102,7 @@ function MobilePlanDetail() {
           setLastReviewId(newReviews[newReviews.length - 1].reviewId);
         }
       })
-      .catch((err) => {
-        console.error("리뷰 더 불러오기 실패:", err);
-      });
+      .catch((err) => {});
   };
 
   // 리뷰 등록
@@ -122,8 +119,14 @@ function MobilePlanDetail() {
       setReviewContent("");
       setReviewRating(0);
       fetchReviews();
-    } catch (err) {
-      console.error("리뷰 등록 실패:", err);
+    } catch (error) {
+      if (error.response?.data?.statusCode === 6002) {
+        setPdModalMessage("리뷰에 부적절한 단어가 포함되어 있어 등록할 수 없습니다.");
+        setPdShowModal(true);
+      } else {
+        setPdModalMessage("리뷰 등록 중 오류가 발생했습니다.");
+        setPdShowModal(true);
+      }
     }
   };
 
@@ -133,9 +136,7 @@ function MobilePlanDetail() {
     try {
       await api.delete(`/review/${reviewId}`);
       fetchReviews();
-    } catch (err) {
-      console.error("리뷰 삭제 실패:", err);
-    }
+    } catch (err) {}
   };
 
   // 리뷰 수정 진입
@@ -157,32 +158,13 @@ function MobilePlanDetail() {
       });
       setEditingReviewId(null);
       fetchReviews();
-    } catch (err) {
-      console.error("리뷰 수정 실패:", err);
-    }
+    } catch (err) {}
   };
 
   // 리뷰 수정 취소
   const handleEditCancel = () => {
     setEditingReviewId(null);
   };
-
-  useEffect(() => {
-    api
-      .get(`/plan/${planId}`)
-      .then((res) => {
-        const { statusCode, data } = res.data;
-        if (statusCode !== 0) {
-          setError("요금제 정보를 찾을 수 없습니다.");
-          return;
-        }
-        setPlan(data);
-      })
-      .catch((err) => {
-        console.error("요금제 불러오기 실패:", err);
-        setError("요금제 정보를 불러오는 중 오류가 발생했습니다.");
-      });
-  }, [planId]);
 
   useEffect(() => {
     fetchReviews();
@@ -193,17 +175,17 @@ function MobilePlanDetail() {
     const handleResize = () => {
       const width = window.innerWidth;
       if (width < 768) {
-        setItemsPerPage(1); // 모바일
+        setItemsPerPage(1);
       } else if (width < 1024) {
-        setItemsPerPage(2); // 태블릿
+        setItemsPerPage(2);
       } else if (width < 1500) {
-        setItemsPerPage(3); // 작은 데스크톱
+        setItemsPerPage(3);
       } else {
-        setItemsPerPage(4); // 큰 데스크톱
+        setItemsPerPage(4);
       }
     };
 
-    handleResize(); // 초기 설정
+    handleResize();
     window.addEventListener("resize", handleResize);
     return () => window.removeEventListener("resize", handleResize);
   }, []);
@@ -630,91 +612,110 @@ function MobilePlanDetail() {
                       : userName.length > 2
                         ? userName[0] + '*' + userName.slice(2)
                         : userName}
-                    </div>
-                    <div className="pd-review-date">{createdAt}</div>
                   </div>
+                  <div className="pd-review-date">{createdAt}</div>
                 </div>
-                <div className="pd-review-content">
+              </div>
+              <div className="pd-review-content">
+                {editingReviewId === reviewId ? (
+                  <textarea
+                    className="pd-review-textarea"
+                    value={editContent}
+                    onChange={(e) => setEditContent(e.target.value)}
+                    required
+                  />
+                ) : (
+                  content
+                )}
+              </div>
+              {author && (
+                <div className="pd-review-actions">
                   {editingReviewId === reviewId ? (
-                    <textarea
-                      className="pd-review-textarea"
-                      value={editContent}
-                      onChange={(e) => setEditContent(e.target.value)}
-                      required
-                    />
+                    <>
+                      <button
+                        className="pd-review-edit-btn"
+                        onClick={() => handleEditSave(reviewId)}
+                        title="저장"
+                        type="button"
+                      >
+                        저장
+                      </button>
+                      <button
+                        className="pd-review-edit-btn"
+                        onClick={handleEditCancel}
+                        title="취소"
+                        type="button"
+                      >
+                        취소
+                      </button>
+                    </>
                   ) : (
-                    content
+                    <div className="pd-buttons">
+                      <button
+                        className="pd-review-edit-btn"
+                        title="수정"
+                        onClick={() =>
+                          handleEditClick({
+                            reviewId,
+                            title,
+                            content,
+                            rating,
+                          })
+                        }
+                        type="button"
+                      >
+                        <img
+                          src={editIcon}
+                          alt="수정"
+                          width={20}
+                          height={20}
+                        />
+                      </button>
+                      <button
+                        className="pd-review-delete-btn"
+                        title="삭제"
+                        onClick={() => handleDeleteReview(reviewId)}
+                        type="button"
+                      >
+                        <img
+                          src={trashIcon}
+                          alt="삭제"
+                          width={20}
+                          height={20}
+                        />
+                      </button>
+                    </div>
                   )}
                 </div>
-                {author && (
-                  <div className="pd-review-actions">
-                    {editingReviewId === reviewId ? (
-                      <>
-                        <button
-                          className="pd-review-edit-btn"
-                          onClick={() => handleEditSave(reviewId)}
-                          title="저장"
-                          type="button"
-                        >
-                          저장
-                        </button>
-                        <button
-                          className="pd-review-edit-btn"
-                          onClick={handleEditCancel}
-                          title="취소"
-                          type="button"
-                        >
-                          취소
-                        </button>
-                      </>
-                    ) : (
-                      <div className="pd-buttons">
-                        <button
-                          className="pd-review-edit-btn"
-                          title="수정"
-                          onClick={() =>
-                            handleEditClick({
-                              reviewId,
-                              title,
-                              content,
-                              rating,
-                            })
-                          }
-                          type="button"
-                        >
-                          <img
-                            src={editIcon}
-                            alt="수정"
-                            width={20}
-                            height={20}
-                          />
-                        </button>
-                        <button
-                          className="pd-review-delete-btn"
-                          title="삭제"
-                          onClick={() => handleDeleteReview(reviewId)}
-                          type="button"
-                        >
-                          <img
-                            src={trashIcon}
-                            alt="삭제"
-                            width={20}
-                            height={20}
-                          />
-                        </button>
-                      </div>
-                    )}
-                  </div>
-                )}
-              </li>
-            )
-          )}
+              )}
+            </li>
+          ))}
         </ul>
       )}
       {hasNext && (
         <button className="pd-review-more-btn" onClick={handleLoadMore}>
           더 보기
         </button>
+      )}
+
+      {/* 모달 */}
+      {pdShowModal && (
+        <div className="pd-modal-overlay" onClick={() => setPdShowModal(false)}>
+          <div
+            className="pd-modal"
+            onClick={e => e.stopPropagation()}
+          >
+            <div className="pd-modal-message">
+              {pdModalMessage}
+            </div>
+            <button
+              className="pd-modal-close-btn"
+              onClick={() => setPdShowModal(false)}
+            >
+              확인
+            </button>
+          </div>
+        </div>
       )}
     </div>
   );
